@@ -1,60 +1,75 @@
+/**
+ * Palette configuration
+ * Defines the color scheme for the application
+ */
+
 import type { PaletteOptions } from '@mui/material/styles';
-import type { DesignTokens } from './tokens';
+import { designTokens } from './tokens';
+import type { ColorScale } from './tokens';
 
-export const createPalette = (tokens: DesignTokens): PaletteOptions => {
-  const lightMode = tokens.modes.light as Record<string, any>;
-  const baseColors = tokens.primitives.light.colors?.base as Record<string, string> | undefined;
-  const colorScale = lightMode.colors as Record<string, Record<string, string>>;
+/**
+ * Helper to convert a color scale into a MUI PaletteColor object
+ */
+const createPaletteColor = (scale: ColorScale, mainShade: keyof ColorScale = 500) =>
+  ({
+    light: scale[300],
+    main: scale[mainShade],
+    dark: scale[700],
+    contrastText: '#ffffff',
+  }) as const;
 
-  const toPaletteColor = (scale: Record<string, string>, options?: { main?: string }) => ({
-    light: scale['300'],
-    main: options?.main ?? scale['500'],
-    dark: scale['700'],
-    contrastText: lightMode.text.light,
-  });
+/**
+ * Light mode palette (default)
+ */
+const palette: PaletteOptions = {
+  mode: 'light',
 
-  return {
-    mode: 'light',
-    common: {
-      black: baseColors?.black ?? '#000000',
-      white: baseColors?.white ?? '#ffffff',
-    },
-    primary: toPaletteColor(colorScale.brand, { main: colorScale.brand['600'] }),
-    secondary: toPaletteColor(colorScale.purple),
-    success: toPaletteColor(colorScale.green, { main: colorScale.green['600'] }),
-    error: toPaletteColor(colorScale.red, { main: colorScale.red['600'] }),
-    warning: toPaletteColor(colorScale.yellow, { main: colorScale.yellow['500'] }),
-    info: toPaletteColor(colorScale.cyan, { main: colorScale.cyan['600'] }),
-    text: {
-      primary: lightMode.text.default as string,
-      secondary: lightMode.text.muted as string,
-      disabled: lightMode.icon.muted as string,
-    },
-    divider: lightMode.border.muted as string,
-    grey: {
-      '50': colorScale.neutral['50'],
-      '100': colorScale.neutral['100'],
-      '200': colorScale.neutral['200'],
-      '300': colorScale.neutral['300'],
-      '400': colorScale.neutral['400'],
-      '500': colorScale.neutral['500'],
-      '600': colorScale.neutral['600'],
-      '700': colorScale.neutral['700'],
-      '800': colorScale.neutral['800'],
-      '900': colorScale.neutral['900'],
-      '950': colorScale.neutral['950'],
-    },
-    background: {
-      default: lightMode.bg.background as string,
-      paper: lightMode.bg.default as string,
-    },
-    action: {
-      hover: lightMode['alpha-black']['5'] as string,
-      selected: lightMode['alpha-black']['10'] as string,
-      disabled: lightMode['alpha-black']['30'] as string,
-      disabledBackground: lightMode['alpha-black']['10'] as string,
-      focus: lightMode['alpha-black']['20'] as string,
-      active: lightMode['alpha-black']['20'] as string,
-    },
-  } satisfies PaletteOptions;
+  common: {
+    black: designTokens.primitives.colors.base.black,
+    white: designTokens.primitives.colors.base.white,
+  },
+
+  primary: createPaletteColor(designTokens.primitives.colors.brand, 600),
+  secondary: createPaletteColor(designTokens.primitives.colors.purple),
+  success: createPaletteColor(designTokens.primitives.colors.green, 600),
+  error: createPaletteColor(designTokens.primitives.colors.red, 600),
+  warning: createPaletteColor(designTokens.primitives.colors.yellow, 500),
+  info: createPaletteColor(designTokens.primitives.colors.cyan, 600),
+
+  text: {
+    primary: designTokens.modes.light.text.default,
+    secondary: designTokens.modes.light.text.muted,
+    disabled: designTokens.modes.light.icon.muted,
+  },
+
+  divider: designTokens.modes.light.border.muted,
+
+  grey: {
+    50: designTokens.primitives.colors.neutral[50],
+    100: designTokens.primitives.colors.neutral[100],
+    200: designTokens.primitives.colors.neutral[200],
+    300: designTokens.primitives.colors.neutral[300],
+    400: designTokens.primitives.colors.neutral[400],
+    500: designTokens.primitives.colors.neutral[500],
+    600: designTokens.primitives.colors.neutral[600],
+    700: designTokens.primitives.colors.neutral[700],
+    800: designTokens.primitives.colors.neutral[800],
+    900: designTokens.primitives.colors.neutral[900],
+  },
+
+  background: {
+    default: designTokens.modes.light.bg.background,
+    paper: designTokens.modes.light.bg.default,
+  },
+
+  action: {
+    hover: designTokens.modes.light['alpha-black'][90],
+    selected: designTokens.modes.light['alpha-black'][80],
+    disabled: designTokens.modes.light['alpha-black'][60],
+    disabledBackground: designTokens.modes.light['alpha-black'][90],
+    focus: designTokens.modes.light['alpha-black'][80],
+    active: designTokens.modes.light['alpha-black'][70],
+  },
 };
+
+export default palette;

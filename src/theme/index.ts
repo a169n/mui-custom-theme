@@ -1,17 +1,49 @@
+/**
+ * Theme configuration
+ * Main entry point for the MUI custom theme
+ */
+
 import { createTheme } from '@mui/material/styles';
-import { createPalette } from './palette';
-import { createShape } from './shape';
-import { createSpacing } from './spacing';
-import { createTypography } from './typography';
+import palette from './palette';
+import darkPalette from './darkPalette';
+import typography from './typography';
+import spacing from './spacing';
+import shape from './shape';
+import components from './components';
+import breakpoints from './breakpoints';
 import { designTokens } from './tokens';
 
+/**
+ * Light theme (default)
+ */
 const theme = createTheme({
-  palette: createPalette(designTokens),
-  spacing: createSpacing(designTokens.primitives.light.spacing as Record<string, number>),
-  typography: createTypography(designTokens),
-  shape: createShape(designTokens),
+  palette,
+  typography,
+  spacing,
+  shape,
+  components,
+  breakpoints,
   tokens: designTokens,
 });
 
+/**
+ * Dark theme
+ */
+export const darkTheme = createTheme({
+  palette: darkPalette,
+  typography,
+  spacing,
+  shape,
+  components,
+  breakpoints,
+  tokens: designTokens,
+});
+
+// Export design tokens for direct access
 export { designTokens };
+
+// Export types
+export type * from './tokens';
+
+// Default export (light theme)
 export default theme;

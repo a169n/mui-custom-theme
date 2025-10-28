@@ -1,65 +1,88 @@
-import type { TypographyOptions } from '@mui/material/styles';
-import type { DesignTokens } from './tokens';
+/**
+ * Typography configuration
+ * Defines font families, sizes, weights, and text styles
+ */
 
-const FONT_WEIGHTS: Record<string, number> = {
+import type { TypographyOptions } from '@mui/material/styles/createTypography';
+import { designTokens } from './tokens';
+import type { TypographyToken } from './tokens';
+
+/**
+ * Font weight constants
+ */
+const FONT_WEIGHTS = {
+  Light: 300,
   Regular: 400,
   Medium: 500,
   Semibold: 600,
   Bold: 700,
-};
+} as const;
 
-const toRem = (value: number) => `${value / 16}rem`;
+/**
+ * Convert pixels to rem units
+ */
+const toRem = (pixels: number): string => `${pixels / 16}rem`;
 
-const createVariant = (
-  token: { 'font-size': number; 'line-height': number },
-  weight: number,
-) => ({
-  fontSize: toRem(token['font-size']),
-  lineHeight: token['font-size'] === 0 ? 1 : token['line-height'] / token['font-size'],
-  fontWeight: weight,
-});
+/**
+ * Create a typography variant from a design token
+ */
+const createVariant = (token: TypographyToken, fontWeight: number) =>
+  ({
+    fontSize: toRem(token['font-size']),
+    lineHeight: token['font-size'] === 0 ? 1 : token['line-height'] / token['font-size'],
+    fontWeight,
+  }) as const;
 
-export const createTypography = (tokens: DesignTokens): TypographyOptions => {
-  const base = tokens.theme.base;
-  const fontFamilies = base.font as Record<string, string>;
-  const textTokens = base.text as Record<string, { 'font-size': number; 'line-height': number }>;
-
-  const primaryFont = fontFamilies['font-sans'] ?? 'Roboto';
-  const fontFamily = [
-    primaryFont,
+/**
+ * Typography configuration
+ */
+const typography: TypographyOptions = {
+  fontFamily: [
+    designTokens.theme.font['font-sans'],
     '-apple-system',
     'BlinkMacSystemFont',
     '"Segoe UI"',
     'Helvetica',
     'Arial',
     'sans-serif',
-  ].join(', ');
+  ].join(', '),
 
-  return {
-    fontFamily,
-    fontWeightLight: 300,
-    fontWeightRegular: FONT_WEIGHTS.Regular,
-    fontWeightMedium: FONT_WEIGHTS.Medium,
-    fontWeightBold: FONT_WEIGHTS.Bold,
-    h1: createVariant(textTokens.H1, FONT_WEIGHTS.Bold),
-    h2: createVariant(textTokens.H2, FONT_WEIGHTS.Bold),
-    h3: createVariant(textTokens.H3, FONT_WEIGHTS.Semibold),
-    h4: createVariant(textTokens.H4, FONT_WEIGHTS.Semibold),
-    h5: createVariant(textTokens.H5, FONT_WEIGHTS.Medium),
-    h6: createVariant(textTokens.H6, FONT_WEIGHTS.Medium),
-    subtitle1: createVariant(textTokens.Title, FONT_WEIGHTS.Semibold),
-    subtitle2: createVariant(textTokens.Subtitle, FONT_WEIGHTS.Medium),
-    body1: createVariant(textTokens['Text l'], FONT_WEIGHTS.Regular),
-    body2: createVariant(textTokens['Text m'], FONT_WEIGHTS.Regular),
-    caption: createVariant(textTokens['Text s'], FONT_WEIGHTS.Regular),
-    overline: {
-      ...createVariant(textTokens['Text xs'], FONT_WEIGHTS.Medium),
-      letterSpacing: '0.08em',
-      textTransform: 'uppercase',
-    },
-    button: {
-      ...createVariant(textTokens['Text s'], FONT_WEIGHTS.Medium),
-      textTransform: 'none',
-    },
-  } satisfies TypographyOptions;
+  fontWeightLight: FONT_WEIGHTS.Light,
+  fontWeightRegular: FONT_WEIGHTS.Regular,
+  fontWeightMedium: FONT_WEIGHTS.Medium,
+  fontWeightBold: FONT_WEIGHTS.Bold,
+
+  // Headings
+  h1: createVariant(designTokens.theme.text.H1, FONT_WEIGHTS.Bold),
+  h2: createVariant(designTokens.theme.text.H2, FONT_WEIGHTS.Bold),
+  h3: createVariant(designTokens.theme.text.H3, FONT_WEIGHTS.Semibold),
+  h4: createVariant(designTokens.theme.text.H4, FONT_WEIGHTS.Semibold),
+  h5: createVariant(designTokens.theme.text.H5, FONT_WEIGHTS.Medium),
+  h6: createVariant(designTokens.theme.text.H6, FONT_WEIGHTS.Medium),
+
+  // Subtitles
+  subtitle1: createVariant(designTokens.theme.text.Title, FONT_WEIGHTS.Semibold),
+  subtitle2: createVariant(designTokens.theme.text.Subtitle, FONT_WEIGHTS.Medium),
+
+  // Body text
+  body1: createVariant(designTokens.theme.text['Text l'], FONT_WEIGHTS.Regular),
+  body2: createVariant(designTokens.theme.text['Text m'], FONT_WEIGHTS.Regular),
+
+  // Small text
+  caption: createVariant(designTokens.theme.text['Text s'], FONT_WEIGHTS.Regular),
+
+  // Overline (uppercase small text)
+  overline: {
+    ...createVariant(designTokens.theme.text['Text xs'], FONT_WEIGHTS.Medium),
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase' as const,
+  },
+
+  // Button text
+  button: {
+    ...createVariant(designTokens.theme.text['Text s'], FONT_WEIGHTS.Medium),
+    textTransform: 'none' as const,
+  },
 };
+
+export default typography;

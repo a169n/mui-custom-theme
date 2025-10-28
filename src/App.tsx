@@ -16,7 +16,8 @@ function App() {
           MUI Custom Theme
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Use the showcase below to verify design tokens mapped into the palette and typography system.
+          Use the showcase below to verify design tokens mapped into the palette and typography
+          system.
         </Typography>
         <ThemeShowcase />
       </Container>

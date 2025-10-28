@@ -1,26 +1,25 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
+import ThemeShowcase from './components/ThemeShowcase';
 
 function App() {
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         bgcolor: 'background.default',
         color: 'text.primary',
-        px: 2,
+        py: 6,
       }}
     >
-      <Stack spacing={2} textAlign="center">
-        <Typography variant="h3" component="h1">
+      <Container maxWidth="lg">
+        <Typography variant="h3" component="h1" gutterBottom>
           MUI Custom Theme
         </Typography>
-        <Typography variant="body1">
-          Start building your design system with Material UI.
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+          Use the showcase below to verify design tokens mapped into the palette and typography system.
         </Typography>
-      </Stack>
+        <ThemeShowcase />
+      </Container>
     </Box>
   );
 }

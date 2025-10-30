@@ -93,12 +93,12 @@ const ColorsSection = () => {
     >
       <Stack spacing={4}>
         <Stack spacing={2}>
-          <Typography variant="subtitle1">Core palette colors</Typography>
+          <Typography variant="title">Core palette colors</Typography>
           <Grid container spacing={2}>
             {standardPalette.map((entry) => (
               <Grid item xs={12} sm={6} md={4} key={entry.label}>
                 <Stack spacing={1}>
-                  <Typography variant="subtitle2" color="text.secondary">
+                  <Typography variant="subtitle" color="text.secondary">
                     {entry.label}
                   </Typography>
                   <Stack direction="row" spacing={2}>
@@ -117,10 +117,10 @@ const ColorsSection = () => {
                           p: 2,
                         }}
                       >
-                        <Typography variant="subtitle2" sx={{ opacity: 0.75 }}>
+                        <Typography variant="subtitle" sx={{ opacity: 0.75 }}>
                           {tone}
                         </Typography>
-                        <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                        <Typography variant="textM" sx={{ fontFamily: 'monospace' }}>
                           {entry.color[tone]}
                         </Typography>
                       </Box>
@@ -135,12 +135,12 @@ const ColorsSection = () => {
         <Divider />
 
         <Stack spacing={2}>
-          <Typography variant="subtitle1">Extended color ramps</Typography>
+          <Typography variant="title">Extended color ramps</Typography>
           <Grid container spacing={2}>
             {extendedRamps.map((entry) => (
               <Grid item xs={12} key={entry.label}>
                 <Stack spacing={1}>
-                  <Typography variant="subtitle2" color="text.secondary">
+                  <Typography variant="subtitle" color="text.secondary">
                     {entry.label}
                   </Typography>
                   <Grid container spacing={1.5}>
@@ -161,7 +161,7 @@ const ColorsSection = () => {
                           <Typography variant="caption" sx={{ opacity: 0.8 }}>
                             {tone}
                           </Typography>
-                          <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                          <Typography variant="textM" sx={{ fontFamily: 'monospace' }}>
                             {entry.ramp[tone]}
                           </Typography>
                         </Box>
@@ -177,7 +177,7 @@ const ColorsSection = () => {
         <Divider />
 
         <Stack spacing={2}>
-          <Typography variant="subtitle1">Semantic surfaces</Typography>
+          <Typography variant="title">Semantic surfaces</Typography>
           <Grid container spacing={2}>
             {surfaceExamples.map((example) => (
               <Grid item xs={12} sm={6} md={4} key={example.token}>
@@ -193,14 +193,14 @@ const ColorsSection = () => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <Typography variant="subtitle2" sx={{ opacity: 0.75 }}>
+                  <Typography variant="subtitle" sx={{ opacity: 0.75 }}>
                     {example.label}
                   </Typography>
                   <Stack spacing={0.5}>
                     <Typography variant="caption" sx={{ opacity: 0.8 }}>
                       {example.token}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                    <Typography variant="textM" sx={{ fontFamily: 'monospace' }}>
                       {example.value}
                     </Typography>
                   </Stack>

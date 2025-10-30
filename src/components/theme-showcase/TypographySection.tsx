@@ -26,10 +26,7 @@ const TypographySection = () => {
   const theme = useTheme();
 
   return (
-    <SectionCard
-      title="Typography"
-      description="Preview each theme variant and inspect size, weight, and line-height values."
-    >
+    <SectionCard title="Typography" description={`Font Family: ${theme.typography.fontFamily}`}>
       <Stack spacing={2}>
         {typographyVariants.map((variant) => {
           const variantStyle = theme.typography[variant];
@@ -45,6 +42,10 @@ const TypographySection = () => {
             typeof variantStyle === 'object' && 'lineHeight' in variantStyle
               ? variantStyle.lineHeight
               : 'inherit';
+          const letterSpacing =
+            typeof variantStyle === 'object' && 'letterSpacing' in variantStyle
+              ? variantStyle.letterSpacing
+              : undefined;
 
           const toPx = (val: unknown): number | null => {
             if (typeof val === 'number') return val;
@@ -64,27 +65,36 @@ const TypographySection = () => {
             lineHeightPx = toPx(lineHeight);
           }
 
+          let letterSpacingDisplay: string | null = null;
+          if (letterSpacing !== undefined) {
+            // If it's in px or rem, convert to px
+            if (typeof letterSpacing === 'string') {
+              if (letterSpacing.endsWith('px')) {
+                letterSpacingDisplay = letterSpacing;
+              } else if (letterSpacing.endsWith('rem')) {
+                letterSpacingDisplay = `${Math.round(parseFloat(letterSpacing) * 16)}px`;
+              } else if (/^-?\d*\.?\d+em$/.test(letterSpacing)) {
+                // For em values (not converted to px, just show as is)
+                letterSpacingDisplay = letterSpacing;
+              } else {
+                letterSpacingDisplay = letterSpacing;
+              }
+            } else if (typeof letterSpacing === 'number') {
+              letterSpacingDisplay = `${letterSpacing}px`;
+            }
+          }
+
           return (
             <Box key={variant}>
               <Stack direction="row" spacing={2} alignItems="baseline" flexWrap="wrap">
-                <Typography
-                  variant="overline"
-                  color="text.secondary"
-                  sx={{ minWidth: 120, fontFamily: 'monospace' }}
-                >
-                  {variant}
-                </Typography>
                 <Typography variant={variant} sx={{ flex: 1 }}>
                   The quick brown fox jumps over the lazy dog
                 </Typography>
               </Stack>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ fontFamily: 'monospace', ml: 2 }}
-              >
-                {fontSizePx != null ? `${fontSizePx}px` : String(fontSize)} / {fontWeight} /{' '}
-                {lineHeightPx != null ? `${lineHeightPx}px` : String(lineHeight)}
+              <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                {variant} / {fontSizePx != null ? `${fontSizePx}px` : String(fontSize)} /{' '}
+                {fontWeight} / {lineHeightPx != null ? `${lineHeightPx}px` : String(lineHeight)}
+                {letterSpacingDisplay ? ` / ${letterSpacingDisplay}` : ''}
               </Typography>
             </Box>
           );

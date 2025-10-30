@@ -21,6 +21,7 @@ const createVariant = (token: TypographyToken, fontWeight: number) =>
     fontSize: toRem(token['font-size']),
     lineHeight: token['font-size'] === 0 ? 1 : token['line-height'] / token['font-size'],
     fontWeight,
+    letterSpacing: '0px',
   }) as const;
 
 type TextVariantKey =
@@ -81,12 +82,13 @@ const typography: TypographyOptions = {
 
   overline: {
     ...createVariant(designTokens.theme.text.textXs, FONT_WEIGHTS.Medium),
-    letterSpacing: '0.08em',
+    letterSpacing: '0px',
     textTransform: 'uppercase' as const,
   },
 
   button: {
     ...createVariant(designTokens.theme.text.textS, FONT_WEIGHTS.Medium),
+    letterSpacing: '0px',
     textTransform: 'none' as const,
   },
 };

@@ -6,7 +6,6 @@ import {
   Box,
   Breadcrumbs,
   Checkbox,
-  Button,
   Chip,
   CircularProgress,
   Dialog,
@@ -35,7 +34,6 @@ import {
   RadioGroup,
   Select,
   Skeleton,
-  Stack,
   Step,
   StepLabel,
   Stepper,
@@ -50,13 +48,23 @@ import {
   TextField,
   Tooltip,
   Typography,
+  Grid,
+  Stack,
 } from '@mui/material';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
+import React from 'react';
+import { Button } from '../../components/Button';
+// Fallback icons if no @mui/icons-material; replace or swap if you prefer real icons
+const StartIcon = () => <span style={{ display: 'inline-block', fontWeight: 600 }}>S</span>;
+const EndIcon = () => <span style={{ display: 'inline-block', fontWeight: 600 }}>E</span>;
+
+const variants = ['primary', 'secondary', 'outline', 'ghost', 'link'] as const;
+const sizes = ['small', 'medium', 'large'] as const;
 
 const avatarUsage = createUsageSnippet([
   'return (',
-  "  <Avatar sx={{ bgcolor: theme.palette.primary[100], color: theme.palette.primary.dark }}>",
+  '  <Avatar sx={{ bgcolor: theme.palette.primary[100], color: theme.palette.primary.dark }}>',
   '    AB',
   '  </Avatar>',
   ');',
@@ -64,8 +72,8 @@ const avatarUsage = createUsageSnippet([
 
 const alertUsage = createUsageSnippet([
   'const successStyles = {',
-  "  backgroundColor: theme.palette.success[50],",
-  "  color: theme.palette.success.dark,",
+  '  backgroundColor: theme.palette.success[50],',
+  '  color: theme.palette.success.dark,',
   '};',
   '',
   'return <Alert severity="success" sx={successStyles}>Action complete</Alert>;',
@@ -99,7 +107,7 @@ const breadcrumbsUsage = createUsageSnippet([
 
 const buttonsUsage = createUsageSnippet([
   'return (',
-  '  <Button variant="contained" sx={{ borderRadius: theme.shape.borderRadius * 2 }}>',
+  '  <Button variant="primary" sx={{ borderRadius: theme.shape.borderRadius * 2 }}>',
   '    Save changes',
   '  </Button>',
   ');',
@@ -125,8 +133,8 @@ const chipsUsage = createUsageSnippet([
 
 const calendarUsage = createUsageSnippet([
   'const todayStyles = {',
-  "  bgcolor: theme.palette.primary.main,",
-  "  color: theme.palette.primary.contrastText,",
+  '  bgcolor: theme.palette.primary.main,',
+  '  color: theme.palette.primary.contrastText,',
   '};',
   '',
   'return <TableCell sx={todayStyles}>15</TableCell>;',
@@ -136,9 +144,9 @@ const modalsUsage = createUsageSnippet([
   'return (',
   '  <Box',
   '    sx={{',
-  "      bgcolor: theme.palette.background.paper,",
-  "      boxShadow: theme.shadows[6],",
-  "      borderRadius: theme.shape.borderRadius * 2,",
+  '      bgcolor: theme.palette.background.paper,',
+  '      boxShadow: theme.shadows[6],',
+  '      borderRadius: theme.shape.borderRadius * 2,',
   '    }}',
   '  />',
   ');',
@@ -153,7 +161,7 @@ const dropdownUsage = createUsageSnippet([
   '  <Menu',
   '    open',
   '    PaperProps={{',
-  "      sx: { borderRadius: 2, boxShadow: theme.shadows[8] },",
+  '      sx: { borderRadius: 2, boxShadow: theme.shadows[8] },',
   '    }}',
   '  />',
   ');',
@@ -163,8 +171,8 @@ const emptyStateUsage = createUsageSnippet([
   'return (',
   '  <Paper',
   '    sx={{',
-  "      bgcolor: theme.palette.background.default,",
-  "      borderColor: theme.palette.divider,",
+  '      bgcolor: theme.palette.background.default,',
+  '      borderColor: theme.palette.divider,',
   '    }}',
   '  />',
   ');',
@@ -201,7 +209,7 @@ const navigationMenuUsage = createUsageSnippet([
   'return (',
   '  <ListItemButton',
   '    sx={{',
-  "      borderRadius: theme.shape.borderRadius,",
+  '      borderRadius: theme.shape.borderRadius,',
   "      '&.Mui-selected': { bgcolor: theme.palette.action.selected },",
   '    }}',
   '  >',
@@ -228,8 +236,8 @@ const paginationUsage = createUsageSnippet([
   '    count={5}',
   '    sx={{',
   "      '& .MuiPaginationItem-root.Mui-selected': {",
-  "        bgcolor: theme.palette.primary.main,",
-  "        color: theme.palette.primary.contrastText,",
+  '        bgcolor: theme.palette.primary.main,',
+  '        color: theme.palette.primary.contrastText,',
   '      },',
   '    }}',
   '  />',
@@ -265,8 +273,8 @@ const sidebarUsage = createUsageSnippet([
   'return (',
   '  <Paper',
   '    sx={{',
-  "      borderColor: theme.palette.divider,",
-  "      bgcolor: theme.palette.background.paper,",
+  '      borderColor: theme.palette.divider,',
+  '      bgcolor: theme.palette.background.paper,',
   '    }}',
   '  />',
   ');',
@@ -276,9 +284,9 @@ const scrollUsage = createUsageSnippet([
   'return (',
   '  <Box',
   '    sx={{',
-  "      maxHeight: 200,",
+  '      maxHeight: 200,',
   "      overflowY: 'auto',",
-  "      borderColor: theme.palette.divider,",
+  '      borderColor: theme.palette.divider,',
   '    }}',
   '  />',
   ');',
@@ -309,7 +317,7 @@ const tabsUsage = createUsageSnippet([
   '  <Tabs',
   '    value={0}',
   '    TabIndicatorProps={{',
-  "      sx: { backgroundColor: theme.palette.primary.main },",
+  '      sx: { backgroundColor: theme.palette.primary.main },',
   '    }}',
   '  >',
   '    {/* tabs */}',
@@ -321,7 +329,7 @@ const tableUsage = createUsageSnippet([
   'return (',
   '  <TableHead',
   '    sx={{',
-  "      bgcolor: theme.palette.gray[50],",
+  '      bgcolor: theme.palette.gray[50],',
   "      '& .MuiTableCell-root': { color: theme.palette.text.secondary },",
   '    }}',
   '  />',
@@ -366,7 +374,7 @@ const tooltipUsage = createUsageSnippet([
   '  <Tooltip',
   '    title="Info"',
   '    componentsProps={{',
-  "      tooltip: { sx: { bgcolor: theme.palette.grey[900], color: theme.palette.common.white } },",
+  '      tooltip: { sx: { bgcolor: theme.palette.grey[900], color: theme.palette.common.white } },',
   '    }}',
   '  >',
   '    <Button>Hover</Button>',
@@ -376,18 +384,14 @@ const tooltipUsage = createUsageSnippet([
 
 const fileInputUsage = createUsageSnippet([
   'return (',
-  '  <Button variant="contained" sx={{ bgcolor: theme.palette.secondary.main }}>',
+  '  <Button variant="primary" sx={{ bgcolor: theme.palette.secondary.main }}>',
   '    Upload',
   '  </Button>',
   ');',
 ]);
 
 export const AvatarPage = () => (
-  <PageContainer
-    title="Avatar"
-    description="Default avatar variations."
-    usage={avatarUsage}
-  >
+  <PageContainer title="Avatar" description="Default avatar variations." usage={avatarUsage}>
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} alignItems="center">
       <Avatar>AB</Avatar>
       <Avatar src="https://i.pravatar.cc/150?img=32" alt="Avatar" />
@@ -449,13 +453,53 @@ export const BreadcrumbsPage = () => (
 export const ButtonsPage = () => (
   <PageContainer
     title="Buttons"
-    description="Button variants convey priority."
-    usage={buttonsUsage}
+    description="All theme button variants, states, and sizes."
+    usage={undefined}
   >
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-      <Button variant="text">Text</Button>
+    <Stack spacing={4}>
+      {variants.map((variant) => (
+        <Box key={variant}>
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            {variant.charAt(0).toUpperCase() + variant.slice(1)}
+          </Typography>
+          <Grid container spacing={2}>
+            {sizes.map((size) => (
+              <>
+                {/* Normal */}
+                <Grid item key={`${variant}-${size}-normal`}>
+                  <Button size={size} variant={variant}>
+                    {`${size.charAt(0).toUpperCase() + size.slice(1)} ${variant}`}
+                  </Button>
+                </Grid>
+                {/* Disabled */}
+                <Grid item key={`${variant}-${size}-disabled`}>
+                  <Button size={size} variant={variant} disabled>
+                    {`${size.charAt(0).toUpperCase() + size.slice(1)} ${variant} Disabled`}
+                  </Button>
+                </Grid>
+                {/* Loading */}
+                <Grid item key={`${variant}-${size}-loading`}>
+                  <Button size={size} variant={variant} loading>
+                    {`${size.charAt(0).toUpperCase() + size.slice(1)} ${variant} Loading`}
+                  </Button>
+                </Grid>
+                {/* With startIcon */}
+                <Grid item key={`${variant}-${size}-startIcon`}>
+                  <Button size={size} variant={variant} startIcon={<StartIcon />}>
+                    {`${size.charAt(0).toUpperCase() + size.slice(1)} ${variant} Start`}
+                  </Button>
+                </Grid>
+                {/* With endIcon */}
+                <Grid item key={`${variant}-${size}-endIcon`}>
+                  <Button size={size} variant={variant} endIcon={<EndIcon />}>
+                    {`${size.charAt(0).toUpperCase() + size.slice(1)} ${variant} End`}
+                  </Button>
+                </Grid>
+              </>
+            ))}
+          </Grid>
+        </Box>
+      ))}
     </Stack>
   </PageContainer>
 );
@@ -475,11 +519,7 @@ export const CheckboxesPage = () => (
 );
 
 export const ChipsPage = () => (
-  <PageContainer
-    title="Chips"
-    description="Chips represent compact elements."
-    usage={chipsUsage}
-  >
+  <PageContainer title="Chips" description="Chips represent compact elements." usage={chipsUsage}>
     <Stack direction="row" spacing={2} flexWrap="wrap">
       <Chip label="Default" />
       <Chip label="Outlined" variant="outlined" />
@@ -576,10 +616,10 @@ export const ModalsDialogsPage = () => {
       usage={modalsUsage}
     >
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Button variant="contained" onClick={() => setModalOpen(true)}>
+        <Button variant="primary" onClick={() => setModalOpen(true)}>
           Open modal
         </Button>
-        <Button variant="outlined" onClick={() => setDialogOpen(true)}>
+        <Button variant="outline" onClick={() => setDialogOpen(true)}>
           Open dialog
         </Button>
       </Stack>
@@ -617,7 +657,7 @@ export const ModalsDialogsPage = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
-          <Button variant="contained" onClick={() => setDialogOpen(false)}>
+          <Button variant="primary" onClick={() => setDialogOpen(false)}>
             Confirm
           </Button>
         </DialogActions>
@@ -650,7 +690,7 @@ export const DropdownPage = () => {
       description="Menus display a list of actions."
       usage={dropdownUsage}
     >
-      <Button variant="contained" onClick={(event) => setAnchorEl(event.currentTarget)}>
+      <Button variant="primary" onClick={(event) => setAnchorEl(event.currentTarget)}>
         Open menu
       </Button>
       <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
@@ -683,7 +723,7 @@ export const EmptyStatesPage = () => (
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
         Get started by creating your first item.
       </Typography>
-      <Button variant="contained">Create item</Button>
+      <Button variant="primary">Create item</Button>
     </Paper>
   </PageContainer>
 );
@@ -702,7 +742,7 @@ export const ErrorPages = () => (
         <Typography color="text.secondary" gutterBottom>
           The page you were looking for could not be found.
         </Typography>
-        <Button variant="contained">Go home</Button>
+        <Button variant="primary">Go home</Button>
       </Paper>
       <Paper variant="outlined" sx={{ p: 4, borderRadius: 3, textAlign: 'center' }}>
         <Typography variant="h2" gutterBottom>
@@ -711,7 +751,7 @@ export const ErrorPages = () => (
         <Typography color="text.secondary" gutterBottom>
           Something went wrong on our end. Please try again later.
         </Typography>
-        <Button variant="outlined">Retry</Button>
+        <Button variant="outline">Retry</Button>
       </Paper>
     </Stack>
   </PageContainer>
@@ -895,7 +935,7 @@ export const FormPage = () => (
       <FormControlLabel control={<Checkbox />} label="Subscribe to updates" />
       <Stack direction="row" spacing={1} justifyContent="flex-end">
         <Button>Cancel</Button>
-        <Button variant="contained">Submit</Button>
+        <Button variant="primary">Submit</Button>
       </Stack>
     </Stack>
   </PageContainer>
@@ -992,11 +1032,7 @@ export const TabsPage = () => {
   const [value, setValue] = useState(0);
 
   return (
-    <PageContainer
-      title="Tabs"
-      description="Tabs switch between related views."
-      usage={tabsUsage}
-    >
+    <PageContainer title="Tabs" description="Tabs switch between related views." usage={tabsUsage}>
       <Tabs value={value} onChange={(_, newValue) => setValue(newValue)}>
         <Tab label="Overview" />
         <Tab label="Activity" />
@@ -1040,11 +1076,7 @@ export const TablePage = () => (
 );
 
 export const InputPage = () => (
-  <PageContainer
-    title="Input"
-    description="Text fields accept short form text."
-    usage={inputUsage}
-  >
+  <PageContainer title="Input" description="Text fields accept short form text." usage={inputUsage}>
     <TextField label="Name" placeholder="Jane Doe" fullWidth />
   </PageContainer>
 );
@@ -1083,7 +1115,7 @@ export const TooltipPage = () => (
     usage={tooltipUsage}
   >
     <Tooltip title="Tooltip message">
-      <Button variant="outlined">Hover me</Button>
+      <Button variant="outline">Hover me</Button>
     </Tooltip>
   </PageContainer>
 );
@@ -1094,7 +1126,7 @@ export const FileInputPage = () => (
     description="Allow users to upload files."
     usage={fileInputUsage}
   >
-    <Button variant="contained" component="label">
+    <Button variant="primary" component="label">
       Upload file
       <input hidden type="file" />
     </Button>

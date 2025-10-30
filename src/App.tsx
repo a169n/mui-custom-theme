@@ -1,27 +1,18 @@
-import { Box, Container, Typography } from '@mui/material';
-import ThemeShowcase from './components/theme-showcase';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import AppLayout from './components/layout/AppLayout';
+import { allRoutes } from './routes/componentRoutes';
 
 function App() {
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        py: 6,
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography variant="h3" component="h1" gutterBottom>
-          MUI Custom Theme
-        </Typography>
-        <Typography variant="textL" color="text.secondary" sx={{ mb: 4 }}>
-          Use the showcase below to verify design tokens mapped into the palette and typography
-          system.
-        </Typography>
-        <ThemeShowcase />
-      </Container>
-    </Box>
+    <Routes>
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<Navigate to="/palette" replace />} />
+        {allRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Route>
+      <Route path="*" element={<Navigate to="/palette" replace />} />
+    </Routes>
   );
 }
 

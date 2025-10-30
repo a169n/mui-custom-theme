@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Modal, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Modal,
+  Stack,
+  Typography,
+} from '@mui/material';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import { Button } from '../../components/Button';

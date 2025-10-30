@@ -4,7 +4,7 @@ import { createUsageSnippet } from '../../utils/createUsageSnippet';
 
 const avatarUsage = createUsageSnippet([
   'return (',
-  "  <Avatar sx={{ bgcolor: theme.palette.primary[100], color: theme.palette.primary.dark }}>",
+  '  <Avatar sx={{ bgcolor: theme.palette.primary[100], color: theme.palette.primary.dark }}>',
   '    AB',
   '  </Avatar>',
   ');',

@@ -63,7 +63,7 @@ const getColorSet = (theme: any, color: ButtonColor) => {
   };
 };
 
-// MUI's sx prop supports nested pseudo-selectors
+// No background, border, or boxShadow changes on hover; only opacity
 const getVariantSx = (
   theme: any,
   variant: ButtonVariant,
@@ -71,78 +71,117 @@ const getVariantSx = (
   disabled?: boolean,
   loading?: boolean
 ) => {
-  const borderRadius = theme.tokens?.radius?.md || 8;
+  const borderRadius = `${theme.tokens?.radius?.md || 8}px`;
   const colors = getColorSet(theme, color);
   const isInactive = disabled || loading;
-  const hoverOpacity = 0.8;
-  const baseOpacity = isInactive ? 0.5 : 1;
 
   switch (variant) {
-    case 'primary':
+    case 'primary': {
+      const bg = colors.bg;
       return {
-        background: colors.bg,
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
+        background: bg,
         color: colors.text,
         border: 'none',
-        borderRadius,
-        opacity: baseOpacity,
-        transition: 'opacity 0.2s',
-        '&:hover': { opacity: !isInactive ? hoverOpacity : baseOpacity, background: colors.bg },
+        opacity: isInactive ? 0.5 : 1,
+        '&:hover': {
+          background: bg,
+          opacity: 0.8,
+          boxShadow: 'none',
+        },
       };
-    case 'secondary':
+    }
+    case 'secondary': {
+      const bg = colors.bgLight || colors.bg;
+      const colorText = colors.textDark || colors.text;
       return {
-        background: colors.bgLight || colors.bg,
-        color: colors.textDark || colors.text,
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
+        background: bg,
+        color: colorText,
         border: 'none',
-        borderRadius,
-        opacity: baseOpacity,
-        transition: 'opacity 0.2s',
-        '&:hover': { opacity: !isInactive ? hoverOpacity : baseOpacity, background: colors.bg },
+        opacity: isInactive ? 0.5 : 1,
+        '&:hover': {
+          background: bg,
+          opacity: 0.8,
+          boxShadow: 'none',
+        },
       };
-    case 'outline':
+    }
+    case 'outline': {
+      const borderColor = colors.border;
       return {
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
         background: 'transparent',
         color: colors.bg,
-        border: `1.5px solid ${colors.border}`,
-        borderRadius,
-        opacity: baseOpacity,
-        transition: 'opacity 0.2s',
-        '&:hover': { opacity: !isInactive ? hoverOpacity : baseOpacity },
+        border: `1.5px solid ${borderColor}`,
+        opacity: isInactive ? 0.5 : 1,
+        '&:hover': {
+          background: 'transparent',
+          border: `1.5px solid ${borderColor}`,
+          opacity: 0.8,
+          boxShadow: 'none',
+        },
       };
-    case 'ghost':
+    }
+    case 'ghost': {
       return {
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
         background: 'transparent',
         color: colors.bg,
         border: 'none',
-        borderRadius,
-        opacity: baseOpacity,
-        transition: 'opacity 0.2s',
-        '&:hover': { opacity: !isInactive ? hoverOpacity : baseOpacity },
+        opacity: isInactive ? 0.5 : 1,
+        '&:hover': {
+          background: 'transparent',
+          opacity: 0.8,
+          boxShadow: 'none',
+        },
       };
-    case 'link':
+    }
+    case 'link': {
       return {
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
         background: 'none',
         color: colors.bg,
         border: 'none',
-        borderRadius,
         textDecoration: 'underline',
         padding: 0,
         minWidth: 'auto',
         fontWeight: 500,
-        opacity: baseOpacity,
-        transition: 'opacity 0.2s',
+        opacity: isInactive ? 0.5 : 1,
         '&:hover': {
-          opacity: !isInactive ? hoverOpacity : baseOpacity,
-          color: colors.textDark || colors.bg,
+          background: 'none',
+          opacity: 0.8,
+          boxShadow: 'none',
         },
       };
-    default:
+    }
+    default: {
+      const bg = colors.bg;
       return {
-        background: colors.bg,
+        borderRadius,
+        transition: 'opacity 0.3s',
+        boxShadow: 'none',
+        background: bg,
         color: colors.text,
         border: 'none',
-        borderRadius,
-        opacity: baseOpacity,
+        opacity: isInactive ? 0.5 : 1,
+        '&:hover': {
+          background: bg,
+          opacity: 0.8,
+          boxShadow: 'none',
+        },
       };
+    }
   }
 };
 
@@ -176,11 +215,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
     <MUIButton
       ref={ref}
       variant={mapMUIVariant}
+      color={color}
+      size={size}
       disabled={inactive}
       startIcon={startIcon}
       endIcon={endIcon}
       className={clsx(className, `Button--${variant}`, `Button--${size}`)}
-      sx={{ ...sizeStyle, ...variantSx, ...(rest as any).sx }}
+      sx={{
+        ...sizeStyle,
+        ...variantSx,
+        width: 'fit-content',
+        minWidth: 'fit-content',
+        ...(rest as any).sx,
+      }}
       {...rest}
     >
       {loading ? <CircularProgress size={20} color="inherit" /> : children}

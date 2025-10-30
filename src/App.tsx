@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
-import ThemeShowcase from './components/ThemeShowcase';
+import ThemeShowcase from './components/theme-showcase';
 
 function App() {
   return (

@@ -65,7 +65,7 @@ const PalettePage = () => {
       <Grid container spacing={3}>
         {colorKeys.map((colorKey) => {
           const paletteColor = theme.palette[colorKey as PaletteKey] as PaletteColorScale;
-          const scale = paletteColor as Record<string, string>;
+          const scale = paletteColor as unknown as Record<string, string>;
           const aliasEntries = [
             { alias: 'light', shade: findShadeKey(paletteColor.light, scale) },
             { alias: 'main', shade: findShadeKey(paletteColor.main, scale) },

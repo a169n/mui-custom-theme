@@ -49,7 +49,7 @@ const textVariants: Record<TextVariantKey, ReturnType<typeof createVariant>> = {
 
 const typography: TypographyOptions = {
   fontFamily: [
-    designTokens.theme.font['font-sans'],
+    'Roboto',
     '-apple-system',
     'BlinkMacSystemFont',
     '"Segoe UI"',

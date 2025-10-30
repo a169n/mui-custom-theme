@@ -36,7 +36,11 @@ const SpacingSection = () => {
                     <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
                       spacing({factor})
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ fontFamily: 'monospace' }}
+                    >
                       {spacingValue}
                     </Typography>
                   </Paper>
@@ -66,7 +70,11 @@ const SpacingSection = () => {
                   <Typography variant="body2" sx={{ textTransform: 'uppercase' }}>
                     {label}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontFamily: 'monospace' }}
+                  >
                     {value}px
                   </Typography>
                 </Paper>

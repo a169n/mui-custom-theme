@@ -96,7 +96,11 @@ const TokensSection = () => {
               <Box sx={{ flex: 1, width: '100%' }}>{token.preview}</Box>
               <Stack spacing={0.5} sx={{ flex: 2 }}>
                 <Typography variant="subtitle2">{token.label}</Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ fontFamily: 'monospace' }}
+                >
                   {token.path}
                 </Typography>
                 <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>

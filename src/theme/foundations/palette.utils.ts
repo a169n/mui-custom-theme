@@ -27,7 +27,7 @@ const DEFAULT_CONTRAST_TEXT = '#ffffff';
 
 export const createPaletteScale = (
   scale: ColorScale,
-  options: PaletteScaleOptions = {},
+  options: PaletteScaleOptions = {}
 ): PaletteColorScale => {
   const {
     lightShade = DEFAULT_LIGHT_SHADE,

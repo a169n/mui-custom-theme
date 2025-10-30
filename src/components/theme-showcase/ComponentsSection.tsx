@@ -77,7 +77,12 @@ const ComponentsSection = () => {
               <TextField fullWidth label="Email" placeholder="bruce@wayneenterprises.com" />
               <FormControl fullWidth>
                 <InputLabel id="status-select-label">Status</InputLabel>
-                <Select labelId="status-select-label" value={status} label="Status" onChange={handleStatusChange}>
+                <Select
+                  labelId="status-select-label"
+                  value={status}
+                  label="Status"
+                  onChange={handleStatusChange}
+                >
                   <MenuItem value="pending">Pending</MenuItem>
                   <MenuItem value="approved">Approved</MenuItem>
                   <MenuItem value="rejected">Rejected</MenuItem>
@@ -94,9 +99,21 @@ const ComponentsSection = () => {
                 <Tab label="Usage" />
               </Tabs>
               <RadioGroup row value={plan} onChange={handlePlanChange}>
-                <FormControlLabel value="starter" control={<Radio color="success" />} label="Starter" />
-                <FormControlLabel value="growth" control={<Radio color="success" />} label="Growth" />
-                <FormControlLabel value="enterprise" control={<Radio color="success" />} label="Enterprise" />
+                <FormControlLabel
+                  value="starter"
+                  control={<Radio color="success" />}
+                  label="Starter"
+                />
+                <FormControlLabel
+                  value="growth"
+                  control={<Radio color="success" />}
+                  label="Growth"
+                />
+                <FormControlLabel
+                  value="enterprise"
+                  control={<Radio color="success" />}
+                  label="Enterprise"
+                />
               </RadioGroup>
             </Stack>
           </Grid>

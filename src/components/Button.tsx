@@ -305,18 +305,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const muiColor: MUIButtonProps['color'] =
     normalizedTone === 'positive' ? 'success' : normalizedTone === 'negative' ? 'error' : 'primary';
 
-  // Map to MUI's internal variant for ripple/animation, but not style
-  const mapMUIVariant =
-    variant === 'outline' || variant === 'ghost'
-      ? 'outlined'
-      : variant === 'link'
-        ? 'text'
-        : 'contained';
-
   return (
     <MUIButton
       ref={ref}
-      variant={mapMUIVariant}
+      variant={variant}
       color={muiColor}
       size={size}
       disabled={inactive}

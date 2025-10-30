@@ -52,27 +52,27 @@ export const typographyScale: TypographyScale = {
     'font-size': 14,
     'line-height': 16,
   },
-  'Text 2xl': {
+  text2xl: {
     'font-size': 20,
     'line-height': 28,
   },
-  'Text xl': {
+  textXl: {
     'font-size': 18,
     'line-height': 24,
   },
-  'Text l': {
+  textL: {
     'font-size': 16,
     'line-height': 24,
   },
-  'Text m': {
+  textM: {
     'font-size': 14,
     'line-height': 20,
   },
-  'Text s': {
+  textS: {
     'font-size': 12,
     'line-height': 16,
   },
-  'Text xs': {
+  textXs: {
     'font-size': 10,
     'line-height': 12,
   },

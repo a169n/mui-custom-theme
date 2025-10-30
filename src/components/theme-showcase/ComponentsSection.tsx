@@ -49,7 +49,7 @@ const ComponentsSection = () => {
     >
       <Stack spacing={3}>
         <Box>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="title" gutterBottom>
             Buttons
           </Typography>
           <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
@@ -73,7 +73,7 @@ const ComponentsSection = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Stack spacing={2}>
-              <Typography variant="subtitle1">Inputs</Typography>
+              <Typography variant="title">Inputs</Typography>
               <TextField fullWidth label="Email" placeholder="bruce@wayneenterprises.com" />
               <FormControl fullWidth>
                 <InputLabel id="status-select-label">Status</InputLabel>
@@ -92,7 +92,7 @@ const ComponentsSection = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Stack spacing={2}>
-              <Typography variant="subtitle1">Selection controls</Typography>
+              <Typography variant="title">Selection controls</Typography>
               <Tabs value={tabValue} onChange={handleTabChange} aria-label="plan tabs">
                 <Tab label="Overview" />
                 <Tab label="Billing" />
@@ -123,7 +123,7 @@ const ComponentsSection = () => {
 
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography variant="title" gutterBottom>
               Chips
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
@@ -135,7 +135,7 @@ const ComponentsSection = () => {
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography variant="title" gutterBottom>
               Pagination
             </Typography>
             <Paper

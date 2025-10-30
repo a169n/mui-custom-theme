@@ -17,7 +17,7 @@ const BreakpointsSection = () => {
             <Paper sx={{ p: 2 }}>
               <Stack spacing={1}>
                 <Typography variant="h6">{label}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                <Typography variant="textM" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
                   {value}px
                 </Typography>
               </Stack>

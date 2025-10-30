@@ -23,6 +23,29 @@ const createVariant = (token: TypographyToken, fontWeight: number) =>
     fontWeight,
   }) as const;
 
+type TextVariantKey =
+  | 'title'
+  | 'subtitle'
+  | 'caption'
+  | 'text2xl'
+  | 'textXl'
+  | 'textL'
+  | 'textM'
+  | 'textS'
+  | 'textXs';
+
+const textVariants: Record<TextVariantKey, ReturnType<typeof createVariant>> = {
+  title: createVariant(designTokens.theme.text.Title, FONT_WEIGHTS.Semibold),
+  subtitle: createVariant(designTokens.theme.text.Subtitle, FONT_WEIGHTS.Medium),
+  caption: createVariant(designTokens.theme.text.Caption, FONT_WEIGHTS.Regular),
+  text2xl: createVariant(designTokens.theme.text.text2xl, FONT_WEIGHTS.Regular),
+  textXl: createVariant(designTokens.theme.text.textXl, FONT_WEIGHTS.Regular),
+  textL: createVariant(designTokens.theme.text.textL, FONT_WEIGHTS.Regular),
+  textM: createVariant(designTokens.theme.text.textM, FONT_WEIGHTS.Regular),
+  textS: createVariant(designTokens.theme.text.textS, FONT_WEIGHTS.Regular),
+  textXs: createVariant(designTokens.theme.text.textXs, FONT_WEIGHTS.Regular),
+};
+
 const typography: TypographyOptions = {
   fontFamily: [
     designTokens.theme.font['font-sans'],
@@ -46,22 +69,24 @@ const typography: TypographyOptions = {
   h5: createVariant(designTokens.theme.text.H5, FONT_WEIGHTS.Medium),
   h6: createVariant(designTokens.theme.text.H6, FONT_WEIGHTS.Medium),
 
-  subtitle1: createVariant(designTokens.theme.text.Title, FONT_WEIGHTS.Semibold),
-  subtitle2: createVariant(designTokens.theme.text.Subtitle, FONT_WEIGHTS.Medium),
+  ...textVariants,
 
-  body1: createVariant(designTokens.theme.text['Text l'], FONT_WEIGHTS.Regular),
-  body2: createVariant(designTokens.theme.text['Text m'], FONT_WEIGHTS.Regular),
+  subtitle1: textVariants.title,
+  subtitle2: textVariants.subtitle,
 
-  caption: createVariant(designTokens.theme.text['Text s'], FONT_WEIGHTS.Regular),
+  body1: textVariants.textL,
+  body2: textVariants.textM,
+
+  caption: textVariants.caption,
 
   overline: {
-    ...createVariant(designTokens.theme.text['Text xs'], FONT_WEIGHTS.Medium),
+    ...createVariant(designTokens.theme.text.textXs, FONT_WEIGHTS.Medium),
     letterSpacing: '0.08em',
     textTransform: 'uppercase' as const,
   },
 
   button: {
-    ...createVariant(designTokens.theme.text['Text s'], FONT_WEIGHTS.Medium),
+    ...createVariant(designTokens.theme.text.textS, FONT_WEIGHTS.Medium),
     textTransform: 'none' as const,
   },
 };

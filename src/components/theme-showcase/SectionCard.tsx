@@ -14,7 +14,7 @@ const SectionCard = ({ title, description, children }: SectionCardProps) => (
         <Stack spacing={1}>
           <Typography variant="h5">{title}</Typography>
           {description ? (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="textM" color="text.secondary">
               {description}
             </Typography>
           ) : null}

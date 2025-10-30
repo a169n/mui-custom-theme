@@ -16,7 +16,7 @@ const SpacingSection = () => {
     >
       <Stack spacing={4}>
         <Stack spacing={2}>
-          <Typography variant="subtitle1">Spacing (theme.spacing)</Typography>
+          <Typography variant="title">Spacing (theme.spacing)</Typography>
           <Grid container spacing={2}>
             {spacingExamples.map((factor) => {
               const spacingValue = theme.spacing(factor);
@@ -33,7 +33,7 @@ const SpacingSection = () => {
                         mb: 1,
                       }}
                     />
-                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                    <Typography variant="textM" sx={{ fontFamily: 'monospace' }}>
                       spacing({factor})
                     </Typography>
                     <Typography
@@ -51,7 +51,7 @@ const SpacingSection = () => {
         </Stack>
 
         <Stack spacing={2}>
-          <Typography variant="subtitle1">Radius tokens</Typography>
+          <Typography variant="title">Radius tokens</Typography>
           <Grid container spacing={2}>
             {radiusEntries.map(([label, value]) => (
               <Grid item xs={6} sm={4} md={3} key={label}>
@@ -67,7 +67,7 @@ const SpacingSection = () => {
                       border: `1px solid ${theme.palette.gray[300]}`,
                     }}
                   />
-                  <Typography variant="body2" sx={{ textTransform: 'uppercase' }}>
+                  <Typography variant="textM" sx={{ textTransform: 'uppercase' }}>
                     {label}
                   </Typography>
                   <Typography

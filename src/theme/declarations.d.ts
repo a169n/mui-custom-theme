@@ -2,6 +2,7 @@
  * TypeScript declarations for MUI theme extensions
  */
 
+import type { CSSProperties } from 'react';
 import type { PaletteColorScale } from './foundations/palette.utils';
 import type { DesignTokens } from './tokens';
 
@@ -60,5 +61,43 @@ declare module '@mui/material/styles' {
       main: string;
       contrastText?: string;
     };
+  }
+
+  interface TypographyVariants {
+    title: CSSProperties;
+    subtitle: CSSProperties;
+    caption: CSSProperties;
+    text2xl: CSSProperties;
+    textXl: CSSProperties;
+    textL: CSSProperties;
+    textM: CSSProperties;
+    textS: CSSProperties;
+    textXs: CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    title?: CSSProperties;
+    subtitle?: CSSProperties;
+    caption?: CSSProperties;
+    text2xl?: CSSProperties;
+    textXl?: CSSProperties;
+    textL?: CSSProperties;
+    textM?: CSSProperties;
+    textS?: CSSProperties;
+    textXs?: CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    title: true;
+    subtitle: true;
+    caption: true;
+    text2xl: true;
+    textXl: true;
+    textL: true;
+    textM: true;
+    textS: true;
+    textXs: true;
   }
 }

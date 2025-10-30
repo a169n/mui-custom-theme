@@ -106,12 +106,12 @@ export interface TypographyScale {
   readonly Title: TypographyToken;
   readonly Subtitle: TypographyToken;
   readonly Caption: TypographyToken;
-  readonly 'Text 2xl': TypographyToken;
-  readonly 'Text xl': TypographyToken;
-  readonly 'Text l': TypographyToken;
-  readonly 'Text m': TypographyToken;
-  readonly 'Text s': TypographyToken;
-  readonly 'Text xs': TypographyToken;
+  readonly text2xl: TypographyToken;
+  readonly textXl: TypographyToken;
+  readonly textL: TypographyToken;
+  readonly textM: TypographyToken;
+  readonly textS: TypographyToken;
+  readonly textXs: TypographyToken;
 }
 
 /**

@@ -162,6 +162,11 @@ const getVariantSx = (
 ) => {
   const borderRadius = `${theme.tokens?.radius?.md || 8}px`;
   const isInactive = disabled || loading;
+  const paletteMode = theme?.palette?.mode ?? 'light';
+  const modeTokens = theme?.tokens?.modes?.[paletteMode];
+  const secondaryBackground = modeTokens?.bg?.muted ?? colors.subtleBg;
+  const secondaryText = modeTokens?.text?.default ?? colors.subtleText;
+  const linkColor = modeTokens?.text?.link ?? colors.plainText;
 
   switch (variant) {
     case 'primary': {
@@ -185,12 +190,12 @@ const getVariantSx = (
         borderRadius,
         transition: 'opacity 0.3s',
         boxShadow: 'none',
-        background: colors.subtleBg,
-        color: colors.subtleText,
+        background: secondaryBackground,
+        color: secondaryText,
         border: 'none',
         opacity: isInactive ? 0.5 : 1,
         '&:hover': {
-          background: colors.subtleBg,
+          background: secondaryBackground,
           opacity: 0.8,
           boxShadow: 'none',
         },
@@ -235,7 +240,7 @@ const getVariantSx = (
         transition: 'opacity 0.3s',
         boxShadow: 'none',
         background: 'none',
-        color: colors.plainText,
+        color: linkColor,
         border: 'none',
         textDecoration: 'underline',
         padding: 0,
@@ -284,11 +289,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const theme = useTheme();
   const inactive = disabled || loading;
   const sizeStyle = sizePadding(theme, size);
-  const toneColors = getToneColors(theme, tone);
+  const normalizedTone: ButtonTone =
+    variant === 'secondary' || variant === 'link' ? 'default' : tone;
+  const toneColors = getToneColors(theme, normalizedTone);
   const variantSx = getVariantSx(theme, variant, toneColors, disabled, loading);
 
   const muiColor: MUIButtonProps['color'] =
-    tone === 'positive' ? 'success' : tone === 'negative' ? 'error' : 'primary';
+    normalizedTone === 'positive'
+      ? 'success'
+      : normalizedTone === 'negative'
+        ? 'error'
+        : 'primary';
 
   // Map to MUI's internal variant for ripple/animation, but not style
   const mapMUIVariant =

@@ -1,31 +1,18 @@
 /**
- * Component overrides
+ * Component overrides grouped by domain
  */
 
 import type { Components, Theme } from '@mui/material/styles';
+import { inputs } from './inputs';
+import { others } from './others';
+import { surfaces } from './surfaces';
 
-const components: Components<Theme> = {
-  MuiButton: {
-    styleOverrides: {
-      root: {
-        textTransform: 'none',
-      },
-    },
-  },
-  MuiCard: {
-    styleOverrides: {
-      root: {
-        borderRadius: 8,
-      },
-    },
-  },
-  MuiPaper: {
-    styleOverrides: {
-      rounded: {
-        borderRadius: 8,
-      },
-    },
-  },
+export const components: Components<Theme> = {
+  ...surfaces,
+  ...inputs,
+  ...others,
 };
+
+export { inputs, surfaces, others };
 
 export default components;

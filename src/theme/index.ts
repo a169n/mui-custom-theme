@@ -9,7 +9,7 @@ import darkPalette from './foundations/palette.dark';
 import typography from './foundations/typography';
 import spacing from './foundations/spacing';
 import shape from './foundations/shape';
-import components from './components';
+import components from './components/index';
 import breakpoints from './foundations/breakpoints';
 import { designTokens } from './tokens';
 

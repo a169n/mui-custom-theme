@@ -1,15 +1,11 @@
 /**
- * Palette configuration
- * Defines the color scheme for the application
+ * Palette configuration (light)
  */
 
 import type { PaletteOptions } from '@mui/material/styles';
-import { designTokens } from './tokens';
-import type { ColorScale } from './tokens';
+import { designTokens } from '../tokens';
+import type { ColorScale } from '../tokens';
 
-/**
- * Helper to convert a color scale into a MUI PaletteColor object
- */
 const createPaletteColor = (scale: ColorScale, mainShade: keyof ColorScale = 500) =>
   ({
     light: scale[300],
@@ -18,9 +14,6 @@ const createPaletteColor = (scale: ColorScale, mainShade: keyof ColorScale = 500
     contrastText: '#ffffff',
   }) as const;
 
-/**
- * Light mode palette (default)
- */
 const palette: PaletteOptions = {
   mode: 'light',
 

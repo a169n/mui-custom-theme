@@ -1,6 +1,5 @@
 /**
  * Breakpoints configuration
- * Defines responsive design breakpoints
  */
 
 import type { BreakpointsOptions } from '@mui/material/styles';

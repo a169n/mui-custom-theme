@@ -4,13 +4,13 @@
  */
 
 import { createTheme } from '@mui/material/styles';
-import palette from './palette';
-import darkPalette from './darkPalette';
-import typography from './typography';
-import spacing from './spacing';
-import shape from './shape';
+import palette from './foundations/palette.light';
+import darkPalette from './foundations/palette.dark';
+import typography from './foundations/typography';
+import spacing from './foundations/spacing';
+import shape from './foundations/shape';
 import components from './components';
-import breakpoints from './breakpoints';
+import breakpoints from './foundations/breakpoints';
 import { designTokens } from './tokens';
 
 /**

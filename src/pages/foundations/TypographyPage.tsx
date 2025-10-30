@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import type { ComponentProps } from 'react';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
@@ -46,9 +46,8 @@ const formatTypographyValue = (value: string | number | undefined): string => {
 
 const TypographyPage = () => {
   const theme = useTheme();
-  const monospaceFont =
-    theme.tokens?.theme.font['font-mono'] ??
-    "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
+  const usageFont =
+    theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 
   return (
     <PageContainer
@@ -67,8 +66,8 @@ const TypographyPage = () => {
           ];
 
           return (
-            <Stack key={variant} spacing={1.5}>
-              <Typography variant="button" color="text.secondary" textTransform="uppercase">
+            <Stack key={variant} spacing={1}>
+              <Typography variant="body1" color="text.secondary" textTransform="uppercase">
                 {variant}
               </Typography>
               <Typography variant={variant as any}>
@@ -77,16 +76,18 @@ const TypographyPage = () => {
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                 {detailItems.map(({ label, value }) => (
                   <Stack key={label} spacing={0.5}>
-                    <Typography variant="caption" color="text.secondary" textTransform="uppercase">
+                    <Typography variant="caption" color="text.secondary">
                       {label}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontFamily: monospaceFont }}>
+                    <Typography variant="body2" sx={{ fontFamily: usageFont }}>
                       {formatTypographyValue(value)}
                     </Typography>
                   </Stack>
                 ))}
               </Stack>
-              {index < typographyVariants.length - 1 ? <Divider /> : null}
+              {index < typographyVariants.length - 1 ? (
+                <Box sx={{ bgcolor: 'divider', height: '1px', width: '100%' }} />
+              ) : null}
             </Stack>
           );
         })}

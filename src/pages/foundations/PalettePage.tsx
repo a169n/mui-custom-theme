@@ -9,7 +9,7 @@ const paletteUsage = createUsageSnippet([
   'return (',
   '  <Box',
   '    sx={{',
-  "      bgcolor: theme.palette.primary[600] ?? theme.palette.primary.main,",
+  '      bgcolor: theme.palette.primary[600] ?? theme.palette.primary.main,',
   '      color: theme.palette.primary.contrastText,',
   '      px: 3,',
   '      py: 2,',
@@ -47,14 +47,13 @@ type PaletteKey = (typeof colorKeys)[number];
 
 const findShadeKey = (
   value: string | undefined,
-  scale: Record<string, string>,
+  scale: Record<string, string>
 ): string | undefined => shadeOrder.find((shade) => scale[shade] === value);
 
 const PalettePage = () => {
   const theme = useTheme();
-  const monospaceFont =
-    theme.tokens?.theme.font['font-mono'] ??
-    "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
+  const usageFont =
+    theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 
   return (
     <PageContainer
@@ -112,7 +111,7 @@ const PalettePage = () => {
                           <Typography variant="body2" fontWeight={600}>
                             {label}
                           </Typography>
-                          <Typography variant="body2" sx={{ fontFamily: monospaceFont }}>
+                          <Typography variant="body2" sx={{ fontFamily: usageFont }}>
                             {value}
                           </Typography>
                         </Stack>
@@ -138,7 +137,7 @@ const PalettePage = () => {
                       <Typography variant="body2" fontWeight={600}>
                         contrastText
                       </Typography>
-                      <Typography variant="body2" sx={{ fontFamily: monospaceFont }}>
+                      <Typography variant="body2" sx={{ fontFamily: usageFont }}>
                         {paletteColor.contrastText}
                       </Typography>
                     </Box>

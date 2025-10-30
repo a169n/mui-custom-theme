@@ -52,9 +52,342 @@ import {
   Typography,
 } from '@mui/material';
 import PageContainer from '../PageContainer';
+import { createUsageSnippet } from '../../utils/createUsageSnippet';
+
+const avatarUsage = createUsageSnippet([
+  'return (',
+  "  <Avatar sx={{ bgcolor: theme.palette.primary[100], color: theme.palette.primary.dark }}>",
+  '    AB',
+  '  </Avatar>',
+  ');',
+]);
+
+const alertUsage = createUsageSnippet([
+  'const successStyles = {',
+  "  backgroundColor: theme.palette.success[50],",
+  "  color: theme.palette.success.dark,",
+  '};',
+  '',
+  'return <Alert severity="success" sx={successStyles}>Action complete</Alert>;',
+]);
+
+const badgesUsage = createUsageSnippet([
+  'return (',
+  '  <Badge',
+  '    color="secondary"',
+  '    sx={{',
+  "      '& .MuiBadge-badge': { backgroundColor: theme.palette.secondary.main },",
+  '    }}',
+  '  >',
+  '    <Avatar />',
+  '  </Badge>',
+  ');',
+]);
+
+const breadcrumbsUsage = createUsageSnippet([
+  'return (',
+  '  <Breadcrumbs',
+  '    sx={{',
+  "      '& a': { color: theme.palette.text.secondary },",
+  "      '& .MuiTypography-root': { color: theme.palette.text.primary },",
+  '    }}',
+  '  >',
+  '    {/* items */}',
+  '  </Breadcrumbs>',
+  ');',
+]);
+
+const buttonsUsage = createUsageSnippet([
+  'return (',
+  '  <Button variant="contained" sx={{ borderRadius: theme.shape.borderRadius * 2 }}>',
+  '    Save changes',
+  '  </Button>',
+  ');',
+]);
+
+const checkboxesUsage = createUsageSnippet([
+  'return (',
+  '  <Checkbox',
+  '    defaultChecked',
+  "    sx={{ color: theme.palette.primary.main, '&.Mui-checked': { color: theme.palette.primary.main } }}",
+  '  />',
+  ');',
+]);
+
+const chipsUsage = createUsageSnippet([
+  'return (',
+  '  <Chip',
+  '    label="Status"',
+  '    sx={{ bgcolor: theme.palette.info[100], color: theme.palette.info[800] }}',
+  '  />',
+  ');',
+]);
+
+const calendarUsage = createUsageSnippet([
+  'const todayStyles = {',
+  "  bgcolor: theme.palette.primary.main,",
+  "  color: theme.palette.primary.contrastText,",
+  '};',
+  '',
+  'return <TableCell sx={todayStyles}>15</TableCell>;',
+]);
+
+const modalsUsage = createUsageSnippet([
+  'return (',
+  '  <Box',
+  '    sx={{',
+  "      bgcolor: theme.palette.background.paper,",
+  "      boxShadow: theme.shadows[6],",
+  "      borderRadius: theme.shape.borderRadius * 2,",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const dividerUsage = createUsageSnippet([
+  'return <Divider sx={{ borderColor: theme.palette.divider }} />;',
+]);
+
+const dropdownUsage = createUsageSnippet([
+  'return (',
+  '  <Menu',
+  '    open',
+  '    PaperProps={{',
+  "      sx: { borderRadius: 2, boxShadow: theme.shadows[8] },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const emptyStateUsage = createUsageSnippet([
+  'return (',
+  '  <Paper',
+  '    sx={{',
+  "      bgcolor: theme.palette.background.default,",
+  "      borderColor: theme.palette.divider,",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const errorPagesUsage = createUsageSnippet([
+  'return (',
+  '  <Typography variant="h2" sx={{ color: theme.palette.error.main }}>',
+  '    404',
+  '  </Typography>',
+  ');',
+]);
+
+const bannerUsage = createUsageSnippet([
+  'return (',
+  '  <Paper sx={{ bgcolor: theme.palette.info.light, color: theme.palette.info.contrastText }}>',
+  '    Update available',
+  '  </Paper>',
+  ');',
+]);
+
+const filterUsage = createUsageSnippet([
+  'return (',
+  '  <TextField',
+  '    label="Search"',
+  '    sx={{',
+  "      '& .MuiOutlinedInput-root': { borderRadius: theme.shape.borderRadius * 2 },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const navigationMenuUsage = createUsageSnippet([
+  'return (',
+  '  <ListItemButton',
+  '    sx={{',
+  "      borderRadius: theme.shape.borderRadius,",
+  "      '&.Mui-selected': { bgcolor: theme.palette.action.selected },",
+  '    }}',
+  '  >',
+  '    Overview',
+  '  </ListItemButton>',
+  ');',
+]);
+
+const commandSearchUsage = createUsageSnippet([
+  'return (',
+  '  <Paper sx={{ borderRadius: 3, boxShadow: theme.shadows[4] }}>',
+  '    {/* command list */}',
+  '  </Paper>',
+  ');',
+]);
+
+const skeletonUsage = createUsageSnippet([
+  'return <Skeleton sx={{ bgcolor: theme.palette.action.hover }} />;',
+]);
+
+const paginationUsage = createUsageSnippet([
+  'return (',
+  '  <Pagination',
+  '    count={5}',
+  '    sx={{',
+  "      '& .MuiPaginationItem-root.Mui-selected': {",
+  "        bgcolor: theme.palette.primary.main,",
+  "        color: theme.palette.primary.contrastText,",
+  '      },',
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const progressUsage = createUsageSnippet([
+  'return <LinearProgress sx={{ bgcolor: theme.palette.action.hover }} />;',
+]);
+
+const radioUsage = createUsageSnippet([
+  'return (',
+  '  <Radio',
+  "    sx={{ color: theme.palette.secondary.main, '&.Mui-checked': { color: theme.palette.secondary.main } }}",
+  '  />',
+  ');',
+]);
+
+const formUsage = createUsageSnippet([
+  'return (',
+  '  <Stack spacing={2}>',
+  '    <TextField',
+  '      label="Name"',
+  '      sx={{',
+  "        '& .MuiOutlinedInput-root': { bgcolor: theme.palette.background.paper },",
+  '      }}',
+  '    />',
+  '  </Stack>',
+  ');',
+]);
+
+const sidebarUsage = createUsageSnippet([
+  'return (',
+  '  <Paper',
+  '    sx={{',
+  "      borderColor: theme.palette.divider,",
+  "      bgcolor: theme.palette.background.paper,",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const scrollUsage = createUsageSnippet([
+  'return (',
+  '  <Box',
+  '    sx={{',
+  "      maxHeight: 200,",
+  "      overflowY: 'auto',",
+  "      borderColor: theme.palette.divider,",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const stepperUsage = createUsageSnippet([
+  'return (',
+  '  <Stepper',
+  '    sx={{',
+  "      '& .MuiStepIcon-root.Mui-active': { color: theme.palette.primary.main },",
+  '    }}',
+  '  >',
+  '    {/* steps */}',
+  '  </Stepper>',
+  ');',
+]);
+
+const switchUsage = createUsageSnippet([
+  'return (',
+  '  <Switch',
+  "    sx={{ '& .MuiSwitch-switchBase.Mui-checked': { color: theme.palette.success.main } }}",
+  '  />',
+  ');',
+]);
+
+const tabsUsage = createUsageSnippet([
+  'return (',
+  '  <Tabs',
+  '    value={0}',
+  '    TabIndicatorProps={{',
+  "      sx: { backgroundColor: theme.palette.primary.main },",
+  '    }}',
+  '  >',
+  '    {/* tabs */}',
+  '  </Tabs>',
+  ');',
+]);
+
+const tableUsage = createUsageSnippet([
+  'return (',
+  '  <TableHead',
+  '    sx={{',
+  "      bgcolor: theme.palette.gray[50],",
+  "      '& .MuiTableCell-root': { color: theme.palette.text.secondary },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const inputUsage = createUsageSnippet([
+  'return (',
+  '  <TextField',
+  '    label="Email"',
+  '    sx={{',
+  "      '& input': { color: theme.palette.text.primary },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const selectUsage = createUsageSnippet([
+  'return (',
+  '  <Select',
+  '    defaultValue="option"',
+  '    sx={{',
+  "      '& .MuiOutlinedInput-notchedOutline': { borderColor: theme.palette.primary.main },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const textareaUsage = createUsageSnippet([
+  'return (',
+  '  <TextField',
+  '    multiline',
+  '    sx={{',
+  "      '& textarea': { lineHeight: theme.typography.body1.lineHeight },",
+  '    }}',
+  '  />',
+  ');',
+]);
+
+const tooltipUsage = createUsageSnippet([
+  'return (',
+  '  <Tooltip',
+  '    title="Info"',
+  '    componentsProps={{',
+  "      tooltip: { sx: { bgcolor: theme.palette.grey[900], color: theme.palette.common.white } },",
+  '    }}',
+  '  >',
+  '    <Button>Hover</Button>',
+  '  </Tooltip>',
+  ');',
+]);
+
+const fileInputUsage = createUsageSnippet([
+  'return (',
+  '  <Button variant="contained" sx={{ bgcolor: theme.palette.secondary.main }}>',
+  '    Upload',
+  '  </Button>',
+  ');',
+]);
 
 export const AvatarPage = () => (
-  <PageContainer title="Avatar" description="Default avatar variations.">
+  <PageContainer
+    title="Avatar"
+    description="Default avatar variations."
+    usage={avatarUsage}
+  >
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} alignItems="center">
       <Avatar>AB</Avatar>
       <Avatar src="https://i.pravatar.cc/150?img=32" alt="Avatar" />
@@ -64,7 +397,11 @@ export const AvatarPage = () => (
 );
 
 export const AlertPage = () => (
-  <PageContainer title="Alert" description="Use alerts to communicate contextual feedback.">
+  <PageContainer
+    title="Alert"
+    description="Use alerts to communicate contextual feedback."
+    usage={alertUsage}
+  >
     <Stack spacing={2}>
       <Alert severity="success">Success state</Alert>
       <Alert severity="info">Informational state</Alert>
@@ -75,7 +412,11 @@ export const AlertPage = () => (
 );
 
 export const BadgesPage = () => (
-  <PageContainer title="Badges" description="Badges highlight additional counts and statuses.">
+  <PageContainer
+    title="Badges"
+    description="Badges highlight additional counts and statuses."
+    usage={badgesUsage}
+  >
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} alignItems="center">
       <Badge color="primary" badgeContent={4}>
         <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: 'action.hover' }} />
@@ -91,6 +432,7 @@ export const BreadcrumbsPage = () => (
   <PageContainer
     title="Breadcrumbs"
     description="Breadcrumbs show the hierarchy of the current page."
+    usage={breadcrumbsUsage}
   >
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" color="inherit" href="#">
@@ -105,7 +447,11 @@ export const BreadcrumbsPage = () => (
 );
 
 export const ButtonsPage = () => (
-  <PageContainer title="Buttons" description="Button variants convey priority.">
+  <PageContainer
+    title="Buttons"
+    description="Button variants convey priority."
+    usage={buttonsUsage}
+  >
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
       <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button>
@@ -115,7 +461,11 @@ export const ButtonsPage = () => (
 );
 
 export const CheckboxesPage = () => (
-  <PageContainer title="Checkboxes" description="Binary options allow multiple selections.">
+  <PageContainer
+    title="Checkboxes"
+    description="Binary options allow multiple selections."
+    usage={checkboxesUsage}
+  >
     <FormGroup row>
       <FormControlLabel control={<Checkbox defaultChecked />} label="Option A" />
       <FormControlLabel control={<Checkbox />} label="Option B" />
@@ -125,7 +475,11 @@ export const CheckboxesPage = () => (
 );
 
 export const ChipsPage = () => (
-  <PageContainer title="Chips" description="Chips represent compact elements.">
+  <PageContainer
+    title="Chips"
+    description="Chips represent compact elements."
+    usage={chipsUsage}
+  >
     <Stack direction="row" spacing={2} flexWrap="wrap">
       <Chip label="Default" />
       <Chip label="Outlined" variant="outlined" />
@@ -166,6 +520,7 @@ export const CalendarPage = () => {
     <PageContainer
       title="Calendar"
       description="Calendar views typically rely on MUI X. This mockup approximates the layout."
+      usage={calendarUsage}
     >
       <Table size="small" sx={{ maxWidth: 420 }}>
         <TableHead>
@@ -215,7 +570,11 @@ export const ModalsDialogsPage = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <PageContainer title="Modal & Dialog" description="Overlay components for confirming actions.">
+    <PageContainer
+      title="Modal & Dialog"
+      description="Overlay components for confirming actions."
+      usage={modalsUsage}
+    >
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Button variant="contained" onClick={() => setModalOpen(true)}>
           Open modal
@@ -268,7 +627,11 @@ export const ModalsDialogsPage = () => {
 };
 
 export const DividerPage = () => (
-  <PageContainer title="Divider" description="Dividers separate content into sections.">
+  <PageContainer
+    title="Divider"
+    description="Dividers separate content into sections."
+    usage={dividerUsage}
+  >
     <Stack spacing={2}>
       <Typography variant="body1">Section one</Typography>
       <Divider />
@@ -282,7 +645,11 @@ export const DropdownPage = () => {
   const open = Boolean(anchorEl);
 
   return (
-    <PageContainer title="Dropdown" description="Menus display a list of actions.">
+    <PageContainer
+      title="Dropdown"
+      description="Menus display a list of actions."
+      usage={dropdownUsage}
+    >
       <Button variant="contained" onClick={(event) => setAnchorEl(event.currentTarget)}>
         Open menu
       </Button>
@@ -296,7 +663,11 @@ export const DropdownPage = () => {
 };
 
 export const EmptyStatesPage = () => (
-  <PageContainer title="Empty States" description="Communicate next steps when content is missing.">
+  <PageContainer
+    title="Empty States"
+    description="Communicate next steps when content is missing."
+    usage={emptyStateUsage}
+  >
     <Paper
       variant="outlined"
       sx={{
@@ -318,7 +689,11 @@ export const EmptyStatesPage = () => (
 );
 
 export const ErrorPages = () => (
-  <PageContainer title="404 & 500" description="Template layouts for error states.">
+  <PageContainer
+    title="404 & 500"
+    description="Template layouts for error states."
+    usage={errorPagesUsage}
+  >
     <Stack spacing={3}>
       <Paper variant="outlined" sx={{ p: 4, borderRadius: 3, textAlign: 'center' }}>
         <Typography variant="h2" gutterBottom>
@@ -343,7 +718,11 @@ export const ErrorPages = () => (
 );
 
 export const BannerPage = () => (
-  <PageContainer title="Banner" description="Banners draw attention to high-level updates.">
+  <PageContainer
+    title="Banner"
+    description="Banners draw attention to high-level updates."
+    usage={bannerUsage}
+  >
     <Paper
       sx={{
         p: 3,
@@ -363,7 +742,11 @@ export const BannerPage = () => (
 );
 
 export const FilterPage = () => (
-  <PageContainer title="Filter" description="Filter controls help narrow down long lists.">
+  <PageContainer
+    title="Filter"
+    description="Filter controls help narrow down long lists."
+    usage={filterUsage}
+  >
     <Stack spacing={3}>
       <TextField label="Search" placeholder="Search items" fullWidth />
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -389,7 +772,11 @@ export const FilterPage = () => (
 );
 
 export const NavigationMenuPage = () => (
-  <PageContainer title="Navigation Menu" description="A simple menu for section navigation.">
+  <PageContainer
+    title="Navigation Menu"
+    description="A simple menu for section navigation."
+    usage={navigationMenuUsage}
+  >
     <Paper variant="outlined" sx={{ maxWidth: 320 }}>
       <List>
         {['Overview', 'Analytics', 'Settings'].map((item) => (
@@ -406,6 +793,7 @@ export const CommandSearchPage = () => (
   <PageContainer
     title="Command & Search"
     description="Provide quick access to actions with a command palette."
+    usage={commandSearchUsage}
   >
     <Paper
       variant="outlined"
@@ -442,6 +830,7 @@ export const SkeletonPage = () => (
   <PageContainer
     title="Skeleton"
     description="Skeletons provide a placeholder while content loads."
+    usage={skeletonUsage}
   >
     <Stack spacing={2}>
       <Skeleton variant="text" width="60%" />
@@ -455,13 +844,21 @@ export const SkeletonPage = () => (
 );
 
 export const PaginationPage = () => (
-  <PageContainer title="Pagination" description="Pagination splits long datasets into pages.">
+  <PageContainer
+    title="Pagination"
+    description="Pagination splits long datasets into pages."
+    usage={paginationUsage}
+  >
     <Pagination count={10} color="primary" />
   </PageContainer>
 );
 
 export const ProgressPage = () => (
-  <PageContainer title="Progress" description="Progress indicators show loading states.">
+  <PageContainer
+    title="Progress"
+    description="Progress indicators show loading states."
+    usage={progressUsage}
+  >
     <Stack spacing={2} alignItems="flex-start">
       <LinearProgress sx={{ width: '100%', maxWidth: 320 }} />
       <CircularProgress color="primary" />
@@ -470,7 +867,11 @@ export const ProgressPage = () => (
 );
 
 export const RadioPage = () => (
-  <PageContainer title="Radio" description="Radio buttons allow users to select one option.">
+  <PageContainer
+    title="Radio"
+    description="Radio buttons allow users to select one option."
+    usage={radioUsage}
+  >
     <FormControl>
       <FormLabel id="radio-demo-label">Notifications</FormLabel>
       <RadioGroup aria-labelledby="radio-demo-label" defaultValue="daily">
@@ -483,7 +884,11 @@ export const RadioPage = () => (
 );
 
 export const FormPage = () => (
-  <PageContainer title="Form" description="Combine inputs to capture information.">
+  <PageContainer
+    title="Form"
+    description="Combine inputs to capture information."
+    usage={formUsage}
+  >
     <Stack spacing={2} maxWidth={480}>
       <TextField label="Full name" fullWidth />
       <TextField label="Email" type="email" fullWidth />
@@ -497,7 +902,11 @@ export const FormPage = () => (
 );
 
 export const SidebarPage = () => (
-  <PageContainer title="Sidebar" description="A persistent menu anchored to the side.">
+  <PageContainer
+    title="Sidebar"
+    description="A persistent menu anchored to the side."
+    usage={sidebarUsage}
+  >
     <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
       <Paper
         variant="outlined"
@@ -527,7 +936,11 @@ export const SidebarPage = () => (
 );
 
 export const ScrollPage = () => (
-  <PageContainer title="Scroll" description="Scrollable containers manage overflowed content.">
+  <PageContainer
+    title="Scroll"
+    description="Scrollable containers manage overflowed content."
+    usage={scrollUsage}
+  >
     <Box
       sx={{
         maxHeight: 200,
@@ -550,7 +963,11 @@ export const ScrollPage = () => (
 );
 
 export const StepperPage = () => (
-  <PageContainer title="Stepper" description="Guide users through multi-step flows.">
+  <PageContainer
+    title="Stepper"
+    description="Guide users through multi-step flows."
+    usage={stepperUsage}
+  >
     <Stepper activeStep={1} alternativeLabel>
       {['Select plan', 'Billing details', 'Review'].map((label) => (
         <Step key={label}>
@@ -562,7 +979,11 @@ export const StepperPage = () => (
 );
 
 export const SwitchPage = () => (
-  <PageContainer title="Switch" description="Switches toggle between two states.">
+  <PageContainer
+    title="Switch"
+    description="Switches toggle between two states."
+    usage={switchUsage}
+  >
     <FormControlLabel control={<Switch defaultChecked />} label="Enable notifications" />
   </PageContainer>
 );
@@ -571,7 +992,11 @@ export const TabsPage = () => {
   const [value, setValue] = useState(0);
 
   return (
-    <PageContainer title="Tabs" description="Tabs switch between related views.">
+    <PageContainer
+      title="Tabs"
+      description="Tabs switch between related views."
+      usage={tabsUsage}
+    >
       <Tabs value={value} onChange={(_, newValue) => setValue(newValue)}>
         <Tab label="Overview" />
         <Tab label="Activity" />
@@ -583,7 +1008,11 @@ export const TabsPage = () => {
 };
 
 export const TablePage = () => (
-  <PageContainer title="Table" description="Tables organize data in rows and columns.">
+  <PageContainer
+    title="Table"
+    description="Tables organize data in rows and columns."
+    usage={tableUsage}
+  >
     <Table size="small">
       <TableHead>
         <TableRow>
@@ -611,13 +1040,21 @@ export const TablePage = () => (
 );
 
 export const InputPage = () => (
-  <PageContainer title="Input" description="Text fields accept short form text.">
+  <PageContainer
+    title="Input"
+    description="Text fields accept short form text."
+    usage={inputUsage}
+  >
     <TextField label="Name" placeholder="Jane Doe" fullWidth />
   </PageContainer>
 );
 
 export const SelectPage = () => (
-  <PageContainer title="Select" description="Select inputs present a list of predefined options.">
+  <PageContainer
+    title="Select"
+    description="Select inputs present a list of predefined options."
+    usage={selectUsage}
+  >
     <FormControl fullWidth>
       <InputLabel id="select-demo-label">Age</InputLabel>
       <Select labelId="select-demo-label" label="Age" defaultValue={30}>
@@ -630,13 +1067,21 @@ export const SelectPage = () => (
 );
 
 export const TextareaPage = () => (
-  <PageContainer title="Textarea" description="Multiline text fields capture longer responses.">
+  <PageContainer
+    title="Textarea"
+    description="Multiline text fields capture longer responses."
+    usage={textareaUsage}
+  >
     <TextField label="Message" placeholder="Write a message" fullWidth multiline minRows={4} />
   </PageContainer>
 );
 
 export const TooltipPage = () => (
-  <PageContainer title="Tooltip" description="Tooltips provide contextual hints on hover.">
+  <PageContainer
+    title="Tooltip"
+    description="Tooltips provide contextual hints on hover."
+    usage={tooltipUsage}
+  >
     <Tooltip title="Tooltip message">
       <Button variant="outlined">Hover me</Button>
     </Tooltip>
@@ -644,7 +1089,11 @@ export const TooltipPage = () => (
 );
 
 export const FileInputPage = () => (
-  <PageContainer title="File Input" description="Allow users to upload files.">
+  <PageContainer
+    title="File Input"
+    description="Allow users to upload files."
+    usage={fileInputUsage}
+  >
     <Button variant="contained" component="label">
       Upload file
       <input hidden type="file" />

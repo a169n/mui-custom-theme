@@ -22,7 +22,16 @@ const AppLayout = () => (
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
             Browse foundational tokens and individual components by category.
           </Typography>
-          <Box component="nav" sx={{ position: { md: 'sticky' }, top: { md: 48 } }}>
+          <Box
+            component="nav"
+            sx={{
+              position: { md: 'sticky' },
+              top: { md: 48 },
+              maxHeight: { md: 'calc(100vh - 96px)' },
+              overflowY: { md: 'auto' },
+              pr: { md: 1.5 },
+            }}
+          >
             {routeGroups.map((group) => (
               <List
                 key={group.title}

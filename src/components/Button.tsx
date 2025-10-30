@@ -27,19 +27,24 @@ const sizePadding = (theme: any, size: ButtonSize) => {
       return {
         padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
         minHeight: 32,
-        fontSize: 12,
+        fontSize: 14,
+      };
+    case 'medium':
+      return {
+        padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
+        minHeight: 36,
+        fontSize: 14,
       };
     case 'large':
       return {
         padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
-        minHeight: 48,
-        fontSize: 16,
+        minHeight: 40,
+        fontSize: 14,
       };
-    case 'medium':
     default:
       return {
-        padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
-        minHeight: 40,
+        padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+        minHeight: 32,
         fontSize: 14,
       };
   }
@@ -54,7 +59,10 @@ type ToneColorSet = {
   plainText: string;
 };
 
-const buildToneColors = (overrides: Partial<ToneColorSet>, fallback: ToneColorSet): ToneColorSet => ({
+const buildToneColors = (
+  overrides: Partial<ToneColorSet>,
+  fallback: ToneColorSet
+): ToneColorSet => ({
   solidBg: overrides.solidBg ?? fallback.solidBg,
   solidText: overrides.solidText ?? fallback.solidText,
   subtleBg: overrides.subtleBg ?? fallback.subtleBg,
@@ -123,7 +131,7 @@ const getToneColors = (theme: any, tone: ButtonTone): ToneColorSet => {
         border: border?.brand,
         plainText: text?.brand ?? text?.default,
       },
-      defaultFallback,
+      defaultFallback
     ),
     positive: buildToneColors(
       {
@@ -134,7 +142,7 @@ const getToneColors = (theme: any, tone: ButtonTone): ToneColorSet => {
         border: border?.positive,
         plainText: text?.positive ?? text?.default,
       },
-      positiveFallback,
+      positiveFallback
     ),
     negative: buildToneColors(
       {
@@ -145,7 +153,7 @@ const getToneColors = (theme: any, tone: ButtonTone): ToneColorSet => {
         border: border?.negative,
         plainText: text?.negative ?? text?.default,
       },
-      negativeFallback,
+      negativeFallback
     ),
   };
 
@@ -295,11 +303,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const variantSx = getVariantSx(theme, variant, toneColors, disabled, loading);
 
   const muiColor: MUIButtonProps['color'] =
-    normalizedTone === 'positive'
-      ? 'success'
-      : normalizedTone === 'negative'
-        ? 'error'
-        : 'primary';
+    normalizedTone === 'positive' ? 'success' : normalizedTone === 'negative' ? 'error' : 'primary';
 
   // Map to MUI's internal variant for ripple/animation, but not style
   const mapMUIVariant =

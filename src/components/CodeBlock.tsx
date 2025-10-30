@@ -8,9 +8,10 @@ interface CodeBlockProps {
 
 const CodeBlock = ({ code, title = 'Usage example' }: CodeBlockProps) => {
   const theme = useTheme();
-  const monospaceFont =
-    theme.tokens?.theme.font['font-mono'] ??
-    "Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
+  const usageFont =
+    theme.tokens?.theme.font['font-sans'] ??
+    theme.typography?.fontFamily ??
+    'Roboto, sans-serif';
 
   return (
     <Stack spacing={1}>
@@ -30,7 +31,7 @@ const CodeBlock = ({ code, title = 'Usage example' }: CodeBlockProps) => {
           border: '1px solid',
           borderColor: 'divider',
           overflowX: 'auto',
-          fontFamily: monospaceFont,
+          fontFamily: usageFont,
           fontSize: '0.875rem',
           lineHeight: 1.6,
           color: 'text.primary',

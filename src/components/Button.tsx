@@ -27,25 +27,21 @@ const sizePadding = (theme: any, size: ButtonSize) => {
       return {
         padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
         minHeight: 32,
-        fontSize: 14,
       };
     case 'medium':
       return {
         padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
         minHeight: 36,
-        fontSize: 14,
       };
     case 'large':
       return {
         padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
         minHeight: 40,
-        fontSize: 14,
       };
     default:
       return {
         padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
         minHeight: 32,
-        fontSize: 14,
       };
   }
 };
@@ -226,22 +222,31 @@ const getVariantSx = (
         },
       };
     }
+    // inside getVariantSx, replace the 'ghost' case with this:
+    // replace the 'ghost' case inside getVariantSx with:
     case 'ghost': {
       return {
-        borderRadius,
-        transition: 'opacity 0.3s',
-        boxShadow: 'none',
-        background: 'transparent',
-        color: colors.plainText,
-        border: 'none',
-        opacity: isInactive ? 0.5 : 1,
+        // ensure we beat MUI's .MuiButton-outlined rules
+        '&&, &&.MuiButton-outlined, &&.MuiButton-outlined:hover': {
+          borderRadius,
+          transition: 'opacity 0.3s',
+          boxShadow: 'none',
+          background: 'transparent',
+          color: colors.plainText,
+          border: '0 !important',
+          borderWidth: '0 !important',
+          opacity: isInactive ? 0.5 : 1,
+        },
         '&:hover': {
           background: 'transparent',
           opacity: 0.8,
           boxShadow: 'none',
+          border: '0 !important',
+          borderWidth: '0 !important',
         },
       };
     }
+
     case 'link': {
       return {
         borderRadius,
@@ -297,6 +302,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const theme = useTheme();
   const inactive = disabled || loading;
   const sizeStyle = sizePadding(theme, size);
+  console.log(sizeStyle);
   const normalizedTone: ButtonTone =
     variant === 'secondary' || variant === 'link' ? 'default' : tone;
   const toneColors = getToneColors(theme, normalizedTone);
@@ -305,10 +311,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const muiColor: MUIButtonProps['color'] =
     normalizedTone === 'positive' ? 'success' : normalizedTone === 'negative' ? 'error' : 'primary';
 
+  const mapMUIVariant =
+    variant === 'outline' || variant === 'ghost'
+      ? 'outlined'
+      : variant === 'link'
+        ? 'text'
+        : 'contained';
+
   return (
     <MUIButton
       ref={ref}
-      variant={variant}
+      variant={mapMUIVariant}
       color={muiColor}
       size={size}
       disabled={inactive}
@@ -316,8 +329,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       endIcon={endIcon}
       className={clsx(className, `Button--${variant}`, `Button--${size}`)}
       sx={{
-        ...sizeStyle,
         ...variantSx,
+        ...sizeStyle,
         width: 'fit-content',
         minWidth: 'fit-content',
         ...(rest as any).sx,

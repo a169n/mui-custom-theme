@@ -15,6 +15,13 @@ const buttonsUsage = createUsageSnippet([
 const variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'link'];
 const sizes: ButtonSize[] = ['small', 'medium', 'large'];
 const tones: ButtonTone[] = ['default', 'positive', 'negative'];
+const variantToneMap: Record<ButtonVariant, ButtonTone[]> = {
+  primary: tones,
+  secondary: ['default'],
+  outline: tones,
+  ghost: tones,
+  link: ['default'],
+};
 
 type ButtonShowcaseState = 'default' | 'disabled';
 
@@ -135,7 +142,7 @@ export const ButtonsPage = () => {
               </Box>
 
               {/* Body Rows: one per tone */}
-              {tones.map((tone, rowIdx) => (
+              {variantToneMap[variant].map((tone, rowIdx) => (
                 <Box
                   key={`${variant}-${tone}`}
                   sx={{

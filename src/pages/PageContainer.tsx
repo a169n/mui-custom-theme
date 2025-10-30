@@ -1,12 +1,21 @@
 import { Paper, Stack, Typography } from '@mui/material';
 import type { PropsWithChildren, ReactNode } from 'react';
+import CodeBlock from '../components/CodeBlock';
 
 interface PageContainerProps extends PropsWithChildren {
   title: string;
   description?: ReactNode;
+  usage: string;
+  usageTitle?: string;
 }
 
-const PageContainer = ({ title, description, children }: PageContainerProps) => (
+const PageContainer = ({
+  title,
+  description,
+  usage,
+  usageTitle = 'Usage example',
+  children,
+}: PageContainerProps) => (
   <Stack spacing={3}>
     <Stack spacing={1}>
       <Typography variant="h4" component="h1">
@@ -19,7 +28,10 @@ const PageContainer = ({ title, description, children }: PageContainerProps) => 
       ) : null}
     </Stack>
     <Paper elevation={0} variant="outlined" sx={{ p: 4, borderRadius: 3 }}>
-      {children}
+      <Stack spacing={4}>
+        <CodeBlock code={usage} title={usageTitle} />
+        {children}
+      </Stack>
     </Paper>
   </Stack>
 );

@@ -88,7 +88,10 @@ export const BadgesPage = () => (
 );
 
 export const BreadcrumbsPage = () => (
-  <PageContainer title="Breadcrumbs" description="Breadcrumbs show the hierarchy of the current page.">
+  <PageContainer
+    title="Breadcrumbs"
+    description="Breadcrumbs show the hierarchy of the current page."
+  >
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" color="inherit" href="#">
         Home
@@ -190,8 +193,7 @@ export const CalendarPage = () => {
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        bgcolor:
-                          value === today.getDate() ? 'primary.main' : 'transparent',
+                        bgcolor: value === today.getDate() ? 'primary.main' : 'transparent',
                         color: value === today.getDate() ? 'primary.contrastText' : 'inherit',
                       }}
                     >
@@ -401,7 +403,10 @@ export const NavigationMenuPage = () => (
 );
 
 export const CommandSearchPage = () => (
-  <PageContainer title="Command & Search" description="Provide quick access to actions with a command palette.">
+  <PageContainer
+    title="Command & Search"
+    description="Provide quick access to actions with a command palette."
+  >
     <Paper
       variant="outlined"
       sx={{
@@ -434,7 +439,10 @@ export const CommandSearchPage = () => (
 );
 
 export const SkeletonPage = () => (
-  <PageContainer title="Skeleton" description="Skeletons provide a placeholder while content loads.">
+  <PageContainer
+    title="Skeleton"
+    description="Skeletons provide a placeholder while content loads."
+  >
     <Stack spacing={2}>
       <Skeleton variant="text" width="60%" />
       <Skeleton variant="rectangular" height={120} />
@@ -585,17 +593,18 @@ export const TablePage = () => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {[['Frozen yoghurt', 159, 6], ['Ice cream sandwich', 237, 9]]].map(
-          ([name, calories, protein]) => (
-            <TableRow key={name}>
-              <TableCell component="th" scope="row">
-                {name}
-              </TableCell>
-              <TableCell align="right">{calories}</TableCell>
-              <TableCell align="right">{protein}</TableCell>
-            </TableRow>
-          ),
-        )}
+        {[
+          ['Frozen yoghurt', 159, 6],
+          ['Ice cream sandwich', 237, 9],
+        ].map(([name, calories, protein]) => (
+          <TableRow key={name}>
+            <TableCell component="th" scope="row">
+              {name}
+            </TableCell>
+            <TableCell align="right">{calories}</TableCell>
+            <TableCell align="right">{protein}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   </PageContainer>

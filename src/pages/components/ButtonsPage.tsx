@@ -2,11 +2,11 @@ import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
-import { Button, ButtonSize, ButtonVariant, ButtonColor } from '../../components/Button';
+import { Button, ButtonSize, ButtonVariant, ButtonTone } from '../../components/Button';
 
 const buttonsUsage = createUsageSnippet([
   'return (',
-  '  <Button variant="primary" sx={{ borderRadius: theme.shape.borderRadius * 2 }}>',
+  '  <Button variant="primary" tone="default">',
   '    Save changes',
   '  </Button>',
   ');',
@@ -14,15 +14,7 @@ const buttonsUsage = createUsageSnippet([
 
 const variants: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'link'];
 const sizes: ButtonSize[] = ['small', 'medium', 'large'];
-const colors: ButtonColor[] = [
-  'primary',
-  'secondary',
-  'success',
-  'error',
-  'warning',
-  'info',
-  'inherit',
-];
+const tones: ButtonTone[] = ['default', 'positive', 'negative'];
 
 type ButtonShowcaseState = 'default' | 'disabled';
 
@@ -142,10 +134,10 @@ export const ButtonsPage = () => {
                 )}
               </Box>
 
-              {/* Body Rows: one per color */}
-              {colors.map((color, rowIdx) => (
+              {/* Body Rows: one per tone */}
+              {tones.map((tone, rowIdx) => (
                 <Box
-                  key={`${variant}-${color}`}
+                  key={`${variant}-${tone}`}
                   sx={{
                     display: 'grid',
                     gridTemplateColumns: `${firstColWidth}px repeat(${sizes.length * states.length}, 1fr)`,
@@ -153,20 +145,20 @@ export const ButtonsPage = () => {
                     bgcolor: rowIdx % 2 === 0 ? 'background.default' : 'background.paper',
                   }}
                 >
-                  {/* Color label cell (first column) */}
+                  {/* Tone label cell (first column) */}
                   <BodyCell>
                     <Typography variant="body2" color="text.secondary">
-                      {capitalize(color)}
+                      {capitalize(tone)}
                     </Typography>
                   </BodyCell>
 
                   {/* Buttons matrix cells */}
                   {sizes.map((size) =>
                     states.map((state) => (
-                      <BodyCell key={`cell-${color}-${size}-${state.key}`}>
+                      <BodyCell key={`cell-${tone}-${size}-${state.key}`}>
                         <Button
                           variant={variant}
-                          color={color}
+                          tone={tone}
                           size={size}
                           {...getStateProps(state.key)}
                           disableRipple

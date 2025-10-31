@@ -1,24 +1,30 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import type { ComponentProps } from 'react';
+import type { TypographyScale } from '../../theme/tokens';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import PageContainer from '../PageContainer';
 
 type TypographyVariant = NonNullable<ComponentProps<typeof Typography>['variant']>;
 
-const typographyVariants: TypographyVariant[] = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'subtitle1',
-  'subtitle2',
-  'body1',
-  'body2',
-  'caption',
-  'overline',
+type TypographyTokenKey = keyof TypographyScale;
+
+const typographyVariants: Array<{ tokenKey: TypographyTokenKey; variant: TypographyVariant }> = [
+  { tokenKey: 'H1', variant: 'h1' },
+  { tokenKey: 'H2', variant: 'h2' },
+  { tokenKey: 'H3', variant: 'h3' },
+  { tokenKey: 'H4', variant: 'h4' },
+  { tokenKey: 'H5', variant: 'h5' },
+  { tokenKey: 'H6', variant: 'h6' },
+  { tokenKey: 'Title', variant: 'title' },
+  { tokenKey: 'Subtitle', variant: 'subtitle' },
+  { tokenKey: 'Caption', variant: 'caption' },
+  { tokenKey: 'text2xl', variant: 'text2xl' },
+  { tokenKey: 'textXl', variant: 'textXl' },
+  { tokenKey: 'textL', variant: 'textL' },
+  { tokenKey: 'textM', variant: 'textM' },
+  { tokenKey: 'textS', variant: 'textS' },
+  { tokenKey: 'textXs', variant: 'textXs' },
 ];
 
 const typographyUsage = createUsageSnippet([
@@ -44,10 +50,54 @@ const formatTypographyValue = (value: string | number | undefined): string => {
   return value;
 };
 
+const toPx = (value: string | number | undefined): string | undefined => {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (typeof value === 'number') {
+    return `${value}px`;
+  }
+
+  const trimmed = value.trim();
+  if (trimmed.endsWith('px')) {
+    return trimmed;
+  }
+
+  if (trimmed.endsWith('rem')) {
+    const remValue = Number.parseFloat(trimmed.replace('rem', ''));
+    if (!Number.isNaN(remValue)) {
+      return `${Math.round(remValue * 16)}px`;
+    }
+  }
+
+  const numericValue = Number(trimmed);
+  if (!Number.isNaN(numericValue)) {
+    return `${numericValue}px`;
+  }
+
+  return trimmed;
+};
+
+const formatLineHeight = (
+  lineHeight: string | number | undefined,
+  fallbackFontSizePx: string | undefined,
+): string | undefined => {
+  if (typeof lineHeight === 'number' && fallbackFontSizePx) {
+    const fontSizeNumber = Number.parseFloat(fallbackFontSizePx);
+    if (!Number.isNaN(fontSizeNumber)) {
+      return `${Math.round(lineHeight * fontSizeNumber)}px`;
+    }
+  }
+
+  return toPx(lineHeight);
+};
+
 const TypographyPage = () => {
   const theme = useTheme();
   const usageFont =
     theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
+  const typographyTokens = theme.tokens?.theme.text;
 
   return (
     <PageContainer
@@ -56,30 +106,40 @@ const TypographyPage = () => {
       usage={typographyUsage}
     >
       <Stack spacing={3}>
-        {typographyVariants.map((variant, index) => {
+        {typographyVariants.map(({ tokenKey, variant }, index) => {
           const variantStyles = theme.typography[variant];
+          const token = typographyTokens?.[tokenKey];
+          const fontSizePx = token
+            ? `${token['font-size']}px`
+            : toPx(typeof variantStyles === 'object' ? (variantStyles as any).fontSize : undefined);
+          const lineHeightPx = token
+            ? `${token['line-height']}px`
+            : formatLineHeight(
+                typeof variantStyles === 'object' ? (variantStyles as any).lineHeight : undefined,
+                fontSizePx,
+              );
           const detailItems = [
-            { label: 'Font size', value: variantStyles?.fontSize },
+            { label: 'Font size', value: fontSizePx },
             { label: 'Font weight', value: variantStyles?.fontWeight },
-            { label: 'Line height', value: variantStyles?.lineHeight },
+            { label: 'Line height', value: lineHeightPx },
             { label: 'Letter spacing', value: variantStyles?.letterSpacing },
           ];
 
           return (
             <Stack key={variant} spacing={1}>
-              <Typography variant="body1" color="text.secondary" textTransform="uppercase">
-                {variant}
+              <Typography variant="textS" color="text.secondary" textTransform="uppercase">
+                {tokenKey}
               </Typography>
-              <Typography variant={variant as any}>
+              <Typography variant={variant}>
                 The quick brown fox jumps over the lazy dog.
               </Typography>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                 {detailItems.map(({ label, value }) => (
                   <Stack key={label} spacing={0.5}>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="textXs" color="text.secondary">
                       {label}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontFamily: usageFont }}>
+                    <Typography variant="textS" sx={{ fontFamily: usageFont }}>
                       {formatTypographyValue(value)}
                     </Typography>
                   </Stack>

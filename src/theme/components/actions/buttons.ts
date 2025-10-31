@@ -91,8 +91,6 @@ const buildSecondaryStyles = (theme: Theme) => {
   const text = tokens?.text?.default ?? theme.palette.text.primary;
   const hoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
-  console.log(tokens, background);
-
   return {
     backgroundColor: background,
     color: text,

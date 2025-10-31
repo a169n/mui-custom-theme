@@ -3,7 +3,19 @@ import type { PaletteColorScale } from '../../theme/foundations/palette.utils';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import PageContainer from '../PageContainer';
 
-const shadeOrder = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
+const shadeOrder = [
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+  '950',
+] as const;
 
 const paletteUsage = createUsageSnippet([
   'return (',

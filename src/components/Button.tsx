@@ -2,6 +2,7 @@ import React from 'react';
 import MUIButton, { ButtonProps as MUIButtonProps } from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import clsx from 'clsx';
+import { Typography } from '@mui/material';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
 export type ButtonTone = 'default' | 'positive' | 'negative';
@@ -60,7 +61,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       className={clsx(className, `Button--${variant}`, `Button--${size}`)}
       {...rest}
     >
-      {loading ? <CircularProgress size={20} color="inherit" /> : children}
+      {loading ? (
+        <CircularProgress size={20} color="inherit" />
+      ) : (
+        <Typography variant="caption" fontWeight="regular">
+          {children}
+        </Typography>
+      )}
     </MUIButton>
   );
 });

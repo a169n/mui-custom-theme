@@ -76,6 +76,11 @@ const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
       backgroundColor: colors.solidBg,
       opacity: 0.8,
     },
+    '&.Mui-disabled': {
+      backgroundColor: colors.solidBg,
+      color: colors.solidText,
+      border: 'none',
+    },
   };
 };
 
@@ -83,44 +88,68 @@ const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
   const background = tokens?.bg?.muted ?? theme.palette.grey[200];
   const text = tokens?.text?.default ?? theme.palette.text.primary;
+  const hoverBackground =
+    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
   return {
     backgroundColor: background,
     color: text,
     border: 'none',
     '&:hover': {
-      backgroundColor: background,
+      backgroundColor: hoverBackground,
       opacity: 0.8,
+    },
+    '&.Mui-disabled': {
+      backgroundColor: background,
+      color: text,
+      border: 'none',
     },
   };
 };
 
 const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
+  const tokens = resolveModeTokens(theme);
+  const isDefaultTone = getToneKey(color) === 'brand';
+  const defaultHoverBackground =
+    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
   return {
     backgroundColor: 'transparent',
     color: colors.plainText,
     border: `1.5px solid ${colors.border}`,
     '&:hover': {
-      backgroundColor: 'transparent',
+      backgroundColor: isDefaultTone ? defaultHoverBackground : 'transparent',
       border: `1.5px solid ${colors.border}`,
       opacity: 0.8,
+    },
+    '&.Mui-disabled': {
+      backgroundColor: 'transparent',
+      color: colors.plainText,
+      border: `1.5px solid ${colors.border}`,
     },
   };
 };
 
 const buildGhostStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
+  const tokens = resolveModeTokens(theme);
+  const hoverBackground =
+    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
   return {
     backgroundColor: 'transparent',
     color: colors.plainText,
     border: '0 !important',
     '&:hover': {
-      backgroundColor: 'transparent',
+      backgroundColor: hoverBackground,
       border: '0 !important',
       opacity: 0.8,
+    },
+    '&.Mui-disabled': {
+      backgroundColor: 'transparent',
+      color: colors.plainText,
+      border: '0 !important',
     },
   };
 };
@@ -135,14 +164,21 @@ const buildLinkStyles = (theme: Theme, color: string | undefined) => {
     border: 'none',
     padding: '0 !important',
     minWidth: 'auto',
-    textDecoration: 'underline',
+    textDecoration: 'none',
     '&.MuiButton-sizeSmall, &.MuiButton-sizeMedium, &.MuiButton-sizeLarge': {
       padding: '0 !important',
       minHeight: 'auto',
     },
     '&:hover': {
       backgroundColor: 'transparent',
+      textDecoration: 'underline',
       opacity: 0.8,
+    },
+    '&.Mui-disabled': {
+      color: colors.linkText ?? tokens?.text?.link ?? theme.palette.primary.main,
+      textDecoration: 'none',
+      backgroundColor: 'transparent',
+      border: 'none',
     },
   };
 };

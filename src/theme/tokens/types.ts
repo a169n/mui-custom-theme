@@ -3,7 +3,7 @@
  */
 
 /**
- * Color scale with shades from 50 to 900
+ * Color scale with shades from 50 to 950
  */
 export interface ColorScale {
   readonly 50: string;
@@ -16,6 +16,7 @@ export interface ColorScale {
   readonly 700: string;
   readonly 800: string;
   readonly 900: string;
+  readonly 950: string;
 }
 
 /**

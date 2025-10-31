@@ -3,16 +3,24 @@
  */
 
 import type { Components, Theme } from '@mui/material/styles';
+import { actions } from './actions';
+import { base } from './base';
+import { dataDisplay } from './data-display';
+import { forms } from './forms';
 import { inputs } from './inputs';
-import { others } from './others';
+import { navigation } from './navigation';
 import { surfaces } from './surfaces';
 
 export const components: Components<Theme> = {
-  ...surfaces,
+  ...actions,
+  ...base,
+  ...dataDisplay,
+  ...forms,
   ...inputs,
-  ...others,
+  ...navigation,
+  ...surfaces,
 };
 
-export { inputs, surfaces, others };
+export { actions, base, dataDisplay, forms, inputs, navigation, surfaces };
 
 export default components;

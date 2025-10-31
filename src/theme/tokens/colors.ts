@@ -27,6 +27,7 @@ export const brandColors: ColorScale = {
   700: '#0060fe',
   800: '#084ac5',
   900: '#0d429b',
+  950: '#0e295d',
 } as const;
 
 /**
@@ -43,6 +44,7 @@ export const neutralColors: ColorScale = {
   700: '#404040',
   800: '#262626',
   900: '#171717',
+  950: '#0a0a0a',
 } as const;
 
 /**
@@ -59,6 +61,7 @@ export const greenColors: ColorScale = {
   700: '#008236',
   800: '#016630',
   900: '#0d542b',
+  950: '#052e16',
 } as const;
 
 /**
@@ -75,6 +78,7 @@ export const redColors: ColorScale = {
   700: '#c10007',
   800: '#9f0712',
   900: '#82181a',
+  950: '#460809',
 } as const;
 
 /**
@@ -91,6 +95,7 @@ export const yellowColors: ColorScale = {
   700: '#bb4d00',
   800: '#973c00',
   900: '#7b3306',
+  950: '#461901',
 } as const;
 
 /**
@@ -107,6 +112,7 @@ export const cyanColors: ColorScale = {
   700: '#007595',
   800: '#005f78',
   900: '#104e64',
+  950: '#053345',
 } as const;
 
 /**
@@ -123,6 +129,7 @@ export const purpleColors: ColorScale = {
   700: '#8200db',
   800: '#6e11b0',
   900: '#59168b',
+  950: '#3c0366',
 } as const;
 
 /**
@@ -139,6 +146,7 @@ export const orangeColors: ColorScale = {
   700: '#ca3500',
   800: '#9f2d00',
   900: '#7e2a0c',
+  950: '#441306',
 } as const;
 
 /**
@@ -155,6 +163,7 @@ export const pinkColors: ColorScale = {
   700: '#c6005c',
   800: '#a3004c',
   900: '#861043',
+  950: '#510424',
 } as const;
 
 /**
@@ -171,6 +180,7 @@ export const roseColors: ColorScale = {
   700: '#c70036',
   800: '#a50036',
   900: '#8b0836',
+  950: '#4d0218',
 } as const;
 
 /**
@@ -187,6 +197,7 @@ export const skyColors: ColorScale = {
   700: '#0069a8',
   800: '#00598a',
   900: '#024a70',
+  950: '#052f4a',
 } as const;
 
 /**
@@ -203,6 +214,7 @@ export const tealColors: ColorScale = {
   700: '#00786f',
   800: '#005f5a',
   900: '#0b4f4a',
+  950: '#022f2e',
 } as const;
 
 /**
@@ -219,4 +231,5 @@ export const limeColors: ColorScale = {
   700: '#497d00',
   800: '#3c6300',
   900: '#35530e',
+  950: '#1a2e05',
 } as const;

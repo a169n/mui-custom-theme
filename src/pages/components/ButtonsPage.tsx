@@ -149,7 +149,6 @@ export const ButtonsPage = () => {
                     display: 'grid',
                     gridTemplateColumns: `${firstColWidth}px repeat(${sizes.length * states.length}, 1fr)`,
                     // subtle zebra striping for readability
-                    bgcolor: rowIdx % 2 === 0 ? 'background.default' : 'background.paper',
                   }}
                 >
                   {/* Tone label cell (first column) */}
@@ -171,7 +170,7 @@ export const ButtonsPage = () => {
                           disableRipple
                           sx={{ width: 'fit-content', minWidth: 'fit-content' }}
                         >
-                          {capitalize(size)}
+                          Button
                         </Button>
                       </BodyCell>
                     ))

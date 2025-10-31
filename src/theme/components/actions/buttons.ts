@@ -79,6 +79,7 @@ const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
     '&.Mui-disabled': {
       backgroundColor: colors.solidBg,
       color: colors.solidText,
+      opacity: 0.5,
       border: 'none',
     },
   };
@@ -88,8 +89,9 @@ const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
   const background = tokens?.bg?.muted ?? theme.palette.grey[200];
   const text = tokens?.text?.default ?? theme.palette.text.primary;
-  const hoverBackground =
-    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const hoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+
+  console.log(tokens, background);
 
   return {
     backgroundColor: background,
@@ -111,8 +113,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
   const isDefaultTone = getToneKey(color) === 'brand';
-  const defaultHoverBackground =
-    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const defaultHoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
   return {
     backgroundColor: 'transparent',
@@ -134,8 +135,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
 const buildGhostStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
-  const hoverBackground =
-    tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const hoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
 
   return {
     backgroundColor: 'transparent',
@@ -210,6 +210,7 @@ export const buttons: Components<Theme> = {
     styleOverrides: {
       root: ({ theme, ownerState }) => ({
         textTransform: 'none',
+        fontSize: 14,
         fontWeight: 500,
         minWidth: 'auto',
         width: 'fit-content',

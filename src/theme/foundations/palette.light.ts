@@ -72,6 +72,7 @@ const palette: PaletteOptions = {
     700: designTokens.primitives.colors.neutral[700],
     800: designTokens.primitives.colors.neutral[800],
     900: designTokens.primitives.colors.neutral[900],
+    950: designTokens.primitives.colors.neutral[950],
   },
 
   background: {

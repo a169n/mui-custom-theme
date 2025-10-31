@@ -3,6 +3,8 @@ import SectionCard from './SectionCard';
 
 const TokensSection = () => {
   const theme = useTheme();
+  const mode = theme.palette.mode ?? 'light';
+  const modeTokens = theme.tokens.modes?.[mode];
 
   const tokenExamples = [
     {
@@ -22,16 +24,17 @@ const TokensSection = () => {
     },
     {
       label: 'Neutral background',
-      path: 'theme.tokens.modes.light.bg.default',
-      value: theme.tokens.modes.light.bg.default,
+      path: `theme.tokens.modes.${mode}.bg.default`,
+      value: modeTokens?.bg?.default,
       preview: (
         <Box
           sx={{
             width: '100%',
             height: 32,
             borderRadius: 1,
-            bgcolor: theme.tokens.modes.light.bg.default,
-            border: `1px solid ${theme.palette.gray[200]}`,
+            bgcolor: modeTokens?.bg?.default,
+            border: '1px solid',
+            borderColor: theme.palette.divider,
           }}
         />
       ),

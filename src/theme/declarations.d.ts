@@ -111,3 +111,9 @@ declare module '@mui/material/Button' {
     link: true;
   }
 }
+
+declare module '@mui/material' {
+  interface Color {
+    950?: string;
+  }
+}

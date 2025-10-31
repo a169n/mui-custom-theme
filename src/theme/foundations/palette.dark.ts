@@ -72,6 +72,7 @@ const darkPalette: PaletteOptions = {
     700: designTokens.modes.dark.colors.neutral[700],
     800: designTokens.modes.dark.colors.neutral[800],
     900: designTokens.modes.dark.colors.neutral[900],
+    950: designTokens.modes.dark.colors.neutral[950],
   },
 
   background: {

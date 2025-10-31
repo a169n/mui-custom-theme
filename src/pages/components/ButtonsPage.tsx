@@ -1,8 +1,8 @@
-import { Box, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box, Stack, Typography } from '@mui/material';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import { Button, ButtonSize, ButtonVariant, ButtonTone } from '../../components/Button';
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
 const buttonsUsage = createUsageSnippet([
   'return (',
@@ -78,18 +78,75 @@ const BodyCell = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const ButtonsPage = () => {
-  const theme = useTheme();
-
-  // total columns = 1 (color label) + size/state matrix
-  const totalMatrixCols = 1 + sizes.length * states.length;
   const firstColWidth = 160;
 
   return (
     <PageContainer
       title="Buttons"
-      description="All theme button variants, states, and sizes. One button per cell; no icons."
+      description="All theme button variants, states, and sizes with dedicated loading and icon examples. One button per matrix cell."
       usage={buttonsUsage}
     >
+      <Box sx={{ mb: 6 }}>
+        <Typography
+          variant="subtitle1"
+          sx={{ borderBottom: '2px solid', borderColor: 'divider', pb: 1, mb: 2 }}
+        >
+          Loading states
+        </Typography>
+
+        <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+          {sizes.map((size) => (
+            <Button
+              key={`loading-${size}`}
+              variant="primary"
+              tone="default"
+              size={size}
+              loading
+              disableRipple
+              sx={{ minWidth: 160 }}
+            >
+              Loading
+            </Button>
+          ))}
+        </Stack>
+      </Box>
+
+      <Box sx={{ mb: 6 }}>
+        <Typography
+          variant="subtitle1"
+          sx={{ borderBottom: '2px solid', borderColor: 'divider', pb: 1, mb: 2 }}
+        >
+          Icon placement
+        </Typography>
+
+        <Stack spacing={2}>
+          {sizes.map((size) => (
+            <Stack key={`icons-${size}`} direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+              <Button
+                variant="primary"
+                tone="default"
+                size={size}
+                startIcon={<IconArrowLeft size={18} stroke={1.5} />}
+                disableRipple
+                sx={{ minWidth: 160 }}
+              >
+                Start icon
+              </Button>
+              <Button
+                variant="primary"
+                tone="default"
+                size={size}
+                endIcon={<IconArrowRight size={18} stroke={1.5} />}
+                disableRipple
+                sx={{ minWidth: 160 }}
+              >
+                End icon
+              </Button>
+            </Stack>
+          ))}
+        </Stack>
+      </Box>
+
       {variants.map((variant) => (
         <Box key={variant} sx={{ mb: 6 }}>
           <Typography

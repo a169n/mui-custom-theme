@@ -20,7 +20,8 @@ const ModeToggle = () => {
   const selectedColor = tokens?.text?.light ?? theme.palette.common.white;
   const unselectedColor = tokens?.text?.muted ?? theme.palette.text.secondary;
   const hoverBg =
-    tokens?.['alpha-black']?.[90] ?? (mode === 'light' ? 'rgba(10, 10, 10, 0.1)' : 'rgba(255, 255, 255, 0.1)');
+    tokens?.['alpha-black']?.[90] ??
+    (mode === 'light' ? 'rgba(10, 10, 10, 0.1)' : 'rgba(255, 255, 255, 0.1)');
 
   return (
     <ToggleButtonGroup

@@ -81,7 +81,7 @@ const toPx = (value: string | number | undefined): string | undefined => {
 
 const formatLineHeight = (
   lineHeight: string | number | undefined,
-  fallbackFontSizePx: string | undefined,
+  fallbackFontSizePx: string | undefined
 ): string | undefined => {
   if (typeof lineHeight === 'number' && fallbackFontSizePx) {
     const fontSizeNumber = Number.parseFloat(fallbackFontSizePx);
@@ -116,7 +116,7 @@ const TypographyPage = () => {
             ? `${token['line-height']}px`
             : formatLineHeight(
                 typeof variantStyles === 'object' ? (variantStyles as any).lineHeight : undefined,
-                fontSizePx,
+                fontSizePx
               );
           const detailItems = [
             { label: 'Font size', value: fontSizePx },
@@ -127,7 +127,7 @@ const TypographyPage = () => {
 
           return (
             <Stack key={variant} spacing={1}>
-              <Typography variant="textS" color="text.secondary" textTransform="uppercase">
+              <Typography variant="textS" color="text.secondary">
                 {tokenKey}
               </Typography>
               <Typography variant={variant}>

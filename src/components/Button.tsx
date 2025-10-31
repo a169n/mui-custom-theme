@@ -40,7 +40,7 @@ const sizePadding = (theme: any, size: ButtonSize) => {
       };
     default:
       return {
-        padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+        padding: `${theme.spacing(2.5)} ${theme.spacing(2)}`,
         minHeight: 32,
       };
   }
@@ -303,6 +303,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const inactive = disabled || loading;
   const sizeStyle = sizePadding(theme, size);
   console.log(sizeStyle);
+
   const normalizedTone: ButtonTone =
     variant === 'secondary' || variant === 'link' ? 'default' : tone;
   const toneColors = getToneColors(theme, normalizedTone);
@@ -312,9 +313,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
     normalizedTone === 'positive' ? 'success' : normalizedTone === 'negative' ? 'error' : 'primary';
 
   const mapMUIVariant =
-    variant === 'outline' || variant === 'ghost'
+    variant === 'outline'
       ? 'outlined'
-      : variant === 'link'
+      : variant === 'link' || variant === 'ghost'
         ? 'text'
         : 'contained';
 
@@ -330,9 +331,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       className={clsx(className, `Button--${variant}`, `Button--${size}`)}
       sx={{
         ...variantSx,
-        ...sizeStyle,
+        '&&': {
+          // 👈 beats .MuiButton-size* rules
+          ...sizeStyle, // your padding & minHeight
+          minWidth: 'auto',
+        },
         width: 'fit-content',
-        minWidth: 'fit-content',
+        minWidth: 'auto',
         ...(rest as any).sx,
       }}
       {...rest}

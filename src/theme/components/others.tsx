@@ -6,6 +6,36 @@ import type { Components, Theme } from '@mui/material/styles';
 import { IconCircle, IconCircleCheckFilled } from '@tabler/icons-react';
 
 export const others: Components<Theme> = {
+  MuiButton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        textTransform: 'none',
+        fontWeight: 500,
+        width: 'fit-content',
+        minWidth: 'auto',
+        boxShadow: 'none',
+        '&:hover': {
+          boxShadow: 'none',
+        },
+      }),
+      sizeSmall: ({ theme }) => ({
+        padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+        minHeight: 32,
+      }),
+      sizeMedium: ({ theme }) => ({
+        padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
+        minHeight: 36,
+      }),
+      sizeLarge: ({ theme }) => ({
+        padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+        minHeight: 40,
+      }),
+      text: {
+        padding: 0,
+        minWidth: 'auto',
+      },
+    },
+  },
   MuiMenu: {
     defaultProps: { disableScrollLock: true },
     styleOverrides: {

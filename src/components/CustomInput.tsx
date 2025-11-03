@@ -129,8 +129,8 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       </ButtonBase>
     );
 
-    const hasStartContent = Boolean(startIcon || leadingAddon);
-    const hasEndContent = Boolean(endIcon || trailingAddon);
+    const hasStartContent = Boolean(startIcon);
+    const hasEndContent = Boolean(endIcon);
 
     return (
       <FormControl
@@ -166,10 +166,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
             gap: theme.spacing(2),
             '& .MuiOutlinedInput-input': {
               paddingY: theme.spacing(2.5),
-              paddingX: hasStartContent ? 0 : theme.spacing(3),
+              paddingLeft: hasStartContent ? 0 : theme.spacing(3),
               paddingRight: hasEndContent ? 0 : theme.spacing(3),
             },
-            '&.MuiInputBase-adornedStart': { pl: theme.spacing(3) },
+            '&.MuiInputBase-adornedStart': { cursor: 'pointer', pl: theme.spacing(3) },
             '&.MuiInputBase-adornedEnd': { pr: theme.spacing(3) },
             '& .MuiDivider-root': {
               borderColor: theme.palette.divider,

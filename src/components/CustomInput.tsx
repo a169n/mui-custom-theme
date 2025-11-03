@@ -129,58 +129,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       </ButtonBase>
     );
 
-    const renderAdornment = (
-      position: 'start' | 'end',
-      icon?: ReactNode,
-      includeCurrency?: boolean
-    ) => {
-      if (!icon && !includeCurrency) {
-        return undefined;
-      }
-
-      return (
-        <InputAdornment
-          position={position}
-          sx={{
-            m: 0,
-            p: 0,
-            height: '100%',
-            [`& .${ADORNMENT_ITEM_CLASS}`]: {
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: theme.spacing(0.5),
-              padding: theme.spacing(2.5, 2),
-              '& .MuiDivider-root': {
-                alignSelf: 'stretch',
-              },
-            },
-            [`& .${ADORNMENT_ICON_CLASS} svg`]: {
-              fontSize: 20,
-            },
-            [`& .${ADORNMENT_CURRENCY_CLASS}`]: {
-              gap: theme.spacing(0.5),
-            },
-          }}
-        >
-          {position === 'end' ? <Divider orientation="vertical" flexItem /> : null}
-          <Stack
-            direction="row"
-            spacing={0.5}
-            divider={<Divider orientation="vertical" flexItem />}
-            sx={{ alignItems: 'center' }}
-          >
-            {icon ? (
-              <Box className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_ICON_CLASS}`}>{icon}</Box>
-            ) : null}
-            {includeCurrency ? renderCurrencyAddon() : null}
-          </Stack>
-          {position === 'start' ? <Divider orientation="vertical" flexItem /> : null}
-        </InputAdornment>
-      );
-    };
-
-    const startAdornment = renderAdornment('start', startIcon, leadingAddon);
-    const endAdornment = renderAdornment('end', endIcon, trailingAddon);
     const hasStartContent = Boolean(startIcon || leadingAddon);
     const hasEndContent = Boolean(endIcon || trailingAddon);
 
@@ -211,19 +159,18 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           inputRef={ref}
           error={error}
           disabled={disabled}
-          startAdornment={startAdornment}
-          endAdornment={endAdornment}
+          startAdornment={startIcon}
+          endAdornment={endIcon}
           aria-labelledby={labelId}
           sx={{
+            gap: theme.spacing(2),
             '& .MuiOutlinedInput-input': {
-              paddingTop: theme.spacing(2.5),
-              paddingBottom: theme.spacing(2.5),
-              paddingLeft: hasStartContent ? 0 : theme.spacing(3),
+              paddingY: theme.spacing(2.5),
+              paddingX: hasStartContent ? 0 : theme.spacing(3),
               paddingRight: hasEndContent ? 0 : theme.spacing(3),
             },
-            '& .MuiInputAdornment-root': {
-              margin: 0,
-            },
+            '&.MuiInputBase-adornedStart': { pl: theme.spacing(3) },
+            '&.MuiInputBase-adornedEnd': { pr: theme.spacing(3) },
             '& .MuiDivider-root': {
               borderColor: theme.palette.divider,
             },

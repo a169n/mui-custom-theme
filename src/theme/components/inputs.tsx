@@ -108,13 +108,4 @@ export const inputs: Components<Theme> = {
       }),
     },
   },
-  MuiFormLabel: {
-    styleOverrides: {
-      root: ({ theme }) => ({
-        fontSize: '12px',
-        color: theme.palette.gray[500],
-        padding: '4px 0 5px 0',
-      }),
-    },
-  },
 };

@@ -2,12 +2,7 @@ import { Stack } from '@mui/material';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import { CustomInput } from '../../components/CustomInput';
-import {
-  IconAt,
-  IconEye,
-  IconMail,
-  IconSearch,
-} from '@tabler/icons-react';
+import { IconAt, IconEye, IconMail, IconSearch } from '@tabler/icons-react';
 
 const inputUsage = createUsageSnippet([
   'return (',

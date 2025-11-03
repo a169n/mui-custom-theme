@@ -28,7 +28,6 @@ export const inputs: Components<Theme> = {
       root: ({ theme }) => ({
         borderRadius: '12px',
         backgroundColor: theme.palette.common.white,
-        minWidth: 160,
         width: 'fit-content',
         '& .MuiSelect-select': {
           textAlign: 'center !important',
@@ -105,17 +104,7 @@ export const inputs: Components<Theme> = {
       },
       input: ({ theme }) => ({
         padding: theme.spacing(2.5, 3),
-        fontSize: '16px',
-      }),
-      adornedStart: ({ theme }) => ({
-        '& .MuiInputAdornment-root': {
-          marginRight: theme.spacing(2),
-        },
-      }),
-      adornedEnd: ({ theme }) => ({
-        '& .MuiInputAdornment-root': {
-          marginLeft: theme.spacing(2),
-        },
+        ...theme.typography.caption,
       }),
     },
   },

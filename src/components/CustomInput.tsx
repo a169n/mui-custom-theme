@@ -35,10 +35,7 @@ const renderCaption = (value: ReactNode, color: string) => {
 };
 
 export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
-  (
-    { label, actionText, description, startIcon, endIcon, fullWidth, ...rest },
-    ref,
-  ) => {
+  ({ label, actionText, description, startIcon, endIcon, fullWidth, ...rest }, ref) => {
     const theme = useTheme();
     const { error, disabled, id, ...inputProps } = rest;
 
@@ -48,8 +45,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       <InputAdornment
         position="start"
         sx={{
-          gap: theme.spacing(2),
-          mr: theme.spacing(2),
           alignItems: 'center',
           '& svg': { fontSize: 20 },
         }}
@@ -62,8 +57,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       <InputAdornment
         position="end"
         sx={{
-          gap: theme.spacing(2),
-          ml: theme.spacing(2),
           alignItems: 'center',
           '& svg': { fontSize: 20 },
         }}
@@ -107,7 +100,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
         {renderCaption(description, theme.palette.text.secondary)}
       </FormControl>
     );
-  },
+  }
 );
 
 CustomInput.displayName = 'CustomInput';

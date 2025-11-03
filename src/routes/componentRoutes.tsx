@@ -54,11 +54,12 @@ export const foundationRoutes: AppRoute[] = [
 ];
 
 export const componentRoutes: AppRoute[] = [
+  { path: 'buttons', label: 'Buttons (done)', element: <ButtonsPage /> },
+  { path: 'input', label: 'Input (work in progress)', element: <InputPage /> },
   { path: 'avatar', label: 'Avatar', element: <AvatarPage /> },
   { path: 'alert', label: 'Alert', element: <AlertPage /> },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },
   { path: 'breadcrumbs', label: 'Breadcrumbs', element: <BreadcrumbsPage /> },
-  { path: 'buttons', label: 'Buttons', element: <ButtonsPage /> },
   { path: 'checkboxes', label: 'Checkboxes', element: <CheckboxesPage /> },
   { path: 'chips', label: 'Chips', element: <ChipsPage /> },
   { path: 'calendar', label: 'Calendar', element: <CalendarPage /> },
@@ -82,7 +83,6 @@ export const componentRoutes: AppRoute[] = [
   { path: 'switch', label: 'Switch', element: <SwitchPage /> },
   { path: 'tabs', label: 'Tabs', element: <TabsPage /> },
   { path: 'table', label: 'Table', element: <TablePage /> },
-  { path: 'input', label: 'Input', element: <InputPage /> },
   { path: 'select', label: 'Select', element: <SelectPage /> },
   { path: 'textarea', label: 'Textarea', element: <TextareaPage /> },
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage /> },

@@ -35,10 +35,13 @@ export const InputPage = () => (
         endIcon={<IconEye size={20} />}
         fullWidth
       />
+      <CustomInput label="Amount" placeholder="0" trailingAddon fullWidth />
       <CustomInput
-        label="Amount"
+        label="Transfer"
         placeholder="0"
+        leadingAddon
         trailingAddon
+        endIcon={<IconEye size={20} />}
         fullWidth
       />
       <CustomInput

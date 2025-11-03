@@ -36,6 +36,12 @@ export const InputPage = () => (
         fullWidth
       />
       <CustomInput
+        label="Amount"
+        placeholder="0"
+        trailingAddon
+        fullWidth
+      />
+      <CustomInput
         label="Username"
         placeholder="username"
         startIcon={<IconAt size={20} />}

@@ -43,6 +43,11 @@ const palette: PaletteOptions = {
     white: designTokens.primitives.colors.base.white,
   },
 
+  alpha: {
+    black: designTokens.modes.light['alpha-black'],
+    white: designTokens.modes.light['alpha-white'],
+  },
+
   primary: createPaletteScale(designTokens.modes.light.colors.brand, { mainShade: 600 }),
   secondary: createPaletteScale(designTokens.primitives.colors.purple, { mainShade: 500 }),
   success: createPaletteScale(designTokens.primitives.colors.green, { mainShade: 600 }),

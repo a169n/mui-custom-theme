@@ -19,7 +19,7 @@ import {
   type OutlinedInputProps,
   Typography,
 } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { IconSelector } from '@tabler/icons-react';
 
 export interface CustomInputProps
@@ -214,21 +214,25 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 key={option}
                 selected={option === selectedCurrency}
                 onClick={() => handleSelectCurrency(option)}
-                sx={(theme) => ({
-                  p: theme.spacing(2),
-                  borderRadius: `${theme.tokens.theme.radius.md}px`,
-                  '&:hover': {
-                    backgroundColor: theme.palette.black.main
-                  },
-                  '&.Mui-selected': {
-                    backgroundColor: theme.palette.action.selected, // set your selected color
-                  },
-                  '&.Mui-selected:hover': {
-                    backgroundColor: theme.palette.action.selected,
-                  },
-                  // optional: caption default
-                  '& .MuiTypography-root': { ...theme.typography.caption },
-                })}
+                sx={(theme) => {
+                  const highlightColor = theme.palette.alpha.black[100];
+
+                  return {
+                    p: theme.spacing(2),
+                    borderRadius: `${theme.tokens.theme.radius.md}px`,
+                    '&:hover': {
+                      backgroundColor: highlightColor,
+                    },
+                    '&.Mui-selected': {
+                      backgroundColor: highlightColor,
+                    },
+                    '&.Mui-selected:hover': {
+                      backgroundColor: highlightColor,
+                    },
+                    // optional: caption default
+                    '& .MuiTypography-root': { ...theme.typography.caption },
+                  };
+                }}
               >
                 <Typography variant="caption">{option}</Typography>
               </MenuItem>

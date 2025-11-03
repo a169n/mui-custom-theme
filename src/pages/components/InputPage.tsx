@@ -19,6 +19,7 @@ export const InputPage = () => (
   <PageContainer title="Input" description="Text fields accept short form text." usage={inputUsage}>
     <Stack spacing={4}>
       <CustomInput label="Name" placeholder="Jane Doe" fullWidth />
+      <CustomInput label="Username" placeholder="username" fullWidth />
       <CustomInput
         label="Email"
         placeholder="jane.doe@email.com"
@@ -26,6 +27,12 @@ export const InputPage = () => (
         description="We will only use this to contact you."
         type="email"
         startIcon={<IconMail size={20} />}
+        fullWidth
+      />
+      <CustomInput
+        label="Contact"
+        placeholder="email or phone"
+        endIcon={<IconAt size={20} />}
         fullWidth
       />
       <CustomInput
@@ -45,6 +52,29 @@ export const InputPage = () => (
         fullWidth
       />
       <CustomInput
+        label="Price"
+        placeholder="0"
+        leadingAddon
+        startIcon={<IconSearch size={20} />}
+        fullWidth
+      />
+      <CustomInput
+        label="Total"
+        placeholder="0"
+        trailingAddon
+        endIcon={<IconEye size={20} />}
+        fullWidth
+      />
+      <CustomInput
+        label="Advanced"
+        placeholder="0"
+        leadingAddon
+        trailingAddon
+        startIcon={<IconSearch size={20} />}
+        endIcon={<IconEye size={20} />}
+        fullWidth
+      />
+      <CustomInput
         label="Username"
         placeholder="username"
         startIcon={<IconAt size={20} />}
@@ -53,6 +83,7 @@ export const InputPage = () => (
         fullWidth
       />
       <CustomInput label="Disabled" placeholder="Jane Doe" disabled fullWidth />
+      <CustomInput label="Disabled with addon" placeholder="0" leadingAddon disabled fullWidth />
     </Stack>
   </PageContainer>
 );

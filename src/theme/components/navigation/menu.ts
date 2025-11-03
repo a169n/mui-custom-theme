@@ -18,32 +18,32 @@ export const navigationMenus: Components<Theme> = {
       },
     },
   },
-  MuiMenuItem: {
-    styleOverrides: {
-      root: ({ theme }) => ({
-        padding: '8px 10px',
-        '& .MuiTypography-root': {
-          fontSize: '14px',
-          lineHeight: '20px',
-          color: theme.palette.gray[800],
-          transition: 'color 0.2s ease',
-        },
-        '&:hover': { backgroundColor: 'transparent !important' },
-        '&:hover .MuiTypography-root': {
-          color: theme.palette.brand[500],
-        },
-        '&.Mui-selected': {
-          backgroundColor: 'transparent !important',
-          '& .MuiTypography-root': {
-            color: theme.palette.brand[500],
-            fontWeight: 500,
-          },
-        },
-        '&.Mui-selected:hover': { backgroundColor: 'transparent !important' },
-        '&.Mui-focusVisible': { backgroundColor: 'transparent !important' },
-      }),
-    },
-  },
+  // MuiMenuItem: {
+  //   styleOverrides: {
+  //     root: ({ theme }) => ({
+  //       padding: '8px 10px',
+  //       '& .MuiTypography-root': {
+  //         fontSize: '14px',
+  //         lineHeight: '20px',
+  //         color: theme.palette.gray[800],
+  //         transition: 'color 0.2s ease',
+  //       },
+  //       '&:hover': { backgroundColor: 'transparent !important' },
+  //       '&:hover .MuiTypography-root': {
+  //         color: theme.palette.brand[500],
+  //       },
+  //       '&.Mui-selected': {
+  //         backgroundColor: 'transparent !important',
+  //         '& .MuiTypography-root': {
+  //           color: theme.palette.brand[500],
+  //           fontWeight: 500,
+  //         },
+  //       },
+  //       '&.Mui-selected:hover': { backgroundColor: 'transparent !important' },
+  //       '&.Mui-focusVisible': { backgroundColor: 'transparent !important' },
+  //     }),
+  //   },
+  // },
   MuiTab: {
     styleOverrides: {
       root: ({ theme }) => ({

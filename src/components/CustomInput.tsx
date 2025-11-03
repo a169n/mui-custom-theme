@@ -3,25 +3,24 @@ import {
   useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
   type MouseEvent,
   type ReactNode,
 } from 'react';
 import {
-  ButtonBase,
   Box,
-  Divider,
+  ButtonBase,
   FormControl,
   InputAdornment,
   Menu,
   MenuItem,
   OutlinedInput,
   type OutlinedInputProps,
-  Stack,
   Typography,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { IconChevronDown } from '@tabler/icons-react';
+import { alpha, useTheme } from '@mui/material/styles';
+import { IconSelector } from '@tabler/icons-react';
 
 export interface CustomInputProps
   extends Omit<OutlinedInputProps, 'label' | 'startAdornment' | 'endAdornment'> {
@@ -76,6 +75,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY_OPTIONS[0]);
     const [currencyMenuAnchor, setCurrencyMenuAnchor] = useState<HTMLElement | null>(null);
+    const [addonSide, setAddonSide] = useState<'start' | 'end' | null>(null);
+    const startAddonRef = useRef<HTMLDivElement | null>(null);
+    const endAddonRef = useRef<HTMLDivElement | null>(null);
+    const inputContainerRef = useRef<HTMLDivElement | null>(null);
 
     const generatedId = useId();
     const labelId = useMemo(() => (id ? `${id}-label` : `${generatedId}-label`), [generatedId, id]);
@@ -84,8 +87,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       [generatedId, id]
     );
 
-    const handleOpenCurrencyMenu = (event: MouseEvent<HTMLElement>) => {
-      setCurrencyMenuAnchor(event.currentTarget);
+    const handleOpenCurrencyMenu = (_event: MouseEvent<HTMLElement>, side: 'start' | 'end') => {
+      setAddonSide(side);
+      setCurrencyMenuAnchor(inputContainerRef.current);
     };
 
     const handleCloseCurrencyMenu = () => {
@@ -103,15 +107,18 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-    const renderCurrencyAddon = () => (
+    const CurrencyAddon = ({ side }: { side: 'start' | 'end' }) => (
       <ButtonBase
         className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
-        onClick={handleOpenCurrencyMenu}
+        onClick={(e) => handleOpenCurrencyMenu(e, side)}
         disableRipple
         sx={{
-          borderRadius: theme.shape.borderRadius,
-          textAlign: 'left',
+          display: 'flex',
+          alignItems: 'center',
+          borderRadius: 0,
           color: theme.palette.text.primary,
+          borderRightColor: theme.palette.divider,
+          height: '100%',
           '&.Mui-disabled': {
             color: theme.palette.text.disabled,
           },
@@ -121,16 +128,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
         aria-controls={currencyMenuAnchor ? currencyMenuId : undefined}
         disabled={disabled}
       >
-        <IconChevronDown size={16} stroke={1.5} />
-        <Divider orientation="vertical" flexItem />
-        <Typography variant="body2" color="inherit">
-          {selectedCurrency}
-        </Typography>
+        <IconSelector size={16} />
+        <Typography variant="caption">{selectedCurrency}</Typography>
       </ButtonBase>
     );
-
-    const hasStartContent = Boolean(startIcon);
-    const hasEndContent = Boolean(endIcon);
 
     return (
       <FormControl
@@ -154,46 +155,82 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           {renderCaption(label, theme.palette.text.primary)}
           {renderCaption(actionText, theme.palette.text.secondary)}
         </Box>
-        <OutlinedInput
-          fullWidth={fullWidth}
-          inputRef={ref}
-          error={error}
-          disabled={disabled}
-          startAdornment={startIcon}
-          endAdornment={endIcon}
-          aria-labelledby={labelId}
-          sx={{
-            gap: theme.spacing(2),
-            '& .MuiOutlinedInput-input': {
-              paddingY: theme.spacing(2.5),
-              paddingLeft: hasStartContent ? 0 : theme.spacing(3),
-              paddingRight: hasEndContent ? 0 : theme.spacing(3),
-            },
-            '&.MuiInputBase-adornedStart': { cursor: 'pointer', pl: theme.spacing(3) },
-            '&.MuiInputBase-adornedEnd': { pr: theme.spacing(3) },
-            '& .MuiDivider-root': {
-              borderColor: theme.palette.divider,
-            },
-          }}
-          {...inputProps}
-        />
+        {/* Build adornments so addon and icons can co-exist */}
+        {(() => {
+          // start adornment element
+          const startAdornmentEl =
+            leadingAddon || startIcon ? (
+              <InputAdornment position="start" sx={{ mr: 0 }} ref={startAddonRef}>
+                {leadingAddon ? <CurrencyAddon side="start" /> : null}
+                {startIcon}
+              </InputAdornment>
+            ) : undefined;
+
+          // end adornment element
+          const endAdornmentEl =
+            trailingAddon || endIcon ? (
+              <InputAdornment position="end" sx={{ ml: 0 }} ref={endAddonRef}>
+                {endIcon}
+                {trailingAddon ? <CurrencyAddon side="end" /> : null}
+              </InputAdornment>
+            ) : undefined;
+
+          return (
+            <Box ref={inputContainerRef}>
+              <OutlinedInput
+                fullWidth={fullWidth}
+                inputRef={ref}
+                error={error}
+                disabled={disabled}
+                startAdornment={startAdornmentEl}
+                endAdornment={endAdornmentEl}
+                aria-labelledby={labelId}
+                {...inputProps}
+              />
+            </Box>
+          );
+        })()}
         {leadingAddon || trailingAddon ? (
           <Menu
             id={currencyMenuId}
             anchorEl={currencyMenuAnchor}
             open={Boolean(currencyMenuAnchor)}
             onClose={handleCloseCurrencyMenu}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            MenuListProps={{ role: 'listbox' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+            slotProps={{
+              paper: {
+                sx: (theme) => ({
+                  mt: 1,
+                  p: 1,
+                  borderRadius: `${theme.tokens.theme.radius.md}px`,
+                }),
+              },
+            }}
+            MenuListProps={{ role: 'listbox', sx: { p: 1 } }}
           >
             {CURRENCY_OPTIONS.map((option) => (
               <MenuItem
                 key={option}
                 selected={option === selectedCurrency}
                 onClick={() => handleSelectCurrency(option)}
+                sx={(theme) => ({
+                  p: theme.spacing(2),
+                  borderRadius: `${theme.tokens.theme.radius.md}px`,
+                  '&:hover': {
+                    backgroundColor: theme.palette.black.main
+                  },
+                  '&.Mui-selected': {
+                    backgroundColor: theme.palette.action.selected, // set your selected color
+                  },
+                  '&.Mui-selected:hover': {
+                    backgroundColor: theme.palette.action.selected,
+                  },
+                  // optional: caption default
+                  '& .MuiTypography-root': { ...theme.typography.caption },
+                })}
               >
-                {option}
+                <Typography variant="caption">{option}</Typography>
               </MenuItem>
             ))}
           </Menu>

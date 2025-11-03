@@ -62,24 +62,59 @@ export const inputs: Components<Theme> = {
   },
   MuiOutlinedInput: {
     styleOverrides: {
-      root: ({ theme }) => ({
-        borderRadius: '12px',
-        transition: 'border-color 0.2s ease',
-        '& fieldset': {
-          borderWidth: '1px !important',
-          borderStyle: 'solid',
-          borderColor: `${theme.palette.gray[300]} !important`,
-          borderRadius: '12px',
-          transition: 'border-color 0.2s ease',
+      root: ({ theme }) => {
+        const modeTokens = theme.tokens.modes[theme.palette.mode];
+        const focusShadow = `0 0 0 4px ${modeTokens.custom.focused}`;
+        const destructiveShadow = `0 0 0 4px ${modeTokens.custom.destructive}`;
+
+        return {
+          borderRadius: `${theme.tokens.theme.radius.lg}px`,
+          transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: modeTokens.border.default,
+            borderRadius: `${theme.tokens.theme.radius.lg}px`,
+            transition: 'border-color 0.2s ease',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.brand,
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.brand,
+          },
+          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.negative,
+          },
+          '&:hover.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.negative,
+          },
+          '&.Mui-focused.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.negative,
+          },
+          '&.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+            borderColor: modeTokens.border.muted,
+          },
+          '&.Mui-focused': {
+            boxShadow: focusShadow,
+          },
+          '&.Mui-focused.Mui-error': {
+            boxShadow: destructiveShadow,
+          },
+        };
+      },
+      input: ({ theme }) => ({
+        padding: theme.spacing(2.5, 3),
+        fontSize: '16px',
+      }),
+      adornedStart: ({ theme }) => ({
+        '& .MuiInputAdornment-root': {
+          marginRight: theme.spacing(2),
         },
-        '&:hover fieldset': {
-          borderColor: `${theme.palette.brand[500]} !important`,
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: `${theme.palette.brand[500]} !important`,
-        },
-        '&.Mui-disabled fieldset': {
-          borderColor: `${theme.palette.gray[500]} !important`,
+      }),
+      adornedEnd: ({ theme }) => ({
+        '& .MuiInputAdornment-root': {
+          marginLeft: theme.spacing(2),
         },
       }),
     },

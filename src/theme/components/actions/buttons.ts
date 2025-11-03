@@ -89,7 +89,7 @@ const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
   const background = tokens?.bg?.muted ?? theme.palette.grey[200];
   const text = tokens?.text?.default ?? theme.palette.text.primary;
-  const hoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const hoverBackground = theme.palette.alpha.black[100];
 
   return {
     backgroundColor: background,
@@ -111,7 +111,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
   const isDefaultTone = getToneKey(color) === 'brand';
-  const defaultHoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const defaultHoverBackground = theme.palette.alpha.black[100];
 
   return {
     backgroundColor: 'transparent',
@@ -133,7 +133,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
 const buildGhostStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
-  const hoverBackground = tokens?.['alpha-black']?.[100] ?? 'rgba(10, 10, 10, 0.05)';
+  const hoverBackground = theme.palette.alpha.black[100];
 
   return {
     backgroundColor: 'transparent',

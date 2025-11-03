@@ -4,7 +4,7 @@
 
 import type { CSSProperties } from 'react';
 import type { PaletteColorScale } from './foundations/palette.utils';
-import type { DesignTokens } from './tokens';
+import type { AlphaColorScale, DesignTokens } from './tokens';
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -37,6 +37,10 @@ declare module '@mui/material/styles' {
       main: string;
       contrastText: string;
     };
+    alpha: {
+      black: AlphaColorScale;
+      white: AlphaColorScale;
+    };
   }
 
   interface PaletteOptions {
@@ -60,6 +64,10 @@ declare module '@mui/material/styles' {
     black?: {
       main: string;
       contrastText?: string;
+    };
+    alpha?: {
+      black?: AlphaColorScale;
+      white?: AlphaColorScale;
     };
   }
 

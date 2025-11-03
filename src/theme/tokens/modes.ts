@@ -76,6 +76,11 @@ export const lightMode: ModeColors = {
     purple: purpleColors,
   },
 
+  custom: {
+    focused: 'rgba(0, 96, 254, 0.3)',
+    destructive: 'rgba(251, 44, 54, 0.3)',
+  },
+
   'alpha-black': {
     5: 'rgba(10, 10, 10, 0.95)',
     10: 'rgba(10, 10, 10, 0.9)',
@@ -250,6 +255,11 @@ export const darkMode: ModeColors = {
       900: purpleColors[100],
       950: purpleColors[50],
     },
+  },
+
+  custom: {
+    focused: 'rgba(0, 96, 254, 0.3)',
+    destructive: 'rgba(251, 44, 54, 0.3)',
   },
 
   'alpha-black': {

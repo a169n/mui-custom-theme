@@ -223,6 +223,10 @@ export interface ModeColors {
   readonly icon: IconColors;
   readonly border: BorderColors;
   readonly colors: ColorPalette;
+  readonly custom: {
+    readonly focused: string;
+    readonly destructive: string;
+  };
   readonly 'alpha-black': AlphaColorScale;
   readonly 'alpha-white': AlphaColorScale;
 }

@@ -103,7 +103,6 @@ export const ButtonsPage = () => {
               size={size}
               loading
               disableRipple
-              sx={{ minWidth: 160 }}
             >
               Loading
             </Button>
@@ -128,17 +127,15 @@ export const ButtonsPage = () => {
                 size={size}
                 startIcon={<IconArrowLeft size={18} stroke={1.5} />}
                 disableRipple
-                sx={{ minWidth: 160 }}
               >
                 Start icon
               </Button>
               <Button
                 variant="primary"
-                tone="default"
+                tone="positive"
                 size={size}
                 endIcon={<IconArrowRight size={18} stroke={1.5} />}
                 disableRipple
-                sx={{ minWidth: 160 }}
               >
                 End icon
               </Button>
@@ -225,7 +222,6 @@ export const ButtonsPage = () => {
                           size={size}
                           {...getStateProps(state.key)}
                           disableRipple
-                          sx={{ width: 'fit-content', minWidth: 'fit-content' }}
                         >
                           Button
                         </Button>

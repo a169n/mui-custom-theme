@@ -69,13 +69,12 @@ const rows = [
     },
   },
   {
-    dessert: { name: 'Cupcake', description: 'SKU: CP-021' },
+    dessert: { name: 'Cupcake' },
     calories: 305,
     protein: 4,
     status: {
       label: 'Available',
       tone: 'default' as const,
-      description: 'Seasonal special',
     },
   },
 ];
@@ -97,7 +96,7 @@ export const TablePage = () => (
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.dessert.name}>
-              <CustomTableCell description={row.dessert.description}>
+              <CustomTableCell description={row.dessert.description} editable>
                 {row.dessert.name}
               </CustomTableCell>
               <CustomTableCell align="right" editable>

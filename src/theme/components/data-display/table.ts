@@ -131,9 +131,6 @@ export const table: Components<Theme> = {
             backgroundColor: hoverBackground,
           },
           '&[data-editable="true"]:focus-within': {
-            borderTop: `1px solid ${focusBorderColor}`,
-            borderLeft: `1px solid ${focusBorderColor}`,
-            borderBottom: `1px solid ${focusBorderColor}`,
             boxShadow: `inset 0 0 0 1px ${focusBorderColor}`,
             zIndex: 1,
           },

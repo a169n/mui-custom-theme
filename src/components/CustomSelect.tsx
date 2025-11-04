@@ -16,8 +16,8 @@ import {
   ListItemIcon,
   ListItemText,
   MenuItem,
-  OutlinedInput,
   Popover,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -415,40 +415,48 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 boxShadow: '0px 4px 6px -1px rgba(33, 33, 33, 0.08)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: theme.spacing(2),
+                gap: 0,
               },
             },
           }}
         >
-          <OutlinedInput
+          <TextField
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search"
-            startAdornment={
-              <InputAdornment position="start">
-                <IconSearch size={16} color={modeTokens.icon.muted} />
-              </InputAdornment>
-            }
-          sx={{
-            '& .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-            },
-            '&.Mui-focused': {
-              boxShadow: 'none',
-            },
-            '& .MuiOutlinedInput-input': {
-              padding: theme.spacing(1.5, 2),
-            },
-          }}
-        />
+            variant="standard"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconSearch size={16} color={modeTokens.icon.muted} />
+                </InputAdornment>
+              ),
+              disableUnderline: true,
+            }}
+            sx={{
+              '& .MuiInputBase-root': {
+                padding: 0,
+                alignItems: 'center',
+                height: 36,
+                minHeight: 36,
+              },
+              '& .MuiInputBase-input': {
+                padding: theme.spacing(0, 2),
+                height: 36,
+                lineHeight: '36px',
+              },
+            }}
+          />
 
-          <Divider sx={{ width: '100%' }} />
+          <Divider
+            sx={{
+              width: `calc(100% + ${theme.spacing(4)})`,
+              height: '1px',
+              backgroundColor: theme.palette.divider,
+              mx: -2,
+              my: 0,
+            }}
+          />
 
           <Box
             id={listboxId}

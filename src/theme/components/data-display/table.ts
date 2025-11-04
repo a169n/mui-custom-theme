@@ -100,6 +100,8 @@ export const table: Components<Theme> = {
         const warningColor = modeTokens?.text.warning ?? theme.palette.warning.main;
         const negativeColor = modeTokens?.text.negative ?? theme.palette.error.main;
         const positiveColor = modeTokens?.text.positive ?? theme.palette.success.main;
+        const hoverBackground = modeTokens?.bg?.muted ?? theme.palette.action.hover;
+        const focusBorderColor = modeTokens?.border?.brand ?? theme.palette.brand[600];
 
         return {
           ...theme.typography.textM,
@@ -110,19 +112,33 @@ export const table: Components<Theme> = {
           borderTop: `1px solid ${borderColor}`,
           borderLeft: `1px solid ${borderColor}`,
           position: 'relative',
+          transition: theme.transitions.create(['background-color', 'box-shadow', 'border-color'], {
+            duration: theme.transitions.duration.shortest,
+          }),
           '&:first-of-type': {
             borderLeft: 'none',
           },
           '&:last-of-type': {
             borderRight: `1px solid ${borderColor}`,
           },
+          '&:hover': {
+            backgroundColor: hoverBackground,
+          },
           '&[data-editable="true"]': {
             cursor: 'text',
           },
+          '&[data-editable="true"]:hover': {
+            backgroundColor: hoverBackground,
+          },
           '&[data-editable="true"]:focus-within': {
-            outline: `2px solid ${theme.palette.brand[700]}`,
-            outlineOffset: '-2px',
+            borderTop: `1px solid ${focusBorderColor}`,
+            borderLeft: `1px solid ${focusBorderColor}`,
+            borderBottom: `1px solid ${focusBorderColor}`,
+            boxShadow: `inset 0 0 0 1px ${focusBorderColor}`,
             zIndex: 1,
+          },
+          '&[data-editable="true"]:focus-within:last-of-type': {
+            borderRight: `1px solid ${focusBorderColor}`,
           },
           '&[data-tone="default"]': {
             color: theme.palette.text.primary,

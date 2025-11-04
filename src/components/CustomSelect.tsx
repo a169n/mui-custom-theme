@@ -12,6 +12,7 @@ import {
   ButtonBase,
   FormControl,
   InputAdornment,
+  Divider,
   MenuItem,
   OutlinedInput,
   Popover,
@@ -216,6 +217,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
         event.relatedTarget instanceof Node &&
         anchorEl.contains(event.relatedTarget)
       ) {
+        setFocused(false);
         return;
       }
 
@@ -259,7 +261,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
         if (typeof placeholder === 'string') {
           return (
             <Typography
-              variant="body2"
+              variant="caption"
               color={modeTokens.text.muted}
               sx={{ whiteSpace: showAllSelected ? 'normal' : 'nowrap' }}
             >
@@ -273,7 +275,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
 
       return (
         <Typography
-          variant="body2"
+          variant="caption"
           color={disabled ? modeTokens.text.muted : modeTokens.text.default}
           sx={{
             overflow: 'hidden',
@@ -305,6 +307,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
     };
 
     const focusShadow = error ? modeTokens.custom.destructive : modeTokens.custom.focused;
+    const defaultSelectMaxWidth = 320;
 
     return (
       <FormControl
@@ -312,7 +315,8 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
         error={error}
         disabled={disabled}
         sx={{
-          width: fullWidth ? '100%' : undefined,
+          width: fullWidth ? '100%' : 'fit-content',
+          maxWidth: fullWidth ? '100%' : defaultSelectMaxWidth,
           display: 'flex',
           gap: theme.spacing(2),
         }}
@@ -346,14 +350,18 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
           onKeyDown={handleKeyDown}
           sx={{
             display: 'flex',
-            alignItems: showAllSelected ? 'flex-start' : 'center',
+            alignItems: 'center',
             gap: theme.spacing(2),
-            padding: theme.spacing(2.5, 3),
+            px: theme.spacing(2),
+            py: 0,
+            height: 36,
+            maxHeight: 36,
+            minHeight: 36,
             borderRadius: `${theme.tokens.theme.radius.lg}px`,
             border: `1px solid ${buttonBorderColor()}`,
             backgroundColor: modeTokens.bg.default,
-            minHeight: '44px',
-            width: '100%',
+            width: fullWidth ? '100%' : 'fit-content',
+            maxWidth: fullWidth ? '100%' : defaultSelectMaxWidth,
             textAlign: 'left',
             position: 'relative',
             transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
@@ -369,6 +377,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'center',
               overflow: 'hidden',
               color: disabled ? modeTokens.text.muted : modeTokens.text.default,
               gap: showAllSelected ? theme.spacing(1) : 0,
@@ -398,7 +407,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 width: anchorEl?.clientWidth,
                 borderRadius: `${theme.tokens.theme.radius.xl}px`,
                 p: theme.spacing(2),
-                boxShadow: theme.shadows[4],
+                boxShadow: '0px 4px 6px -1px rgba(33, 33, 33, 0.08)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: theme.spacing(2),
@@ -410,18 +419,28 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search"
-            autoFocus
             startAdornment={
               <InputAdornment position="start">
                 <IconSearch size={16} color={modeTokens.icon.muted} />
               </InputAdornment>
             }
             sx={{
+              '& .MuiOutlinedInput-notchedOutline': {
+                border: 'none',
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                border: 'none',
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                border: 'none',
+              },
               '& .MuiOutlinedInput-input': {
                 padding: theme.spacing(1.5, 2),
               },
             }}
           />
+
+          <Divider sx={{ width: '100%' }} />
 
           <Box
             id={listboxId}
@@ -461,6 +480,12 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                       '&:hover': {
                         backgroundColor: 'transparent',
                       },
+                      '&.Mui-selected': {
+                        backgroundColor: 'transparent',
+                      },
+                      '&.Mui-selected:hover': {
+                        backgroundColor: 'transparent',
+                      },
                     }}
                   >
                     <Box
@@ -471,7 +496,6 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                         gap: theme.spacing(2),
                         padding: theme.spacing(2),
                         borderRadius: `${theme.tokens.theme.radius.xl}px`,
-                        backgroundColor: isSelected ? modeTokens.bg['brand-muted'] : 'transparent',
                         transition: 'background-color 0.2s ease',
                         '&:hover': {
                           backgroundColor: modeTokens.bg.muted,
@@ -490,8 +514,8 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                         )
                       ) : null}
                       <Typography
-                        variant="body2"
-                        color={modeTokens.text.default}
+                        variant="caption"
+                        color={isSelected ? modeTokens.text.brand : modeTokens.text.default}
                         sx={{ flexGrow: 1 }}
                       >
                         {option.label}

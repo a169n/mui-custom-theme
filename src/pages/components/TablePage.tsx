@@ -46,7 +46,6 @@ const rows = [
     status: {
       label: 'In stock',
       tone: 'positive' as const,
-      description: 'Ships tomorrow',
     },
   },
   {
@@ -90,12 +89,10 @@ export const TablePage = () => (
     <TableContainer>
       <Table>
         <TableHead>
-          <TableRow>
-            <TableCell>Dessert</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Protein (g)</TableCell>
-            <TableCell>Status</TableCell>
-          </TableRow>
+          <TableCell>Dessert</TableCell>
+          <TableCell align="right">Calories</TableCell>
+          <TableCell align="right">Protein (g)</TableCell>
+          <TableCell>Status</TableCell>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
@@ -109,10 +106,7 @@ export const TablePage = () => (
               <CustomTableCell align="right" editable>
                 {row.protein}
               </CustomTableCell>
-              <CustomTableCell
-                tone={row.status.tone}
-                description={row.status.description}
-              >
+              <CustomTableCell tone={row.status.tone} description={row.status.description}>
                 {row.status.label}
               </CustomTableCell>
             </TableRow>

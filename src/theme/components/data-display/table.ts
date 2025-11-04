@@ -13,24 +13,10 @@ export const table: Components<Theme> = {
         return {
           width: '100%',
           borderRadius: radius,
-          border: `1px solid ${borderColor}`,
+          borderTop: `1px solid ${borderColor}`,
+          borderLeft: `1px solid ${borderColor}`,
           overflow: 'auto',
           backgroundColor: theme.palette.white.main,
-          scrollbarColor: `${theme.palette.gray[300]} transparent`,
-          '&::-webkit-scrollbar': {
-            width: '6px',
-            height: '6px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: theme.palette.gray[300],
-            borderRadius: '10px',
-            '&:hover': {
-              backgroundColor: theme.palette.gray[400],
-            },
-          },
-          '&::-webkit-scrollbar-track': {
-            background: theme.palette.gray[100],
-          },
         };
       },
     },

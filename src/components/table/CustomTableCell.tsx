@@ -61,7 +61,7 @@ export const CustomTableCell = forwardRef<HTMLTableCellElement, CustomTableCellP
         ) : null}
       </Box>
     </TableCell>
-  ),
+  )
 );
 
 CustomTableCell.displayName = 'CustomTableCell';

@@ -47,7 +47,6 @@ export const InputPage = () => (
         label="Transfer"
         placeholder="0"
         leadingAddon
-        trailingAddon
         endIcon={<IconEye size={20} />}
         fullWidth
       />
@@ -68,7 +67,6 @@ export const InputPage = () => (
       <CustomInput
         label="Advanced"
         placeholder="0"
-        leadingAddon
         trailingAddon
         startIcon={<IconSearch size={20} />}
         endIcon={<IconEye size={20} />}

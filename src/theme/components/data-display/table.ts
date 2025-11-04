@@ -10,7 +10,11 @@ const getTableBorderColor = (theme: Theme) => {
 };
 
 const getTableBackgroundColor = (theme: Theme) => {
-  return theme.palette.background.default; // Use default background color
+  if (theme.palette.mode === 'dark') {
+    return theme.tokens?.primitives?.colors?.neutral?.[900] ?? theme.palette.grey[900];
+  }
+
+  return theme.tokens?.primitives?.colors?.base?.white ?? theme.palette.common.white;
 };
 
 export const table: Components<Theme> = {

@@ -139,6 +139,16 @@ export const ButtonsPage = () => {
               >
                 End icon
               </Button>
+              <Button
+                variant="primary"
+                tone="negative"
+                size={size}
+                startIcon={<IconArrowLeft size={18} stroke={1.5} />}
+                endIcon={<IconArrowRight size={18} stroke={1.5} />}
+                disableRipple
+              >
+                Start & end icons
+              </Button>
             </Stack>
           ))}
         </Stack>

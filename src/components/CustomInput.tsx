@@ -211,9 +211,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 endAdornment={endAdornmentEl}
                 aria-labelledby={labelId}
                 sx={{
-                  '& .MuiInputAdornment-root': {
-                    margin: 0,
-                  },
                   '&.MuiInputBase-adornedStart': {
                     paddingLeft: leadingAddon ? theme.spacing(2) : theme.spacing(3),
                   },

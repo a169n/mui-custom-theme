@@ -69,6 +69,9 @@ export const inputs: Components<Theme> = {
         return {
           borderRadius: `${theme.tokens.theme.radius.lg}px`,
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+          '& .MuiInputAdornment-root': {
+            margin: 0,
+          },
           '& .MuiOutlinedInput-notchedOutline': {
             borderWidth: '1px',
             borderStyle: 'solid',

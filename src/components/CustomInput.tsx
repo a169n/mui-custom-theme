@@ -92,9 +92,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const hasTrailingAddon = Boolean(trailingAddon && !leadingAddon);
 
     const handleOpenCurrencyMenu =
-      (placement: 'leading' | 'trailing') => (event: React.MouseEvent<HTMLElement>) => {
+      (placement: 'leading' | 'trailing') => (anchor: HTMLElement | null) => {
         setCurrencyMenuPlacement(placement);
-        setCurrencyMenuAnchor(event.currentTarget);
+        setCurrencyMenuAnchor(anchor);
       };
 
     const handleCloseCurrencyMenu = () => {
@@ -113,18 +113,14 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     }, [currencyMenuAnchor, disabled]);
 
     const CurrencyAddon = ({ placement }: { placement: 'leading' | 'trailing' }) => {
-      const buttonRef = useRef<HTMLDivElement>(null);
-
       return (
-        <Box ref={buttonRef} sx={{ display: 'flex', height: '100%' }}>
+        <Box sx={{ display: 'flex', height: '100%' }}>
           <ButtonBase
             className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              handleOpenCurrencyMenu(placement)({
-                currentTarget: buttonRef.current,
-              } as any);
+              handleOpenCurrencyMenu(placement)(e.currentTarget);
             }}
             disableRipple
             sx={{

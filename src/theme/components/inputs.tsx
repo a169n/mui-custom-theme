@@ -69,17 +69,6 @@ export const inputs: Components<Theme> = {
         return {
           borderRadius: `${theme.tokens.theme.radius.lg}px`,
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-          gap: theme.spacing(2),
-          '&.MuiInputBase-adornedStart': {
-            paddingLeft: theme.spacing(3),
-            cursor: 'pointer',
-          },
-          '&.MuiInputBase-adornedEnd': {
-            paddingRight: theme.spacing(3),
-          },
-          '& .MuiDivider-root': {
-            borderColor: theme.palette.divider,
-          },
           '& .MuiOutlinedInput-notchedOutline': {
             borderWidth: '1px',
             borderStyle: 'solid',
@@ -117,10 +106,10 @@ export const inputs: Components<Theme> = {
         padding: theme.spacing(2.5, 3),
         ...theme.typography.caption,
         '&.MuiOutlinedInput-inputAdornedStart, &.MuiInputBase-inputAdornedStart': {
-          paddingLeft: 0,
+          paddingLeft: theme.spacing(2),
         },
         '&.MuiOutlinedInput-inputAdornedEnd, &.MuiInputBase-inputAdornedEnd': {
-          paddingRight: 0,
+          paddingRight: theme.spacing(2),
         },
       }),
     },

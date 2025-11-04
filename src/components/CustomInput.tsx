@@ -1,13 +1,4 @@
-import {
-  forwardRef,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type MouseEvent,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   Box,
   ButtonBase,
@@ -75,7 +66,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY_OPTIONS[0]);
     const [currencyMenuAnchor, setCurrencyMenuAnchor] = useState<HTMLElement | null>(null);
-    const [addonSide, setAddonSide] = useState<'start' | 'end' | null>(null);
     const startAddonRef = useRef<HTMLDivElement | null>(null);
     const endAddonRef = useRef<HTMLDivElement | null>(null);
     const inputContainerRef = useRef<HTMLDivElement | null>(null);
@@ -87,8 +77,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       [generatedId, id]
     );
 
-    const handleOpenCurrencyMenu = (_event: MouseEvent<HTMLElement>, side: 'start' | 'end') => {
-      setAddonSide(side);
+    const handleOpenCurrencyMenu = () => {
       setCurrencyMenuAnchor(inputContainerRef.current);
     };
 
@@ -110,15 +99,17 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const CurrencyAddon = ({ side }: { side: 'start' | 'end' }) => (
       <ButtonBase
         className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
-        onClick={(e) => handleOpenCurrencyMenu(e, side)}
+        onClick={handleOpenCurrencyMenu}
         disableRipple
         sx={{
           display: 'flex',
           alignItems: 'center',
+          gap: theme.spacing(0.5),
           borderRadius: 0,
           color: theme.palette.text.primary,
           borderRightColor: theme.palette.divider,
           height: '100%',
+          minHeight: '36px',
           '&.Mui-disabled': {
             color: theme.palette.text.disabled,
           },
@@ -160,8 +151,25 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           // start adornment element
           const startAdornmentEl =
             leadingAddon || startIcon ? (
-              <InputAdornment position="start" sx={{ mr: 0 }} ref={startAddonRef}>
+              <InputAdornment
+                position="start"
+                ref={startAddonRef}
+                sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
+              >
                 {leadingAddon ? <CurrencyAddon side="start" /> : null}
+                {startIcon && leadingAddon ? (
+                  <Box
+                    sx={{
+                      width: '1px',
+                      height: '100%',
+                      minHeight: '40px',
+                      backgroundColor: theme.palette.divider,
+                      ml: theme.spacing(2),
+                      mr: theme.spacing(3),
+                    }}
+                  />
+                ) : null}
+
                 {startIcon}
               </InputAdornment>
             ) : undefined;
@@ -169,8 +177,24 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           // end adornment element
           const endAdornmentEl =
             trailingAddon || endIcon ? (
-              <InputAdornment position="end" sx={{ ml: 0 }} ref={endAddonRef}>
+              <InputAdornment
+                position="end"
+                ref={endAddonRef}
+                sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
+              >
                 {endIcon}
+                {endIcon && trailingAddon ? (
+                  <Box
+                    sx={{
+                      width: '1px',
+                      height: '100%',
+                      minHeight: '40px',
+                      backgroundColor: theme.palette.divider,
+                      ml: theme.spacing(3),
+                      mr: theme.spacing(2),
+                    }}
+                  />
+                ) : null}
                 {trailingAddon ? <CurrencyAddon side="end" /> : null}
               </InputAdornment>
             ) : undefined;
@@ -178,6 +202,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           return (
             <Box ref={inputContainerRef}>
               <OutlinedInput
+                size="small"
                 fullWidth={fullWidth}
                 inputRef={ref}
                 error={error}
@@ -185,6 +210,17 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 startAdornment={startAdornmentEl}
                 endAdornment={endAdornmentEl}
                 aria-labelledby={labelId}
+                sx={{
+                  '& .MuiInputAdornment-root': {
+                    margin: 0,
+                  },
+                  '&.MuiInputBase-adornedStart': {
+                    paddingLeft: leadingAddon ? theme.spacing(2) : theme.spacing(3),
+                  },
+                  '&.MuiInputBase-adornedEnd': {
+                    paddingRight: trailingAddon ? theme.spacing(2) : theme.spacing(3),
+                  },
+                }}
                 {...inputProps}
               />
             </Box>
@@ -202,7 +238,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
               paper: {
                 sx: (theme) => ({
                   mt: 1,
-                  p: 1,
+                  p: theme.spacing(1),
                   borderRadius: `${theme.tokens.theme.radius.md}px`,
                 }),
               },
@@ -229,7 +265,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     '&.Mui-selected:hover': {
                       backgroundColor: highlightColor,
                     },
-                    // optional: caption default
                     '& .MuiTypography-root': { ...theme.typography.caption },
                   };
                 }}

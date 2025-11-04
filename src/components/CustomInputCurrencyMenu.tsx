@@ -21,7 +21,6 @@ export const CustomInputCurrencyMenu = ({
   onSelectOption,
   placement,
 }: CustomInputCurrencyMenuProps) => {
-  console.log('anchorEl:', anchorEl);
   return (
     <Menu
       id={menuId}

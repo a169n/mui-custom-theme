@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, GlobalStyles } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme, { darkTheme } from '.';
 
@@ -36,6 +36,13 @@ export const ThemeModeProvider = ({ children, defaultMode = 'light' }: ThemeMode
     <ThemeModeContext.Provider value={contextValue}>
       <ThemeProvider theme={currentTheme}>
         <CssBaseline />
+        <GlobalStyles
+          styles={(theme) => ({
+            '.tabler-icon': {
+              color: theme.tokens.modes[theme.palette.mode].icon.muted,
+            },
+          })}
+        />
         {children}
       </ThemeProvider>
     </ThemeModeContext.Provider>

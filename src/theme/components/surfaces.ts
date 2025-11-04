@@ -106,11 +106,6 @@ export const surfaces: Components<Theme> = {
       root: { '& .MuiTabs-flexContainer': { gap: '16px' } },
     },
   },
-  MuiTableCell: {
-    styleOverrides: {
-      root: { backgroundColor: 'transparent', padding: '10px 12px !important' },
-    },
-  },
   MuiPagination: {
     styleOverrides: {
       root: ({ theme }) => ({

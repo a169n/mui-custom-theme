@@ -7,10 +7,10 @@ import { IconAt, IconEye, IconMail, IconSearch } from '@tabler/icons-react';
 const inputUsage = createUsageSnippet([
   'return (',
   '  <CustomInput',
-  '    label="Email"',
-  '    placeholder="jane.doe@email.com"',
-  '    actionText="Optional"',
-  '    description="We will only use this to contact you."',
+  '    label="Label"',
+  '    placeholder="Placeholder"',
+  '    actionText="Action text"',
+  '    description="Supporting description text."',
   '  />',
   ');',
 ]);
@@ -18,70 +18,69 @@ const inputUsage = createUsageSnippet([
 export const InputPage = () => (
   <PageContainer title="Input" description="Text fields accept short form text." usage={inputUsage}>
     <Stack spacing={4}>
-      <CustomInput label="Name" placeholder="Jane Doe" fullWidth />
-      <CustomInput label="Username" placeholder="username" fullWidth />
+      <CustomInput label="Label" placeholder="Placeholder" fullWidth />
+      <CustomInput label="Label" placeholder="Placeholder" actionText="Action text" fullWidth />
       <CustomInput
-        label="Email"
-        placeholder="jane.doe@email.com"
-        actionText="Optional"
-        description="We will only use this to contact you."
-        type="email"
+        label="Label"
+        placeholder="Placeholder"
+        actionText="Action text"
+        description="Supporting description text."
         startIcon={<IconMail size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Contact"
-        placeholder="email or phone"
+        label="Label"
+        placeholder="Placeholder"
         endIcon={<IconAt size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Search"
-        placeholder="Search"
+        label="Label"
+        placeholder="Placeholder"
         startIcon={<IconSearch size={20} />}
         endIcon={<IconEye size={20} />}
         fullWidth
       />
-      <CustomInput label="Amount" placeholder="0" trailingAddon fullWidth />
+      <CustomInput label="Label" placeholder="Placeholder" trailingAddon fullWidth />
       <CustomInput
-        label="Transfer"
-        placeholder="0"
+        label="Label"
+        placeholder="Placeholder"
         leadingAddon
         endIcon={<IconEye size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Price"
-        placeholder="0"
+        label="Label"
+        placeholder="Placeholder"
         leadingAddon
         startIcon={<IconSearch size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Total"
-        placeholder="0"
+        label="Label"
+        placeholder="Placeholder"
         trailingAddon
         endIcon={<IconEye size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Advanced"
-        placeholder="0"
+        label="Label"
+        placeholder="Placeholder"
         trailingAddon
         startIcon={<IconSearch size={20} />}
         endIcon={<IconEye size={20} />}
         fullWidth
       />
       <CustomInput
-        label="Username"
-        placeholder="username"
+        label="Label"
+        placeholder="Placeholder"
         startIcon={<IconAt size={20} />}
         error
-        description="This username is already taken."
+        description="Error or helper message text."
         fullWidth
       />
-      <CustomInput label="Disabled" placeholder="Jane Doe" disabled fullWidth />
-      <CustomInput label="Disabled with addon" placeholder="0" leadingAddon disabled fullWidth />
+      <CustomInput label="Label" placeholder="Placeholder" disabled fullWidth />
+      <CustomInput label="Label" placeholder="Placeholder" leadingAddon disabled fullWidth />
     </Stack>
   </PageContainer>
 );

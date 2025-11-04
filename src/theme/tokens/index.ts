@@ -26,6 +26,7 @@ import { darkMode, lightMode } from './modes';
 import { radius } from './radius';
 import { spacing } from './spacing';
 import { fontFamilies, typographyScale } from './typography';
+import { shadows } from './shadows';
 
 /**
  * Complete design tokens
@@ -54,6 +55,7 @@ export const designTokens: DesignTokens = {
     font: fontFamilies,
     text: typographyScale,
     radius,
+    shadow: shadows,
   },
   modes: {
     light: lightMode,
@@ -70,6 +72,7 @@ export * from './spacing';
 export * from './typography';
 export * from './radius';
 export * from './modes';
+export * from './shadows';
 
 // Default export
 export default designTokens;

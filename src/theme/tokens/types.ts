@@ -141,6 +141,28 @@ export interface RadiusScale {
 }
 
 /**
+ * Shadow scale with levels 1 to 5
+ */
+export interface ShadowScale {
+  readonly 1: string;
+  readonly 2: string;
+  readonly 3: string;
+  readonly 4: string;
+  readonly 5: string;
+}
+
+/**
+ * Shadow palette definitions
+ */
+export interface ShadowPalette {
+  readonly black: ShadowScale;
+  readonly white: ShadowScale;
+  readonly brand: ShadowScale;
+  readonly negative: ShadowScale;
+  readonly positive: ShadowScale;
+}
+
+/**
  * Semantic colors for backgrounds
  */
 export interface BackgroundColors {
@@ -258,6 +280,7 @@ export interface DesignTokens {
     readonly font: FontFamilies;
     readonly text: TypographyScale;
     readonly radius: RadiusScale;
+    readonly shadow: ShadowPalette;
   };
   readonly modes: {
     readonly light: ModeColors;

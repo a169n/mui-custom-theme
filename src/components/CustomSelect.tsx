@@ -412,7 +412,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 width: anchorEl?.clientWidth,
                 borderRadius: `${theme.tokens.theme.radius.xl}px`,
                 p: theme.spacing(2),
-                boxShadow: '0px 4px 6px -1px rgba(33, 33, 33, 0.08)',
+                boxShadow: theme.tokens.theme.shadow.black[2],
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 0,

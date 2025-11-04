@@ -1,4 +1,4 @@
-import type { Components, Theme } from '@mui/material/styles';
+import { Components, Theme } from '@mui/material/styles';
 
 const getTableRadius = (theme: Theme) =>
   `${theme.tokens?.theme?.radius?.md ?? theme.shape.borderRadius ?? 8}px`;
@@ -10,17 +10,7 @@ const getTableBorderColor = (theme: Theme) => {
 };
 
 const getTableBackgroundColor = (theme: Theme) => {
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
-
-  if (theme.palette.mode === 'dark') {
-    return (
-      modeTokens?.colors?.neutral?.[700] ??
-      modeTokens?.bg?.muted ??
-      theme.palette.gray[800]
-    );
-  }
-
-  return theme.palette.white.main;
+  return theme.palette.background.default; // Use default background color
 };
 
 export const table: Components<Theme> = {
@@ -29,7 +19,7 @@ export const table: Components<Theme> = {
       root: ({ theme }) => {
         const borderColor = getTableBorderColor(theme);
         const radius = getTableRadius(theme);
-        const backgroundColor = getTableBackgroundColor(theme);
+        const backgroundColor = getTableBackgroundColor(theme); // Set default background color
 
         return {
           width: '100%',
@@ -37,7 +27,7 @@ export const table: Components<Theme> = {
           borderTop: `1px solid ${borderColor}`,
           borderLeft: `1px solid ${borderColor}`,
           overflow: 'auto',
-          backgroundColor,
+          backgroundColor, // Apply the default background color
         };
       },
     },
@@ -47,18 +37,18 @@ export const table: Components<Theme> = {
       root: ({ theme }) => {
         const borderColor = getTableBorderColor(theme);
         const radius = getTableRadius(theme);
-        const backgroundColor = getTableBackgroundColor(theme);
+        const backgroundColor = getTableBackgroundColor(theme); // Set default background color
 
         return {
           width: '100%',
           borderCollapse: 'separate',
           borderSpacing: 0,
-          backgroundColor,
+          backgroundColor, // Apply the default background color
           '& thead': {
-            backgroundColor,
+            backgroundColor, // Apply the default background color
           },
           '& tbody': {
-            backgroundColor,
+            backgroundColor, // Apply the default background color
           },
           '& thead tr:first-of-type th:first-of-type': {
             borderTopLeftRadius: radius,
@@ -85,7 +75,7 @@ export const table: Components<Theme> = {
   MuiTableHead: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: getTableBackgroundColor(theme),
+        backgroundColor: getTableBackgroundColor(theme), // Apply the default background color
         '& .MuiTableCell-root': {
           ...theme.typography.textM,
           color: theme.palette.text.secondary,
@@ -97,7 +87,7 @@ export const table: Components<Theme> = {
   MuiTableBody: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: getTableBackgroundColor(theme),
+        backgroundColor: getTableBackgroundColor(theme), // Apply the default background color
       }),
     },
   },
@@ -124,13 +114,13 @@ export const table: Components<Theme> = {
         const positiveColor = modeTokens?.text.positive ?? theme.palette.success.main;
         const hoverBackground = modeTokens?.bg?.muted ?? theme.palette.action.hover;
         const focusBorderColor = modeTokens?.border?.brand ?? theme.palette.brand[600];
-        const backgroundColor = getTableBackgroundColor(theme);
+        const backgroundColor = getTableBackgroundColor(theme); // Apply the default background color
 
         return {
           ...theme.typography.textM,
           color: theme.palette.text.primary,
           padding: theme.spacing(2),
-          backgroundColor,
+          backgroundColor, // Apply the default background color
           borderBottom: 'none',
           borderTop: `1px solid ${borderColor}`,
           borderLeft: `1px solid ${borderColor}`,
@@ -175,7 +165,7 @@ export const table: Components<Theme> = {
         };
       },
       head: ({ theme }) => ({
-        backgroundColor: getTableBackgroundColor(theme),
+        backgroundColor: getTableBackgroundColor(theme), // Apply the default background color
         borderTop: 'none',
         borderBottom: 'none',
         color: theme.palette.text.secondary,

@@ -10,9 +10,11 @@ import {
 import {
   Box,
   ButtonBase,
+  Divider,
   FormControl,
   InputAdornment,
-  Divider,
+  ListItemIcon,
+  ListItemText,
   MenuItem,
   OutlinedInput,
   Popover,
@@ -307,6 +309,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
     };
 
     const focusShadow = error ? modeTokens.custom.destructive : modeTokens.custom.focused;
+    const defaultSelectMinWidth = 200;
     const defaultSelectMaxWidth = 320;
 
     return (
@@ -316,6 +319,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
         disabled={disabled}
         sx={{
           width: fullWidth ? '100%' : 'fit-content',
+          minWidth: fullWidth ? '100%' : defaultSelectMinWidth,
           maxWidth: fullWidth ? '100%' : defaultSelectMaxWidth,
           display: 'flex',
           gap: theme.spacing(2),
@@ -361,6 +365,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             border: `1px solid ${buttonBorderColor()}`,
             backgroundColor: modeTokens.bg.default,
             width: fullWidth ? '100%' : 'fit-content',
+            minWidth: fullWidth ? '100%' : defaultSelectMinWidth,
             maxWidth: fullWidth ? '100%' : defaultSelectMaxWidth,
             textAlign: 'left',
             position: 'relative',
@@ -424,21 +429,24 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 <IconSearch size={16} color={modeTokens.icon.muted} />
               </InputAdornment>
             }
-            sx={{
-              '& .MuiOutlinedInput-notchedOutline': {
-                border: 'none',
-              },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                border: 'none',
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                border: 'none',
-              },
-              '& .MuiOutlinedInput-input': {
-                padding: theme.spacing(1.5, 2),
-              },
-            }}
-          />
+          sx={{
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+            '&.Mui-focused': {
+              boxShadow: 'none',
+            },
+            '& .MuiOutlinedInput-input': {
+              padding: theme.spacing(1.5, 2),
+            },
+          }}
+        />
 
           <Divider sx={{ width: '100%' }} />
 
@@ -475,35 +483,32 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                     onClick={() => handleSelect(option)}
                     disableRipple
                     sx={{
-                      p: 0,
                       borderRadius: `${theme.tokens.theme.radius.xl}px`,
+                      px: theme.spacing(2),
+                      py: theme.spacing(1.5),
+                      display: 'flex',
+                      gap: multiple ? theme.spacing(2) : 0,
+                      alignItems: 'center',
+                      transition: 'background-color 0.2s ease',
                       '&:hover': {
-                        backgroundColor: 'transparent',
+                        backgroundColor: modeTokens.bg.muted,
                       },
                       '&.Mui-selected': {
-                        backgroundColor: 'transparent',
+                        backgroundColor: modeTokens.bg.muted,
                       },
                       '&.Mui-selected:hover': {
-                        backgroundColor: 'transparent',
+                        backgroundColor: modeTokens.bg.muted,
                       },
                     }}
                   >
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: theme.spacing(2),
-                        padding: theme.spacing(2),
-                        borderRadius: `${theme.tokens.theme.radius.xl}px`,
-                        transition: 'background-color 0.2s ease',
-                        '&:hover': {
-                          backgroundColor: modeTokens.bg.muted,
-                        },
-                      }}
-                    >
-                      {multiple ? (
-                        isSelected ? (
+                    {multiple ? (
+                      <ListItemIcon
+                        sx={{
+                          minWidth: 0,
+                          color: isSelected ? modeTokens.icon.brand : modeTokens.icon.muted,
+                        }}
+                      >
+                        {isSelected ? (
                           <IconSquareRoundedCheckFilled
                             size={16}
                             fill={modeTokens.icon.brand}
@@ -511,16 +516,17 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                           />
                         ) : (
                           <IconSquareRounded size={16} color={modeTokens.icon.muted} />
-                        )
-                      ) : null}
-                      <Typography
-                        variant="caption"
-                        color={isSelected ? modeTokens.text.brand : modeTokens.text.default}
-                        sx={{ flexGrow: 1 }}
-                      >
-                        {option.label}
-                      </Typography>
-                    </Box>
+                        )}
+                      </ListItemIcon>
+                    ) : null}
+                    <ListItemText
+                      primary={option.label}
+                      sx={{ my: 0 }}
+                      primaryTypographyProps={{
+                        variant: 'caption',
+                        color: isSelected ? modeTokens.text.brand : modeTokens.text.default,
+                      }}
+                    />
                   </MenuItem>
                 );
               })

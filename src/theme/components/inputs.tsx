@@ -29,6 +29,7 @@ export const inputs: Components<Theme> = {
         borderRadius: '12px',
         backgroundColor: theme.palette.common.white,
         width: 'fit-content',
+        minWidth: 200,
         '& .MuiSelect-select': {
           textAlign: 'center !important',
           display: 'flex',

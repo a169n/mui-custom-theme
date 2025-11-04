@@ -223,6 +223,22 @@ export const buttons: Components<Theme> = {
         },
         ...buildVariantStyles(theme, ownerState),
       }),
+      startIcon: () => ({
+        color: 'inherit',
+        '& svg': {
+          color: 'inherit',
+          fill: 'currentColor',
+          stroke: 'currentColor',
+        },
+      }),
+      endIcon: () => ({
+        color: 'inherit',
+        '& svg': {
+          color: 'inherit',
+          fill: 'currentColor',
+          stroke: 'currentColor',
+        },
+      }),
       sizeSmall: ({ theme }) => ({
         padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
         minHeight: 32,

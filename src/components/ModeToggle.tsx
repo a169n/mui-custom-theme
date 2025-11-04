@@ -57,11 +57,11 @@ const ModeToggle = () => {
       }}
     >
       <ToggleButton value="light" aria-label="Switch to light mode" disableRipple>
-        <IconSun size={16} />
+        <IconSun size={16} color={selectedColor} />
         Light
       </ToggleButton>
       <ToggleButton value="dark" aria-label="Switch to dark mode" disableRipple>
-        <IconMoon size={16} />
+        <IconMoon size={16} color={mode == 'light' ? theme.palette.text.primary : selectedColor} />
         Dark
       </ToggleButton>
     </ToggleButtonGroup>

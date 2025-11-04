@@ -55,7 +55,9 @@ export const foundationRoutes: AppRoute[] = [
 
 export const componentRoutes: AppRoute[] = [
   { path: 'buttons', label: 'Buttons (done)', element: <ButtonsPage /> },
-  { path: 'input', label: 'Input (work in progress)', element: <InputPage /> },
+  { path: 'input', label: 'Input (done)', element: <InputPage /> },
+  { path: 'table', label: 'Table (in progress)', element: <TablePage /> },
+  { path: 'select', label: 'Select', element: <SelectPage /> },
   { path: 'avatar', label: 'Avatar', element: <AvatarPage /> },
   { path: 'alert', label: 'Alert', element: <AlertPage /> },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },
@@ -82,8 +84,6 @@ export const componentRoutes: AppRoute[] = [
   { path: 'stepper', label: 'Stepper', element: <StepperPage /> },
   { path: 'switch', label: 'Switch', element: <SwitchPage /> },
   { path: 'tabs', label: 'Tabs', element: <TabsPage /> },
-  { path: 'table', label: 'Table', element: <TablePage /> },
-  { path: 'select', label: 'Select', element: <SelectPage /> },
   { path: 'textarea', label: 'Textarea', element: <TextareaPage /> },
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage /> },
   { path: 'file-input', label: 'File Input', element: <FileInputPage /> },

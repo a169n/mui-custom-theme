@@ -25,7 +25,10 @@ const getAlignment = (align: TableCellProps['align']) => {
 };
 
 export const CustomTableCell = forwardRef<HTMLTableCellElement, CustomTableCellProps>(
-  ({ children, description, tone = 'default', editable = false, align, onMouseDown, ...rest }, ref) => {
+  (
+    { children, description, tone = 'default', editable = false, align, onMouseDown, ...rest },
+    ref
+  ) => {
     const editableContentRef = useRef<HTMLDivElement | null>(null);
 
     const selectEditableContent = useCallback(() => {
@@ -71,7 +74,7 @@ export const CustomTableCell = forwardRef<HTMLTableCellElement, CustomTableCellP
           }
         });
       },
-      [editable, selectEditableContent],
+      [editable, selectEditableContent]
     );
 
     const handleCellMouseDown = useCallback(
@@ -97,7 +100,7 @@ export const CustomTableCell = forwardRef<HTMLTableCellElement, CustomTableCellP
           onMouseDown(event);
         }
       },
-      [editable, onMouseDown, selectEditableContent],
+      [editable, onMouseDown, selectEditableContent]
     );
 
     return (
@@ -142,7 +145,7 @@ export const CustomTableCell = forwardRef<HTMLTableCellElement, CustomTableCellP
         </Box>
       </TableCell>
     );
-  },
+  }
 );
 
 CustomTableCell.displayName = 'CustomTableCell';

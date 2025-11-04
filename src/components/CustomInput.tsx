@@ -1,4 +1,12 @@
-import { forwardRef, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
 import {
   Box,
   ButtonBase,
@@ -65,7 +73,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY_OPTIONS[0]);
     const [currencyMenuAnchor, setCurrencyMenuAnchor] = useState<HTMLElement | null>(null);
-    const inputContainerRef = useRef<HTMLDivElement | null>(null);
+    const [currencyMenuPlacement, setCurrencyMenuPlacement] = useState<'leading' | 'trailing'>(
+      'leading'
+    );
 
     const generatedId = useId();
     const labelId = useMemo(() => (id ? `${id}-label` : `${generatedId}-label`), [generatedId, id]);
@@ -77,8 +87,11 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const hasLeadingAddon = Boolean(leadingAddon && !trailingAddon);
     const hasTrailingAddon = Boolean(trailingAddon && !leadingAddon);
 
-    const handleOpenCurrencyMenu = () => {
-      setCurrencyMenuAnchor(inputContainerRef.current);
+    const handleOpenCurrencyMenu = (placement: 'leading' | 'trailing') => (
+      event: MouseEvent<HTMLElement>
+    ) => {
+      setCurrencyMenuAnchor(event.currentTarget);
+      setCurrencyMenuPlacement(placement);
     };
 
     const handleCloseCurrencyMenu = () => {
@@ -96,10 +109,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-    const CurrencyAddon = () => (
+    const CurrencyAddon = ({ placement }: { placement: 'leading' | 'trailing' }) => (
       <ButtonBase
         className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
-        onClick={handleOpenCurrencyMenu}
+        onClick={handleOpenCurrencyMenu(placement)}
         disableRipple
         sx={{
           display: 'flex',
@@ -155,7 +168,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 position="start"
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
-                {hasLeadingAddon ? <CurrencyAddon /> : null}
+                {hasLeadingAddon ? <CurrencyAddon placement="leading" /> : null}
                 {hasLeadingAddon ? (
                   <Box
                     sx={{
@@ -193,12 +206,12 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     }}
                   />
                 ) : null}
-                {hasTrailingAddon ? <CurrencyAddon /> : null}
+                {hasTrailingAddon ? <CurrencyAddon placement="trailing" /> : null}
               </InputAdornment>
             ) : undefined;
 
           return (
-            <Box ref={inputContainerRef}>
+            <Box>
               <OutlinedInput
                 size="small"
                 fullWidth={fullWidth}
@@ -230,6 +243,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
             options={CURRENCY_OPTIONS}
             selectedOption={selectedCurrency}
             onSelectOption={handleSelectCurrency}
+            placement={currencyMenuPlacement}
           />
         ) : null}
         {renderCaption(description, theme.palette.text.secondary)}

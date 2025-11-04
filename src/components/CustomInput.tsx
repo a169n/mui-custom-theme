@@ -3,9 +3,10 @@ import {
   useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
-  type MouseEvent,
   type ReactNode,
+  type RefObject,
 } from 'react';
 import {
   Box,
@@ -77,6 +78,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       'leading'
     );
 
+    const leadingAddonRef = useRef<HTMLButtonElement | null>(null);
+    const trailingAddonRef = useRef<HTMLButtonElement | null>(null);
+
     const generatedId = useId();
     const labelId = useMemo(() => (id ? `${id}-label` : `${generatedId}-label`), [generatedId, id]);
     const currencyMenuId = useMemo(
@@ -87,11 +91,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const hasLeadingAddon = Boolean(leadingAddon && !trailingAddon);
     const hasTrailingAddon = Boolean(trailingAddon && !leadingAddon);
 
-    const handleOpenCurrencyMenu = (placement: 'leading' | 'trailing') => (
-      event: MouseEvent<HTMLElement>
-    ) => {
-      setCurrencyMenuAnchor(event.currentTarget);
+    const handleOpenCurrencyMenu = (placement: 'leading' | 'trailing') => () => {
       setCurrencyMenuPlacement(placement);
+      const anchor = placement === 'leading' ? leadingAddonRef.current : trailingAddonRef.current;
+      setCurrencyMenuAnchor(anchor);
     };
 
     const handleCloseCurrencyMenu = () => {
@@ -109,11 +112,18 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-    const CurrencyAddon = ({ placement }: { placement: 'leading' | 'trailing' }) => (
+    const CurrencyAddon = ({
+      placement,
+      buttonRef,
+    }: {
+      placement: 'leading' | 'trailing';
+      buttonRef: RefObject<HTMLButtonElement>;
+    }) => (
       <ButtonBase
         className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
         onClick={handleOpenCurrencyMenu(placement)}
         disableRipple
+        ref={buttonRef}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -168,7 +178,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 position="start"
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
-                {hasLeadingAddon ? <CurrencyAddon placement="leading" /> : null}
+                {hasLeadingAddon ? (
+                  <CurrencyAddon placement="leading" buttonRef={leadingAddonRef} />
+                ) : null}
                 {hasLeadingAddon ? (
                   <Box
                     sx={{
@@ -206,7 +218,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     }}
                   />
                 ) : null}
-                {hasTrailingAddon ? <CurrencyAddon placement="trailing" /> : null}
+                {hasTrailingAddon ? (
+                  <CurrencyAddon placement="trailing" buttonRef={trailingAddonRef} />
+                ) : null}
               </InputAdornment>
             ) : undefined;
 

@@ -8,6 +8,7 @@ export interface CustomInputCurrencyMenuProps {
   options: string[];
   selectedOption: string;
   onSelectOption: (option: string) => void;
+  placement: 'leading' | 'trailing';
 }
 
 export const CustomInputCurrencyMenu = ({
@@ -18,14 +19,15 @@ export const CustomInputCurrencyMenu = ({
   options,
   selectedOption,
   onSelectOption,
+  placement,
 }: CustomInputCurrencyMenuProps) => (
   <Menu
     id={menuId}
     anchorEl={anchorEl}
     open={open}
     onClose={onClose}
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+    anchorOrigin={{ vertical: 'bottom', horizontal: placement === 'trailing' ? 'right' : 'left' }}
+    transformOrigin={{ vertical: 'top', horizontal: placement === 'trailing' ? 'right' : 'left' }}
     slotProps={{
       paper: {
         sx: (theme) => ({

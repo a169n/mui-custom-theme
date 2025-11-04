@@ -3,12 +3,33 @@ import type { Components, Theme } from '@mui/material/styles';
 const getTableRadius = (theme: Theme) =>
   `${theme.tokens?.theme?.radius?.md ?? theme.shape.borderRadius ?? 8}px`;
 
+const getTableBorderColor = (theme: Theme) => {
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+
+  return modeTokens?.border?.default ?? theme.palette.gray[300];
+};
+
+const getTableBackgroundColor = (theme: Theme) => {
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+
+  if (theme.palette.mode === 'dark') {
+    return (
+      modeTokens?.colors?.neutral?.[700] ??
+      modeTokens?.bg?.muted ??
+      theme.palette.gray[800]
+    );
+  }
+
+  return theme.palette.white.main;
+};
+
 export const table: Components<Theme> = {
   MuiTableContainer: {
     styleOverrides: {
       root: ({ theme }) => {
-        const borderColor = theme.palette.gray[300];
+        const borderColor = getTableBorderColor(theme);
         const radius = getTableRadius(theme);
+        const backgroundColor = getTableBackgroundColor(theme);
 
         return {
           width: '100%',
@@ -16,7 +37,7 @@ export const table: Components<Theme> = {
           borderTop: `1px solid ${borderColor}`,
           borderLeft: `1px solid ${borderColor}`,
           overflow: 'auto',
-          backgroundColor: theme.palette.white.main,
+          backgroundColor,
         };
       },
     },
@@ -24,19 +45,20 @@ export const table: Components<Theme> = {
   MuiTable: {
     styleOverrides: {
       root: ({ theme }) => {
-        const borderColor = theme.palette.gray[300];
+        const borderColor = getTableBorderColor(theme);
         const radius = getTableRadius(theme);
+        const backgroundColor = getTableBackgroundColor(theme);
 
         return {
           width: '100%',
           borderCollapse: 'separate',
           borderSpacing: 0,
-          backgroundColor: theme.palette.white.main,
+          backgroundColor,
           '& thead': {
-            backgroundColor: theme.palette.white.main,
+            backgroundColor,
           },
           '& tbody': {
-            backgroundColor: theme.palette.white.main,
+            backgroundColor,
           },
           '& thead tr:first-of-type th:first-of-type': {
             borderTopLeftRadius: radius,
@@ -63,7 +85,7 @@ export const table: Components<Theme> = {
   MuiTableHead: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: theme.palette.white.main,
+        backgroundColor: getTableBackgroundColor(theme),
         '& .MuiTableCell-root': {
           ...theme.typography.textM,
           color: theme.palette.text.secondary,
@@ -75,14 +97,14 @@ export const table: Components<Theme> = {
   MuiTableBody: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: theme.palette.white.main,
+        backgroundColor: getTableBackgroundColor(theme),
       }),
     },
   },
   MuiTableRow: {
     styleOverrides: {
       root: ({ theme }) => {
-        const borderColor = theme.palette.gray[300];
+        const borderColor = getTableBorderColor(theme);
 
         return {
           '&:last-of-type .MuiTableCell-root': {
@@ -95,19 +117,20 @@ export const table: Components<Theme> = {
   MuiTableCell: {
     styleOverrides: {
       root: ({ theme }) => {
-        const borderColor = theme.palette.gray[300];
+        const borderColor = getTableBorderColor(theme);
         const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
         const warningColor = modeTokens?.text.warning ?? theme.palette.warning.main;
         const negativeColor = modeTokens?.text.negative ?? theme.palette.error.main;
         const positiveColor = modeTokens?.text.positive ?? theme.palette.success.main;
         const hoverBackground = modeTokens?.bg?.muted ?? theme.palette.action.hover;
         const focusBorderColor = modeTokens?.border?.brand ?? theme.palette.brand[600];
+        const backgroundColor = getTableBackgroundColor(theme);
 
         return {
           ...theme.typography.textM,
           color: theme.palette.text.primary,
           padding: theme.spacing(2),
-          backgroundColor: theme.palette.white.main,
+          backgroundColor,
           borderBottom: 'none',
           borderTop: `1px solid ${borderColor}`,
           borderLeft: `1px solid ${borderColor}`,
@@ -152,7 +175,7 @@ export const table: Components<Theme> = {
         };
       },
       head: ({ theme }) => ({
-        backgroundColor: theme.palette.white.main,
+        backgroundColor: getTableBackgroundColor(theme),
         borderTop: 'none',
         borderBottom: 'none',
         color: theme.palette.text.secondary,

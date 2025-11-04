@@ -4,14 +4,13 @@ import {
   ButtonBase,
   FormControl,
   InputAdornment,
-  Menu,
-  MenuItem,
   OutlinedInput,
   type OutlinedInputProps,
   Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconSelector } from '@tabler/icons-react';
+import { CustomInputCurrencyMenu } from './CustomInputCurrencyMenu';
 
 export interface CustomInputProps
   extends Omit<OutlinedInputProps, 'label' | 'startAdornment' | 'endAdornment'> {
@@ -66,8 +65,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY_OPTIONS[0]);
     const [currencyMenuAnchor, setCurrencyMenuAnchor] = useState<HTMLElement | null>(null);
-    const startAddonRef = useRef<HTMLDivElement | null>(null);
-    const endAddonRef = useRef<HTMLDivElement | null>(null);
     const inputContainerRef = useRef<HTMLDivElement | null>(null);
 
     const generatedId = useId();
@@ -76,6 +73,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       () => (id ? `${id}-currency-menu` : `${generatedId}-currency-menu`),
       [generatedId, id]
     );
+
+    const hasLeadingAddon = Boolean(leadingAddon && !trailingAddon);
+    const hasTrailingAddon = Boolean(trailingAddon && !leadingAddon);
 
     const handleOpenCurrencyMenu = () => {
       setCurrencyMenuAnchor(inputContainerRef.current);
@@ -96,9 +96,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-    const CurrencyAddon = ({ side }: { side: 'start' | 'end' }) => (
-      <ButtonBase
-        className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
+const CurrencyAddon = () => (
+  <ButtonBase
+    className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
         onClick={handleOpenCurrencyMenu}
         disableRipple
         sx={{
@@ -150,14 +150,13 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
         {(() => {
           // start adornment element
           const startAdornmentEl =
-            leadingAddon || startIcon ? (
+            hasLeadingAddon || startIcon ? (
               <InputAdornment
                 position="start"
-                ref={startAddonRef}
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
-                {leadingAddon ? <CurrencyAddon side="start" /> : null}
-                {startIcon && leadingAddon ? (
+                {hasLeadingAddon ? <CurrencyAddon /> : null}
+                {startIcon && hasLeadingAddon ? (
                   <Box
                     sx={{
                       width: '1px',
@@ -176,14 +175,13 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
           // end adornment element
           const endAdornmentEl =
-            trailingAddon || endIcon ? (
+            hasTrailingAddon || endIcon ? (
               <InputAdornment
                 position="end"
-                ref={endAddonRef}
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
                 {endIcon}
-                {endIcon && trailingAddon ? (
+                {endIcon && hasTrailingAddon ? (
                   <Box
                     sx={{
                       width: '1px',
@@ -195,7 +193,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     }}
                   />
                 ) : null}
-                {trailingAddon ? <CurrencyAddon side="end" /> : null}
+                {hasTrailingAddon ? <CurrencyAddon /> : null}
               </InputAdornment>
             ) : undefined;
 
@@ -212,10 +210,10 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 aria-labelledby={labelId}
                 sx={{
                   '&.MuiInputBase-adornedStart': {
-                    paddingLeft: leadingAddon ? theme.spacing(2) : theme.spacing(3),
+                    paddingLeft: hasLeadingAddon ? theme.spacing(2) : theme.spacing(3),
                   },
                   '&.MuiInputBase-adornedEnd': {
-                    paddingRight: trailingAddon ? theme.spacing(2) : theme.spacing(3),
+                    paddingRight: hasTrailingAddon ? theme.spacing(2) : theme.spacing(3),
                   },
                 }}
                 {...inputProps}
@@ -223,53 +221,16 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
             </Box>
           );
         })()}
-        {leadingAddon || trailingAddon ? (
-          <Menu
-            id={currencyMenuId}
+        {hasLeadingAddon || hasTrailingAddon ? (
+          <CustomInputCurrencyMenu
+            menuId={currencyMenuId}
             anchorEl={currencyMenuAnchor}
             open={Boolean(currencyMenuAnchor)}
             onClose={handleCloseCurrencyMenu}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-            slotProps={{
-              paper: {
-                sx: (theme) => ({
-                  mt: 1,
-                  p: theme.spacing(1),
-                  borderRadius: `${theme.tokens.theme.radius.md}px`,
-                }),
-              },
-            }}
-            MenuListProps={{ role: 'listbox', sx: { p: 1 } }}
-          >
-            {CURRENCY_OPTIONS.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === selectedCurrency}
-                onClick={() => handleSelectCurrency(option)}
-                sx={(theme) => {
-                  const highlightColor = theme.palette.alpha.black[100];
-
-                  return {
-                    p: theme.spacing(2),
-                    borderRadius: `${theme.tokens.theme.radius.md}px`,
-                    '&:hover': {
-                      backgroundColor: highlightColor,
-                    },
-                    '&.Mui-selected': {
-                      backgroundColor: highlightColor,
-                    },
-                    '&.Mui-selected:hover': {
-                      backgroundColor: highlightColor,
-                    },
-                    '& .MuiTypography-root': { ...theme.typography.caption },
-                  };
-                }}
-              >
-                <Typography variant="caption">{option}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
+            options={CURRENCY_OPTIONS}
+            selectedOption={selectedCurrency}
+            onSelectOption={handleSelectCurrency}
+          />
         ) : null}
         {renderCaption(description, theme.palette.text.secondary)}
       </FormControl>

@@ -91,11 +91,11 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const hasLeadingAddon = Boolean(leadingAddon && !trailingAddon);
     const hasTrailingAddon = Boolean(trailingAddon && !leadingAddon);
 
-    const handleOpenCurrencyMenu = (placement: 'leading' | 'trailing') => () => {
-      setCurrencyMenuPlacement(placement);
-      const anchor = placement === 'leading' ? leadingAddonRef.current : trailingAddonRef.current;
-      setCurrencyMenuAnchor(anchor);
-    };
+    const handleOpenCurrencyMenu =
+      (placement: 'leading' | 'trailing') => (event: React.MouseEvent<HTMLElement>) => {
+        setCurrencyMenuPlacement(placement);
+        setCurrencyMenuAnchor(event.currentTarget);
+      };
 
     const handleCloseCurrencyMenu = () => {
       setCurrencyMenuAnchor(null);
@@ -112,41 +112,45 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-    const CurrencyAddon = ({
-      placement,
-      buttonRef,
-    }: {
-      placement: 'leading' | 'trailing';
-      buttonRef: RefObject<HTMLButtonElement>;
-    }) => (
-      <ButtonBase
-        className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
-        onClick={handleOpenCurrencyMenu(placement)}
-        disableRipple
-        ref={buttonRef}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: theme.spacing(0.5),
-          borderRadius: 0,
-          color: theme.palette.text.primary,
-          borderRightColor: theme.palette.divider,
-          height: '100%',
-          minHeight: '36px',
-          '&.Mui-disabled': {
-            color: theme.palette.text.disabled,
-          },
-        }}
-        aria-haspopup="listbox"
-        aria-expanded={currencyMenuAnchor ? 'true' : undefined}
-        aria-controls={currencyMenuAnchor ? currencyMenuId : undefined}
-        disabled={disabled}
-      >
-        <IconSelector size={16} />
-        <Typography variant="caption">{selectedCurrency}</Typography>
-      </ButtonBase>
-    );
+    const CurrencyAddon = ({ placement }: { placement: 'leading' | 'trailing' }) => {
+      const buttonRef = useRef<HTMLDivElement>(null);
 
+      return (
+        <Box ref={buttonRef} sx={{ display: 'flex', height: '100%' }}>
+          <ButtonBase
+            className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleOpenCurrencyMenu(placement)({
+                currentTarget: buttonRef.current,
+              } as any);
+            }}
+            disableRipple
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: theme.spacing(0.5),
+              borderRadius: 0,
+              color: theme.palette.text.primary,
+              borderRightColor: theme.palette.divider,
+              height: '100%',
+              minHeight: '36px',
+              '&.Mui-disabled': {
+                color: theme.palette.text.disabled,
+              },
+            }}
+            aria-haspopup="listbox"
+            aria-expanded={currencyMenuAnchor ? 'true' : undefined}
+            aria-controls={currencyMenuAnchor ? currencyMenuId : undefined}
+            disabled={disabled}
+          >
+            <IconSelector size={16} />
+            <Typography variant="caption">{selectedCurrency}</Typography>
+          </ButtonBase>
+        </Box>
+      );
+    };
     return (
       <FormControl
         variant="outlined"
@@ -178,9 +182,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 position="start"
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
-                {hasLeadingAddon ? (
-                  <CurrencyAddon placement="leading" buttonRef={leadingAddonRef} />
-                ) : null}
+                {hasLeadingAddon ? <CurrencyAddon placement="leading" /> : null}
                 {hasLeadingAddon ? (
                   <Box
                     sx={{
@@ -218,9 +220,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     }}
                   />
                 ) : null}
-                {hasTrailingAddon ? (
-                  <CurrencyAddon placement="trailing" buttonRef={trailingAddonRef} />
-                ) : null}
+                {hasTrailingAddon ? <CurrencyAddon placement="trailing" /> : null}
               </InputAdornment>
             ) : undefined;
 

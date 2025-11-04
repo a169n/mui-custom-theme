@@ -96,9 +96,9 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       }
     }, [currencyMenuAnchor, disabled]);
 
-const CurrencyAddon = () => (
-  <ButtonBase
-    className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
+    const CurrencyAddon = () => (
+      <ButtonBase
+        className={`${ADORNMENT_ITEM_CLASS} ${ADORNMENT_CURRENCY_CLASS}`}
         onClick={handleOpenCurrencyMenu}
         disableRipple
         sx={{
@@ -156,7 +156,7 @@ const CurrencyAddon = () => (
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
                 {hasLeadingAddon ? <CurrencyAddon /> : null}
-                {startIcon && hasLeadingAddon ? (
+                {hasLeadingAddon ? (
                   <Box
                     sx={{
                       width: '1px',
@@ -164,7 +164,7 @@ const CurrencyAddon = () => (
                       minHeight: '40px',
                       backgroundColor: theme.palette.divider,
                       ml: theme.spacing(2),
-                      mr: theme.spacing(3),
+                      mr: startIcon && theme.spacing(3),
                     }}
                   />
                 ) : null}
@@ -181,14 +181,14 @@ const CurrencyAddon = () => (
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
                 {endIcon}
-                {endIcon && hasTrailingAddon ? (
+                {trailingAddon ? (
                   <Box
                     sx={{
                       width: '1px',
                       height: '100%',
                       minHeight: '40px',
                       backgroundColor: theme.palette.divider,
-                      ml: theme.spacing(3),
+                      ml: endIcon && theme.spacing(3),
                       mr: theme.spacing(2),
                     }}
                   />

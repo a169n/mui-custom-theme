@@ -56,8 +56,8 @@ export const foundationRoutes: AppRoute[] = [
 export const componentRoutes: AppRoute[] = [
   { path: 'buttons', label: 'Buttons (done)', element: <ButtonsPage /> },
   { path: 'input', label: 'Input (done)', element: <InputPage /> },
-  { path: 'table', label: 'Table (in progress)', element: <TablePage /> },
-  { path: 'select', label: 'Select', element: <SelectPage /> },
+  { path: 'table', label: 'Table (done)', element: <TablePage /> },
+  { path: 'select', label: 'Select (done)', element: <SelectPage /> },
   { path: 'avatar', label: 'Avatar', element: <AvatarPage /> },
   { path: 'alert', label: 'Alert', element: <AlertPage /> },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },

@@ -1,5 +1,13 @@
 import type { Components, Theme } from '@mui/material/styles';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button';
+import { multiply } from 'color-blend';
+import {
+  hexToRgba,
+  hexToRgbaObject,
+  isValidHexColor,
+  rgbaObjectToString,
+  rgbaStringToObject,
+} from '../../../utils/color';
 
 const resolveModeTokens = (theme: Theme) => {
   const mode = theme.palette.mode ?? 'light';
@@ -87,20 +95,23 @@ const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
 
 const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
-  const background = tokens?.bg?.muted ?? theme.palette.grey[200];
+  const backgroundColor = tokens?.bg?.muted ?? theme.palette.grey[200];
   const text = tokens?.text?.default ?? theme.palette.text.primary;
-  const hoverBackground = theme.palette.alpha.black[100];
+
+  const hoverBackgroundColor = multiply(
+    hexToRgbaObject(tokens?.bg?.muted),
+    rgbaStringToObject(theme.palette.alpha.black[100])
+  );
 
   return {
-    backgroundColor: background,
+    backgroundColor,
     color: text,
     border: 'none',
     '&:hover': {
-      backgroundColor: hoverBackground,
-      opacity: 0.8,
+      backgroundColor: rgbaObjectToString(hoverBackgroundColor),
     },
     '&.Mui-disabled': {
-      backgroundColor: background,
+      backgroundColor,
       color: text,
       border: 'none',
     },
@@ -113,12 +124,34 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
   const isDefaultTone = getToneKey(color) === 'brand';
   const defaultHoverBackground = theme.palette.alpha.black[100];
 
+  if (isDefaultTone) {
+    const background = tokens?.bg?.default ?? theme.palette.background.paper;
+    const text = tokens?.text?.default ?? theme.palette.text.primary;
+    const border = tokens?.border?.default ?? theme.palette.divider;
+
+    return {
+      backgroundColor: background,
+      color: text,
+      border: `1.5px solid ${border}`,
+      '&:hover': {
+        backgroundColor: defaultHoverBackground,
+        border: `1.5px solid ${border}`,
+      },
+      '&.Mui-disabled': {
+        backgroundColor: background,
+        color: text,
+        border: `1.5px solid ${border}`,
+        opacity: 0.5,
+      },
+    };
+  }
+
   return {
     backgroundColor: 'transparent',
     color: colors.plainText,
     border: `1.5px solid ${colors.border}`,
     '&:hover': {
-      backgroundColor: isDefaultTone ? defaultHoverBackground : 'transparent',
+      backgroundColor: 'transparent',
       border: `1.5px solid ${colors.border}`,
       opacity: 0.8,
     },

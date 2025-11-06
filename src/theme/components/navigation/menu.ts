@@ -57,7 +57,7 @@ export const navigationMenus: Components<Theme> = {
           '&.Mui-selected': {
             backgroundColor: highlightColor,
             '& .MuiTypography-root': {
-              color: modeTokens.text.brand,
+              color: modeTokens.text.default,
             },
             '& .MuiListItemIcon-root': {
               color: modeTokens.icon.brand,

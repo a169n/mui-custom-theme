@@ -25,19 +25,26 @@ export const inputs: Components<Theme> = {
   },
   MuiSelect: {
     styleOverrides: {
-      root: ({ theme }) => ({
-        borderRadius: '12px',
-        backgroundColor: theme.palette.common.white,
-        width: 'fit-content',
-        minWidth: 200,
-        '& .MuiSelect-select': {
-          textAlign: 'center !important',
-          display: 'flex',
-          alignItems: 'center',
-        },
-      }),
+      root: ({ theme }) => {
+        const modeTokens = theme.tokens.modes[theme.palette.mode];
+
+        return {
+          borderRadius: `${theme.tokens.theme.radius.lg}px`,
+          backgroundColor: modeTokens.bg.default,
+          width: 'fit-content',
+          minWidth: 200,
+          '& .MuiSelect-select': {
+            display: 'flex',
+            alignItems: 'center',
+            minHeight: 36,
+            padding: theme.spacing(0, 2),
+            ...theme.typography.caption,
+            color: modeTokens.text.default,
+          },
+        };
+      },
       icon: ({ theme }) => ({
-        color: `${theme.palette.gray[500]} !important`,
+        color: `${theme.tokens.modes[theme.palette.mode].icon.muted} !important`,
         top: '50%',
         transform: 'translateY(-50%)',
         pointerEvents: 'none',
@@ -49,15 +56,6 @@ export const inputs: Components<Theme> = {
     },
     defaultProps: {
       IconComponent: (props) => <IconChevronDown size={20} {...props} />,
-      MenuProps: {
-        slotProps: {
-          paper: {
-            sx: {
-              borderRadius: '12px',
-            },
-          },
-        },
-      },
     },
   },
   MuiOutlinedInput: {

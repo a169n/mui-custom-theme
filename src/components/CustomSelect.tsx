@@ -32,6 +32,7 @@ import {
 export interface CustomSelectOption {
   label: string;
   value: string;
+  disabled?: boolean;
 }
 
 export interface CustomSelectProps {
@@ -194,6 +195,10 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
     };
 
     const handleSelect = (option: CustomSelectOption) => {
+      if (option.disabled) {
+        return;
+      }
+
       if (multiple) {
         const selectedValues = Array.isArray(value) ? [...value] : [];
         const index = selectedValues.indexOf(option.value);
@@ -411,49 +416,58 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 mt: 1,
                 width: anchorEl?.clientWidth,
                 borderRadius: `${theme.tokens.theme.radius.xl}px`,
-                p: theme.spacing(2),
+                p: 0,
                 boxShadow: theme.tokens.theme.shadow.black[2],
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 0,
               },
             },
           }}
         >
-          <TextField
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search"
-            variant="standard"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconSearch size={16} color={modeTokens.icon.muted} />
-                </InputAdornment>
-              ),
-              disableUnderline: true,
-            }}
+          <Box
             sx={{
-              '& .MuiInputBase-root': {
-                padding: 0,
-                alignItems: 'center',
-                height: 36,
-                minHeight: 36,
-              },
-              '& .MuiInputBase-input': {
-                padding: theme.spacing(0, 2),
-                height: 36,
-                lineHeight: '36px',
-              },
+              display: 'flex',
+              flexDirection: 'column',
+              padding: theme.spacing(2),
             }}
-          />
+          >
+            <TextField
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Поиск"
+              variant="standard"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconSearch size={16} color={modeTokens.icon.muted} />
+                  </InputAdornment>
+                ),
+                disableUnderline: true,
+              }}
+              sx={{
+                '& .MuiInputBase-root': {
+                  maxHeight: '20px',
+                  padding: 0,
+                  alignItems: 'center',
+                  ...theme.typography.caption,
+                },
+                '& .MuiInputAdornment-root': {
+                  margin: 0,
+                  padding: 0,
+                },
+                '& .MuiInputBase-input': {
+                  padding: theme.spacing(0, 2),
+                },
+              }}
+            />
+          </Box>
 
           <Divider
             sx={{
-              width: `calc(100% + ${theme.spacing(4)})`,
+              width: '100%',
               height: '1px',
               backgroundColor: theme.palette.divider,
-              mx: -2,
+              mx: 0,
               my: 0,
             }}
           />
@@ -465,17 +479,14 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: theme.spacing(1),
+              gap: 0,
               maxHeight: 220,
               overflowY: 'auto',
+              padding: theme.spacing(1),
             }}
           >
             {filteredOptions.length === 0 ? (
-              <Typography
-                variant="body2"
-                color={modeTokens.text.muted}
-                sx={{ px: theme.spacing(1) }}
-              >
+              <Typography variant="body2" color={modeTokens.text.muted}>
                 No options found
               </Typography>
             ) : (
@@ -483,47 +494,25 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                 const isSelected = selectedOptions.some(
                   (selectedOption) => selectedOption.value === option.value
                 );
-
+                const isDisabled = Boolean(option.disabled);
                 return (
                   <MenuItem
                     key={option.value}
                     selected={isSelected}
                     onClick={() => handleSelect(option)}
                     disableRipple
-                    sx={{
-                      borderRadius: `${theme.tokens.theme.radius.xl}px`,
-                      px: theme.spacing(2),
-                      py: theme.spacing(1.5),
-                      display: 'flex',
-                      gap: multiple ? theme.spacing(2) : 0,
-                      alignItems: 'center',
-                      transition: 'background-color 0.2s ease',
-                      '&:hover': {
-                        backgroundColor: modeTokens.bg.muted,
-                      },
-                      '&.Mui-selected': {
-                        backgroundColor: modeTokens.bg.muted,
-                      },
-                      '&.Mui-selected:hover': {
-                        backgroundColor: modeTokens.bg.muted,
-                      },
-                    }}
+                    disabled={isDisabled}
                   >
                     {multiple ? (
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 0,
-                          color: isSelected ? modeTokens.icon.brand : modeTokens.icon.muted,
-                        }}
-                      >
+                      <ListItemIcon sx={{ minWidth: 0 }}>
                         {isSelected ? (
                           <IconSquareRoundedCheckFilled
                             size={16}
-                            fill={modeTokens.icon.brand}
-                            color={modeTokens.icon.brand}
+                            color="inherit"
+                            fill="currentColor"
                           />
                         ) : (
-                          <IconSquareRounded size={16} color={modeTokens.icon.muted} />
+                          <IconSquareRounded size={16} color="inherit" />
                         )}
                       </ListItemIcon>
                     ) : null}
@@ -532,7 +521,6 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
                       sx={{ my: 0 }}
                       primaryTypographyProps={{
                         variant: 'caption',
-                        color: isSelected ? modeTokens.text.brand : modeTokens.text.default,
                       }}
                     />
                   </MenuItem>

@@ -5,45 +5,81 @@ export const navigationMenus: Components<Theme> = {
     defaultProps: { disableScrollLock: true },
     styleOverrides: {
       paper: ({ theme }) => ({
-        borderRadius: '12px',
-        marginTop: '4px',
+        marginTop: theme.spacing(1),
         padding: 0,
-        backgroundColor: theme.palette.common.white,
+        borderRadius: `${theme.tokens.theme.radius.xl}px`,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.tokens.theme.shadow.black[2],
         '& .MuiMenu-list': {
-          padding: 0,
+          padding: theme.spacing(2),
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
         },
       }),
-      list: {
-        p: '0px !important',
+      list: ({ theme }) => ({
+        padding: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+      }),
+    },
+  },
+  MuiMenuItem: {
+    defaultProps: { disableRipple: true },
+    styleOverrides: {
+      root: ({ theme }) => {
+        const modeTokens = theme.tokens.modes[theme.palette.mode];
+        const highlightColor = theme.palette.alpha.black[100];
+
+        return {
+          borderRadius: `${theme.tokens.theme.radius.md}px`,
+          padding: theme.spacing(2),
+          minHeight: 36,
+          display: 'flex',
+          alignItems: 'center',
+          gap: theme.spacing(2),
+          transition: 'background-color 0.2s ease',
+          '& .MuiListItemIcon-root': {
+            minWidth: 0,
+            color: modeTokens.icon.muted,
+            '& svg': {
+              color: 'inherit',
+            },
+          },
+          '& .MuiTypography-root': {
+            ...theme.typography.caption,
+            color: modeTokens.text.default,
+          },
+          '&:hover': {
+            backgroundColor: highlightColor,
+          },
+          '&.Mui-selected': {
+            backgroundColor: highlightColor,
+            '& .MuiTypography-root': {
+              color: modeTokens.text.brand,
+            },
+            '& .MuiListItemIcon-root': {
+              color: modeTokens.icon.brand,
+            },
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: highlightColor,
+          },
+          '&.Mui-disabled': {
+            opacity: 0.5,
+            backgroundColor: 'transparent',
+            '& .MuiTypography-root': {
+              color: modeTokens.text.muted,
+            },
+            '& .MuiListItemIcon-root': {
+              color: modeTokens.icon.muted,
+            },
+          },
+        };
       },
     },
   },
-  // MuiMenuItem: {
-  //   styleOverrides: {
-  //     root: ({ theme }) => ({
-  //       padding: '8px 10px',
-  //       '& .MuiTypography-root': {
-  //         fontSize: '14px',
-  //         lineHeight: '20px',
-  //         color: theme.palette.gray[800],
-  //         transition: 'color 0.2s ease',
-  //       },
-  //       '&:hover': { backgroundColor: 'transparent !important' },
-  //       '&:hover .MuiTypography-root': {
-  //         color: theme.palette.brand[500],
-  //       },
-  //       '&.Mui-selected': {
-  //         backgroundColor: 'transparent !important',
-  //         '& .MuiTypography-root': {
-  //           color: theme.palette.brand[500],
-  //           fontWeight: 500,
-  //         },
-  //       },
-  //       '&.Mui-selected:hover': { backgroundColor: 'transparent !important' },
-  //       '&.Mui-focusVisible': { backgroundColor: 'transparent !important' },
-  //     }),
-  //   },
-  // },
   MuiTab: {
     styleOverrides: {
       root: ({ theme }) => ({

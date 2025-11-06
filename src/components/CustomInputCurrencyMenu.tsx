@@ -35,40 +35,13 @@ export const CustomInputCurrencyMenu = ({
         vertical: 'top', // Menu will "grow" from the top
         horizontal: placement === 'trailing' ? 'right' : 'left', // Align the menu's transform origin
       }}
-      slotProps={{
-        paper: {
-          sx: (theme) => ({
-            mt: 1,
-            p: theme.spacing(1),
-            borderRadius: `${theme.tokens.theme.radius.md}px`,
-          }),
-        },
-      }}
-      MenuListProps={{ role: 'listbox', sx: { p: 1 } }}
+      MenuListProps={{ role: 'listbox' }}
     >
       {options.map((option) => (
         <MenuItem
           key={option}
           selected={option === selectedOption}
           onClick={() => onSelectOption(option)}
-          sx={(theme) => {
-            const highlightColor = theme.palette.alpha.black[100];
-
-            return {
-              p: theme.spacing(2),
-              borderRadius: `${theme.tokens.theme.radius.md}px`,
-              '&:hover': {
-                backgroundColor: highlightColor,
-              },
-              '&.Mui-selected': {
-                backgroundColor: highlightColor,
-              },
-              '&.Mui-selected:hover': {
-                backgroundColor: highlightColor,
-              },
-              '& .MuiTypography-root': { ...theme.typography.caption },
-            };
-          }}
         >
           <Typography variant="caption">{option}</Typography>
         </MenuItem>

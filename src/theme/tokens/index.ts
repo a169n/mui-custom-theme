@@ -72,7 +72,8 @@ export * from './spacing';
 export * from './typography';
 export * from './radius';
 export * from './modes';
-export * from './shadows';
+export { shadows } from './shadows';
+export type { ShadowLevel } from './shadows';
 
 // Default export
 export default designTokens;

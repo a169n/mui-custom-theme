@@ -22,7 +22,7 @@ export interface IconButtonProps
   className?: string;
 }
 
-const ICON_SIZE = 20;
+const getIconSize = (size: IconButtonSize) => (size === 'large' ? 24 : 20);
 
 const toneToColor = (tone: IconButtonTone): MUIIconButtonProps['color'] => {
   switch (tone) {
@@ -35,9 +35,13 @@ const toneToColor = (tone: IconButtonTone): MUIIconButtonProps['color'] => {
   }
 };
 
-const getSizeStyles = (theme: Theme, size: IconButtonSize) => {
-  const radiusMd = theme.tokens?.theme?.radius?.md ?? 8;
-  const radiusLg = theme.tokens?.theme?.radius?.lg ?? 10;
+const getSizeStyles = (
+  theme: Theme,
+  size: IconButtonSize,
+  radiusScale?: { md?: number; lg?: number }
+) => {
+  const radiusMd = radiusScale?.md ?? 8;
+  const radiusLg = radiusScale?.lg ?? 10;
 
   switch (size) {
     case 'small':
@@ -71,13 +75,16 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     ...rest
   } = props;
   const theme = useTheme();
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
   const muiColor = toneToColor(tone);
   const inactive = disabled || loading;
+  const iconSize = getIconSize(size);
   const variantStyles = getButtonVariantStyles(theme, variant as CustomButtonVariant, muiColor);
-  const sizeStyles = getSizeStyles(theme, size);
+  const sizeStyles = getSizeStyles(theme, size, modeTokens?.radius);
   const baseStyles = {
     ...variantStyles,
     ...sizeStyles,
+    position: 'relative',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -85,19 +92,11 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     minHeight: 0,
     transition: 'opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease',
     '& svg': {
-      width: ICON_SIZE,
-      height: ICON_SIZE,
+      width: iconSize,
+      height: iconSize,
       color: 'inherit',
       fill: 'currentColor',
       stroke: 'currentColor',
-    },
-    '& > *:nth-of-type(1)': {
-      width: ICON_SIZE,
-      height: ICON_SIZE,
-      fontSize: ICON_SIZE,
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   };
 
@@ -119,31 +118,23 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
       sx={[baseStyles, ...sxArray]}
       {...rest}
     >
-      <Box
-        component="span"
-        sx={{
-          position: 'relative',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {loading ? (
-          <CircularProgress size={ICON_SIZE} color="inherit" />
-        ) : (
-          <Box
-            component="span"
-            sx={{
-              visibility: loading ? 'hidden' : 'visible',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {children}
-          </Box>
-        )}
-      </Box>
+      {loading ? (
+        <CircularProgress size={iconSize} color="inherit"  />
+      ) : (
+        <Box
+          component="span"
+          sx={{
+            visibility: loading ? 'hidden' : 'visible',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: iconSize,
+            height: iconSize,
+          }}
+        >
+          {children}
+        </Box>
+      )}
     </MUIIconButton>
   );
 });

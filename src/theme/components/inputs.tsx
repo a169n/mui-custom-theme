@@ -29,7 +29,7 @@ export const inputs: Components<Theme> = {
         const modeTokens = theme.tokens.modes[theme.palette.mode];
 
         return {
-          borderRadius: `${theme.tokens.theme.radius.lg}px`,
+          borderRadius: `${modeTokens.radius.lg}px`,
           backgroundColor: modeTokens.bg.default,
           width: 'fit-content',
           minWidth: 200,
@@ -66,7 +66,7 @@ export const inputs: Components<Theme> = {
         const destructiveShadow = `0 0 0 4px ${modeTokens.custom.destructive}`;
 
         return {
-          borderRadius: `${theme.tokens.theme.radius.lg}px`,
+          borderRadius: `${modeTokens.radius.lg}px`,
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
           '& .MuiInputAdornment-root': {
             margin: 0,
@@ -75,7 +75,7 @@ export const inputs: Components<Theme> = {
             borderWidth: '1px',
             borderStyle: 'solid',
             borderColor: modeTokens.border.default,
-            borderRadius: `${theme.tokens.theme.radius.lg}px`,
+            borderRadius: `${modeTokens.radius.lg}px`,
             transition: 'border-color 0.2s ease',
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {

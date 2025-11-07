@@ -184,23 +184,6 @@ export const roseColors: ColorScale = {
 } as const;
 
 /**
- * Sky color scale
- */
-export const skyColors: ColorScale = {
-  50: '#f0f9ff',
-  100: '#dff2fe',
-  200: '#b8e6fe',
-  300: '#74d4ff',
-  400: '#00bcff',
-  500: '#00a6f4',
-  600: '#0084d1',
-  700: '#0069a8',
-  800: '#00598a',
-  900: '#024a70',
-  950: '#052f4a',
-} as const;
-
-/**
  * Teal color scale
  */
 export const tealColors: ColorScale = {

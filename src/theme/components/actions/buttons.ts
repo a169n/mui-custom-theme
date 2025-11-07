@@ -246,28 +246,33 @@ export const buttons: Components<Theme> = {
       disableElevation: true,
     },
     styleOverrides: {
-      root: ({ theme, ownerState }) => ({
-        textTransform: 'none',
-        fontSize: 14,
-        fontWeight: 500,
-        minWidth: 'auto',
-        width: 'fit-content',
-        transition: 'opacity 0.3s ease',
-        boxShadow: 'none',
-        borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
-        gap: theme.spacing(1),
-        '&:hover': {
+      root: ({ theme, ownerState }) => {
+        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const mdRadius = radiusScale?.md ?? 8;
+
+        return {
+          textTransform: 'none',
+          fontSize: 14,
+          fontWeight: 500,
+          minWidth: 'auto',
+          width: 'fit-content',
+          transition: 'opacity 0.3s ease',
           boxShadow: 'none',
-        },
-        '&.Mui-disabled': {
-          opacity: 0.5,
-        },
-        ...getButtonVariantStyles(
-          theme,
-          (ownerState.variant as CustomButtonVariant | undefined) ?? undefined,
-          ownerState.color
-        ),
-      }),
+          borderRadius: `${mdRadius}px`,
+          gap: theme.spacing(1),
+          '&:hover': {
+            boxShadow: 'none',
+          },
+          '&.Mui-disabled': {
+            opacity: 0.5,
+          },
+          ...getButtonVariantStyles(
+            theme,
+            (ownerState.variant as CustomButtonVariant | undefined) ?? undefined,
+            ownerState.color
+          ),
+        };
+      },
       startIcon: () => ({
         color: 'inherit',
         marginLeft: 0,
@@ -312,21 +317,36 @@ export const buttons: Components<Theme> = {
           height: 16,
         },
       }),
-      sizeSmall: ({ theme }) => ({
-        padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
-        minHeight: 32,
-        borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
-      }),
-      sizeMedium: ({ theme }) => ({
-        padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
-        minHeight: 36,
-        borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
-      }),
-      sizeLarge: ({ theme }) => ({
-        padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
-        minHeight: 40,
-        borderRadius: `${theme.tokens?.theme?.radius?.lg ?? 10}px`,
-      }),
+      sizeSmall: ({ theme }) => {
+        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const mdRadius = radiusScale?.md ?? 8;
+
+        return {
+          padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+          minHeight: 32,
+          borderRadius: `${mdRadius}px`,
+        };
+      },
+      sizeMedium: ({ theme }) => {
+        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const mdRadius = radiusScale?.md ?? 8;
+
+        return {
+          padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
+          minHeight: 36,
+          borderRadius: `${mdRadius}px`,
+        };
+      },
+      sizeLarge: ({ theme }) => {
+        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const lgRadius = radiusScale?.lg ?? 10;
+
+        return {
+          padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+          minHeight: 40,
+          borderRadius: `${lgRadius}px`,
+        };
+      },
     },
   },
 };

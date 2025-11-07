@@ -86,6 +86,14 @@ export interface SpacingScale {
   readonly 96: 384;
 }
 
+export type DimensionScale = Record<string, number>;
+
+export type BorderWidthScale = Record<string, number>;
+
+export type OpacityScale = Record<string, number>;
+
+export type LineHeightScale = Record<string, number>;
+
 /**
  * Typography token
  */
@@ -121,6 +129,13 @@ export interface TypographyScale {
 export interface FontFamilies {
   readonly 'font-sans': string;
   readonly 'font-mono': string;
+}
+
+export interface FontWeightScale {
+  readonly Regular: string;
+  readonly Medium: string;
+  readonly Semibold: string;
+  readonly Bold: string;
 }
 
 /**
@@ -160,6 +175,32 @@ export interface ShadowPalette {
   readonly brand: ShadowScale;
   readonly negative: ShadowScale;
   readonly positive: ShadowScale;
+}
+
+export interface BreakpointScale {
+  readonly sm: number;
+  readonly md: number;
+  readonly lg: number;
+  readonly xl: number;
+  readonly '2xl': number;
+  readonly '3xl': number;
+}
+
+export interface ContainerScale {
+  readonly '3xs': number;
+  readonly '2xs': number;
+  readonly xs: number;
+  readonly sm: number;
+  readonly md: number;
+  readonly lg: number;
+  readonly xl: number;
+  readonly '2xl': number;
+  readonly '3xl': number;
+  readonly '4xl': number;
+  readonly '5xl': number;
+  readonly '6xl': number;
+  readonly '7xl': number;
+  readonly '8xl': number;
 }
 
 /**
@@ -223,6 +264,12 @@ export interface BorderColors {
   readonly warning: string;
 }
 
+export interface LogoColors {
+  readonly default: string;
+  readonly stage: string;
+  readonly test: string;
+}
+
 /**
  * Color palette with all color scales
  */
@@ -234,56 +281,75 @@ export interface ColorPalette {
   readonly yellow: ColorScale;
   readonly cyan: ColorScale;
   readonly purple: ColorScale;
+  readonly orange?: ColorScale;
+  readonly pink?: ColorScale;
+  readonly rose?: ColorScale;
+  readonly teal?: ColorScale;
+  readonly lime?: ColorScale;
 }
 
-/**
- * Mode colors (light or dark)
- */
-export interface ModeColors {
+export interface CustomModeColors {
+  readonly focused: string;
+  readonly destructive: string;
+}
+
+export interface ModeColorTokens {
   readonly bg: BackgroundColors;
   readonly text: TextColors;
   readonly icon: IconColors;
   readonly border: BorderColors;
   readonly colors: ColorPalette;
-  readonly custom: {
-    readonly focused: string;
-    readonly destructive: string;
-  };
+  readonly custom: CustomModeColors;
+  readonly logo: LogoColors;
   readonly 'alpha-black': AlphaColorScale;
   readonly 'alpha-white': AlphaColorScale;
+}
+
+export interface ModeFoundationTokens {
+  readonly font: FontFamilies;
+  readonly typography: TypographyScale;
+  readonly breakpoint: BreakpointScale;
+  readonly container: ContainerScale;
+  readonly 'font-weight': FontWeightScale;
+  readonly radius: RadiusScale;
+  readonly shadow: ShadowPalette;
+}
+
+export type ModeTokens = ModeColorTokens & ModeFoundationTokens;
+
+export interface PrimitiveTokens {
+  readonly colors: {
+    readonly base: BaseColors;
+    readonly brand: ColorScale;
+    readonly neutral: ColorScale;
+    readonly green: ColorScale;
+    readonly red: ColorScale;
+    readonly yellow: ColorScale;
+    readonly cyan: ColorScale;
+    readonly purple: ColorScale;
+    readonly orange: ColorScale;
+    readonly pink: ColorScale;
+    readonly rose: ColorScale;
+    readonly teal: ColorScale;
+    readonly lime: ColorScale;
+  };
+  readonly spacing: SpacingScale;
+  readonly width: DimensionScale;
+  readonly height: DimensionScale;
+  readonly 'border-radius': Record<string, number>;
+  readonly 'border-width': BorderWidthScale;
+  readonly opacity: OpacityScale;
+  readonly 'line-height': LineHeightScale;
+  readonly default: string;
 }
 
 /**
  * Complete design tokens structure
  */
 export interface DesignTokens {
-  readonly primitives: {
-    readonly colors: {
-      readonly base: BaseColors;
-      readonly brand: ColorScale;
-      readonly neutral: ColorScale;
-      readonly green: ColorScale;
-      readonly red: ColorScale;
-      readonly yellow: ColorScale;
-      readonly cyan: ColorScale;
-      readonly purple: ColorScale;
-      readonly orange: ColorScale;
-      readonly pink: ColorScale;
-      readonly rose: ColorScale;
-      readonly sky: ColorScale;
-      readonly teal: ColorScale;
-      readonly lime: ColorScale;
-    };
-    readonly spacing: SpacingScale;
-  };
-  readonly theme: {
-    readonly font: FontFamilies;
-    readonly text: TypographyScale;
-    readonly radius: RadiusScale;
-    readonly shadow: ShadowPalette;
-  };
+  readonly primitives: PrimitiveTokens;
   readonly modes: {
-    readonly light: ModeColors;
-    readonly dark: ModeColors;
+    readonly light: ModeTokens;
+    readonly dark: ModeTokens;
   };
 }

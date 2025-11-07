@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import PalettePage from '../pages/foundations/PalettePage';
 import TypographyPage from '../pages/foundations/TypographyPage';
+import TokenUsagePage from '../pages/foundations/TokenUsagePage';
 import {
   AlertPage,
   AvatarPage,
@@ -42,6 +43,7 @@ export type AppRoute = {
   path: string;
   label: string;
   element: ReactElement;
+  status?: 'done' | 'in-progress' | 'todo';
 };
 
 export type AppRouteGroup = {
@@ -52,16 +54,23 @@ export type AppRouteGroup = {
 export const foundationRoutes: AppRoute[] = [
   { path: 'palette', label: 'Palette', element: <PalettePage /> },
   { path: 'typography', label: 'Typography', element: <TypographyPage /> },
+  { path: 'tokens', label: 'Token Usage', element: <TokenUsagePage /> },
 ];
 
-export const componentRoutes: AppRoute[] = [
-  { path: 'buttons', label: 'Buttons (done)', element: <ButtonsPage /> },
-  { path: 'icon-buttons', label: 'Icon Buttons', element: <IconButtonsPage /> },
-  { path: 'input', label: 'Input (done)', element: <InputPage /> },
-  { path: 'table', label: 'Table (done)', element: <TablePage /> },
-  { path: 'select', label: 'Select (done)', element: <SelectPage /> },
-  { path: 'avatar', label: 'Avatar', element: <AvatarPage /> },
-  { path: 'alert', label: 'Alert', element: <AlertPage /> },
+const doneRoutes: AppRoute[] = [
+  { path: 'buttons', label: 'Buttons', element: <ButtonsPage />, status: 'done' },
+  { path: 'icon-buttons', label: 'Icon Buttons', element: <IconButtonsPage />, status: 'done' },
+  { path: 'input', label: 'Input', element: <InputPage />, status: 'done' },
+  { path: 'table', label: 'Table', element: <TablePage />, status: 'done' },
+];
+
+const inProgressRoutes: AppRoute[] = [
+  { path: 'select', label: 'Select', element: <SelectPage />, status: 'in-progress' },
+];
+
+const todoRoutes: AppRoute[] = [
+  { path: 'avatar', label: 'Avatar', element: <AvatarPage />, status: 'todo' },
+  { path: 'alert', label: 'Alert', element: <AlertPage />, status: 'todo' },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },
   { path: 'breadcrumbs', label: 'Breadcrumbs', element: <BreadcrumbsPage /> },
   { path: 'checkboxes', label: 'Checkboxes', element: <CheckboxesPage /> },
@@ -91,9 +100,13 @@ export const componentRoutes: AppRoute[] = [
   { path: 'file-input', label: 'File Input', element: <FileInputPage /> },
 ];
 
+export const componentRoutes: AppRoute[] = [...doneRoutes, ...inProgressRoutes, ...todoRoutes];
+
 export const routeGroups: AppRouteGroup[] = [
   { title: 'Foundations', routes: foundationRoutes },
-  { title: 'Components', routes: componentRoutes },
+  { title: 'Done', routes: doneRoutes },
+  { title: 'In Progress', routes: inProgressRoutes },
+  { title: 'To Do', routes: todoRoutes },
 ];
 
 export const allRoutes = [...foundationRoutes, ...componentRoutes];

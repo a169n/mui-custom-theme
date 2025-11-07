@@ -95,9 +95,10 @@ const formatLineHeight = (
 
 const TypographyPage = () => {
   const theme = useTheme();
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
   const usageFont =
-    theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
-  const typographyTokens = theme.tokens?.theme.text;
+    modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
+  const typographyTokens = modeTokens?.typography;
 
   return (
     <PageContainer

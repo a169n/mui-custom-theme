@@ -8,8 +8,9 @@ interface CodeBlockProps {
 
 const CodeBlock = ({ code, title = 'Usage example' }: CodeBlockProps) => {
   const theme = useTheme();
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
   const usageFont =
-    theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
+    modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 
   return (
     <Stack spacing={1}>

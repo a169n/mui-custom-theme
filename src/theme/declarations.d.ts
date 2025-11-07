@@ -26,7 +26,6 @@ declare module '@mui/material/styles' {
     orange: PaletteColorScale;
     pink: PaletteColorScale;
     rose: PaletteColorScale;
-    sky: PaletteColorScale;
     teal: PaletteColorScale;
     lime: PaletteColorScale;
     white: {
@@ -54,7 +53,6 @@ declare module '@mui/material/styles' {
     orange?: PaletteColorScale;
     pink?: PaletteColorScale;
     rose?: PaletteColorScale;
-    sky?: PaletteColorScale;
     teal?: PaletteColorScale;
     lime?: PaletteColorScale;
     white?: {

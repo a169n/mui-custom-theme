@@ -4,19 +4,23 @@ export const navigationMenus: Components<Theme> = {
   MuiMenu: {
     defaultProps: { disableScrollLock: true },
     styleOverrides: {
-      paper: ({ theme }) => ({
-        marginTop: theme.spacing(1),
-        padding: 0,
-        borderRadius: `${theme.tokens.theme.radius.xl}px`,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.tokens.theme.shadow.black[2],
-        '& .MuiMenu-list': {
-          padding: theme.spacing(2),
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 0,
-        },
-      }),
+      paper: ({ theme }) => {
+        const modeTokens = theme.tokens.modes[theme.palette.mode];
+
+        return {
+          marginTop: theme.spacing(1),
+          padding: 0,
+          borderRadius: `${modeTokens.radius.xl}px`,
+          backgroundColor: theme.palette.background.paper,
+          boxShadow: modeTokens.shadow.black[2],
+          '& .MuiMenu-list': {
+            padding: theme.spacing(2),
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0,
+          },
+        };
+      },
       list: ({ theme }) => ({
         padding: theme.spacing(2),
         display: 'flex',
@@ -33,7 +37,7 @@ export const navigationMenus: Components<Theme> = {
         const highlightColor = theme.palette.alpha.black[100];
 
         return {
-          borderRadius: `${theme.tokens.theme.radius.md}px`,
+          borderRadius: `${modeTokens.radius.md}px`,
           padding: theme.spacing(2),
           minHeight: 36,
           display: 'flex',

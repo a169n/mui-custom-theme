@@ -366,7 +366,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             height: 36,
             maxHeight: 36,
             minHeight: 36,
-            borderRadius: `${theme.tokens.theme.radius.lg}px`,
+            borderRadius: `${modeTokens.radius.lg}px`,
             border: `1px solid ${buttonBorderColor()}`,
             backgroundColor: modeTokens.bg.default,
             width: fullWidth ? '100%' : 'fit-content',
@@ -395,11 +395,19 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
           >
             {renderBaseContent()}
           </Box>
-          <IconChevronDown size={20} color={modeTokens.icon.muted} />
+          <IconChevronDown size={16} color={modeTokens.icon.muted} />
         </ButtonBase>
 
         {description ? (
-          <Typography id={descriptionId} variant="caption" color={modeTokens.icon.muted}>
+          <Typography
+            id={descriptionId}
+            variant="caption"
+            color={
+              error
+                ? (modeTokens.text?.negative ?? theme.palette.error.main)
+                : modeTokens.icon.muted
+            }
+          >
             {description}
           </Typography>
         ) : null}
@@ -415,9 +423,9 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
               sx: {
                 mt: 1,
                 width: anchorEl?.clientWidth,
-                borderRadius: `${theme.tokens.theme.radius.xl}px`,
+                borderRadius: `${modeTokens.radius.xl}px`,
                 p: 0,
-                boxShadow: theme.tokens.theme.shadow.black[2],
+                boxShadow: modeTokens.shadow.black[2],
                 display: 'flex',
                 flexDirection: 'column',
               },

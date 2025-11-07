@@ -33,29 +33,22 @@ const paletteUsage = createUsageSnippet([
   ');',
 ]);
 
-const colorKeys = [
-  'primary',
-  'secondary',
-  'success',
-  'info',
-  'warning',
-  'error',
-  'brand',
-  'gray',
-  'green',
-  'red',
-  'yellow',
-  'cyan',
-  'purple',
-  'orange',
-  'pink',
-  'rose',
-  'sky',
-  'teal',
-  'lime',
+const paletteGroups = [
+  { label: 'Neutral', paletteKey: 'gray' },
+  { label: 'Brand', paletteKey: 'brand' },
+  { label: 'Cyan', paletteKey: 'cyan' },
+  { label: 'Green', paletteKey: 'green' },
+  { label: 'Lime', paletteKey: 'lime' },
+  { label: 'Orange', paletteKey: 'orange' },
+  { label: 'Pink', paletteKey: 'pink' },
+  { label: 'Purple', paletteKey: 'purple' },
+  { label: 'Red', paletteKey: 'red' },
+  { label: 'Rose', paletteKey: 'rose' },
+  { label: 'Teal', paletteKey: 'teal' },
+  { label: 'Yellow', paletteKey: 'yellow' },
 ] as const;
 
-type PaletteKey = (typeof colorKeys)[number];
+type PaletteKey = (typeof paletteGroups)[number]['paletteKey'];
 
 const findShadeKey = (
   value: string | undefined,
@@ -64,8 +57,9 @@ const findShadeKey = (
 
 const PalettePage = () => {
   const theme = useTheme();
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
   const usageFont =
-    theme.tokens?.theme.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
+    modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 
   return (
     <PageContainer
@@ -74,8 +68,8 @@ const PalettePage = () => {
       usage={paletteUsage}
     >
       <Grid container spacing={3}>
-        {colorKeys.map((colorKey) => {
-          const paletteColor = theme.palette[colorKey as PaletteKey] as PaletteColorScale;
+        {paletteGroups.map(({ label, paletteKey }) => {
+          const paletteColor = theme.palette[paletteKey as PaletteKey] as PaletteColorScale;
           const scale = paletteColor as unknown as Record<string, string>;
           const aliasEntries = [
             { alias: 'light', shade: findShadeKey(paletteColor.light, scale) },
@@ -84,10 +78,10 @@ const PalettePage = () => {
           ];
 
           return (
-            <Grid item xs={12} sm={6} md={4} key={colorKey}>
+            <Grid item xs={12} sm={6} md={4} key={paletteKey}>
               <Stack spacing={2}>
                 <Typography variant="h6" textTransform="capitalize">
-                  {colorKey}
+                  {label}
                 </Typography>
                 <Stack spacing={1.5}>
                   {shadeOrder.map((shade) => {
@@ -99,7 +93,7 @@ const PalettePage = () => {
                     const aliases = aliasEntries
                       .filter((entry) => entry.shade === shade)
                       .map((entry) => entry.alias);
-                    const label = aliases.length ? `${shade} (${aliases.join(', ')})` : shade;
+                    const shadeLabel = aliases.length ? `${shade} (${aliases.join(', ')})` : shade;
 
                     return (
                       <Box
@@ -121,7 +115,7 @@ const PalettePage = () => {
                           sx={{ flexGrow: 1, px: 2, py: 1, bgcolor: 'background.paper' }}
                         >
                           <Typography variant="body2" fontWeight={600}>
-                            {label}
+                            {shadeLabel}
                           </Typography>
                           <Typography variant="body2" sx={{ fontFamily: usageFont }}>
                             {value}

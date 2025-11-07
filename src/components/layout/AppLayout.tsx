@@ -14,7 +14,17 @@ import ModeToggle from '../ModeToggle';
 
 const AppLayout = () => (
   <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', color: 'text.primary' }}>
-    <Container maxWidth="lg" sx={{ py: 6 }}>
+    <Box
+      sx={{
+        position: 'fixed',
+        top: 16,
+        right: 16,
+        zIndex: (theme) => theme.zIndex.modal + 1,
+      }}
+    >
+      <ModeToggle />
+    </Box>
+    <Container maxWidth="xl" sx={{ py: 6 }}>
       <Stack spacing={6}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
@@ -30,7 +40,6 @@ const AppLayout = () => (
               Browse foundational tokens and individual components by category.
             </Typography>
           </Box>
-          <ModeToggle />
         </Stack>
 
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={6} alignItems="flex-start">
@@ -40,7 +49,6 @@ const AppLayout = () => (
               sx={{
                 position: { md: 'sticky' },
                 top: { md: 48 },
-                maxHeight: { md: 'calc(100vh - 96px)' },
                 overflowY: { md: 'auto' },
                 pr: { md: 1.5 },
               }}
@@ -80,7 +88,12 @@ const AppLayout = () => (
                           width: 10,
                           height: 10,
                           borderRadius: '50%',
-                          bgcolor: 'error.main',
+                          bgcolor:
+                            route.status === 'done'
+                              ? 'success.main'
+                              : route.status === 'in-progress'
+                                ? 'warning.main'
+                                : 'error.main',
                           mr: 2,
                         }}
                       />

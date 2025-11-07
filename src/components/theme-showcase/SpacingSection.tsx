@@ -5,8 +5,7 @@ const spacingExamples = [0.5, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20];
 
 const SpacingSection = () => {
   const theme = useTheme();
-
-  const radiusScale = theme.tokens.theme.radius;
+  const radiusScale = theme.tokens.modes[theme.palette.mode].radius;
   const radiusEntries = Object.entries(radiusScale) as Array<[string, number]>;
 
   return (

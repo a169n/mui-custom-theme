@@ -6,31 +6,32 @@ import type { PaletteOptions } from '@mui/material/styles';
 import { designTokens } from '../tokens';
 import { createPaletteScale } from './palette.utils';
 
-const brand = createPaletteScale(designTokens.modes.light.colors.brand, { mainShade: 600 });
-const neutral = createPaletteScale(designTokens.modes.light.colors.neutral, {
+const lightColors = designTokens.modes.light.colors;
+
+const brand = createPaletteScale(lightColors.brand, { mainShade: 600 });
+const neutral = createPaletteScale(lightColors.neutral, {
   lightShade: 100,
   mainShade: 500,
   darkShade: 700,
   contrastText: '#0a0a0a',
 });
-const green = createPaletteScale(designTokens.modes.light.colors.green, { mainShade: 600 });
-const red = createPaletteScale(designTokens.modes.light.colors.red, { mainShade: 500 });
-const yellow = createPaletteScale(designTokens.modes.light.colors.yellow, {
+const green = createPaletteScale(lightColors.green, { mainShade: 600 });
+const red = createPaletteScale(lightColors.red, { mainShade: 500 });
+const yellow = createPaletteScale(lightColors.yellow, {
   mainShade: 500,
   contrastText: '#0a0a0a',
 });
-const cyan = createPaletteScale(designTokens.modes.light.colors.cyan, { mainShade: 600 });
-const purple = createPaletteScale(designTokens.modes.light.colors.purple, { mainShade: 500 });
+const cyan = createPaletteScale(lightColors.cyan, { mainShade: 600 });
+const purple = createPaletteScale(lightColors.purple, { mainShade: 500 });
 
-const orange = createPaletteScale(designTokens.primitives.colors.orange, {
+const orange = createPaletteScale(lightColors.orange!, {
   mainShade: 500,
   contrastText: '#0a0a0a',
 });
-const pink = createPaletteScale(designTokens.primitives.colors.pink, { mainShade: 500 });
-const rose = createPaletteScale(designTokens.primitives.colors.rose, { mainShade: 500 });
-const sky = createPaletteScale(designTokens.primitives.colors.sky, { mainShade: 500 });
-const teal = createPaletteScale(designTokens.primitives.colors.teal, { mainShade: 500 });
-const lime = createPaletteScale(designTokens.primitives.colors.lime, {
+const pink = createPaletteScale(lightColors.pink!, { mainShade: 500 });
+const rose = createPaletteScale(lightColors.rose!, { mainShade: 500 });
+const teal = createPaletteScale(lightColors.teal!, { mainShade: 500 });
+const lime = createPaletteScale(lightColors.lime!, {
   mainShade: 500,
   contrastText: '#0a0a0a',
 });
@@ -48,15 +49,15 @@ const palette: PaletteOptions = {
     white: designTokens.modes.light['alpha-white'],
   },
 
-  primary: createPaletteScale(designTokens.modes.light.colors.brand, { mainShade: 600 }),
-  secondary: createPaletteScale(designTokens.primitives.colors.purple, { mainShade: 500 }),
-  success: createPaletteScale(designTokens.primitives.colors.green, { mainShade: 600 }),
-  error: createPaletteScale(designTokens.primitives.colors.red, { mainShade: 600 }),
-  warning: createPaletteScale(designTokens.primitives.colors.yellow, {
+  primary: createPaletteScale(lightColors.brand, { mainShade: 600 }),
+  secondary: createPaletteScale(lightColors.purple, { mainShade: 500 }),
+  success: createPaletteScale(lightColors.green, { mainShade: 600 }),
+  error: createPaletteScale(lightColors.red, { mainShade: 600 }),
+  warning: createPaletteScale(lightColors.yellow, {
     mainShade: 500,
     contrastText: '#0a0a0a',
   }),
-  info: createPaletteScale(designTokens.primitives.colors.cyan, { mainShade: 600 }),
+  info: createPaletteScale(lightColors.cyan, { mainShade: 600 }),
 
   text: {
     primary: designTokens.modes.light.text.default,
@@ -104,7 +105,6 @@ const palette: PaletteOptions = {
   orange,
   pink,
   rose,
-  sky,
   teal,
   lime,
   white: {

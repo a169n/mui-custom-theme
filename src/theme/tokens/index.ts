@@ -5,7 +5,7 @@
  * This file aggregates all tokens and provides a single source of truth.
  */
 
-import type { DesignTokens } from './types';
+import type { DesignTokens, ModeColorTokens, ModeTokens } from './types';
 import {
   baseColors,
   brandColors,
@@ -18,15 +18,47 @@ import {
   purpleColors,
   redColors,
   roseColors,
-  skyColors,
   tealColors,
   yellowColors,
 } from './colors';
 import { darkMode, lightMode } from './modes';
+import { widthScale, heightScale } from './dimensions';
+import { lineHeightScale } from './lineHeight';
+import { opacityScale } from './opacity';
+import { borderWidthScale } from './borderWidth';
 import { radius } from './radius';
 import { spacing } from './spacing';
 import { fontFamilies, typographyScale } from './typography';
 import { shadows } from './shadows';
+import { fontWeights } from './fontWeight';
+import { containerScale, breakpointScale } from './layout';
+
+const borderRadiusTokens = {
+  'rounded-none': 0,
+  'rounded-xs': radius.xs,
+  'rounded-sm': radius.sm,
+  'rounded-md': radius.md,
+  'rounded-lg': radius.lg,
+  'rounded-xl': radius.xl,
+  'rounded-2xl': radius['2xl'],
+  'rounded-3xl': radius['3xl'],
+  'rounded-4xl': radius['4xl'],
+  'rounded-5xl': radius['5xl'],
+  'rounded-6xl': radius['6xl'],
+  'rounded-7xl': radius['7xl'],
+  'rounded-full': 9999,
+} as const;
+
+const buildModeTokens = (appearance: ModeColorTokens): ModeTokens => ({
+  font: fontFamilies,
+  typography: typographyScale,
+  breakpoint: breakpointScale,
+  container: containerScale,
+  'font-weight': fontWeights,
+  radius,
+  shadow: shadows,
+  ...appearance,
+});
 
 /**
  * Complete design tokens
@@ -45,21 +77,21 @@ export const designTokens: DesignTokens = {
       orange: orangeColors,
       pink: pinkColors,
       rose: roseColors,
-      sky: skyColors,
       teal: tealColors,
       lime: limeColors,
     },
     spacing,
-  },
-  theme: {
-    font: fontFamilies,
-    text: typographyScale,
-    radius,
-    shadow: shadows,
+    width: widthScale,
+    height: heightScale,
+    'border-radius': borderRadiusTokens,
+    'border-width': borderWidthScale,
+    opacity: opacityScale,
+    'line-height': lineHeightScale,
+    default: neutralColors[950],
   },
   modes: {
-    light: lightMode,
-    dark: darkMode,
+    light: buildModeTokens(lightMode),
+    dark: buildModeTokens(darkMode),
   },
 } as const;
 
@@ -72,6 +104,12 @@ export * from './spacing';
 export * from './typography';
 export * from './radius';
 export * from './modes';
+export * from './dimensions';
+export * from './lineHeight';
+export * from './opacity';
+export * from './borderWidth';
+export * from './fontWeight';
+export * from './layout';
 export { shadows } from './shadows';
 export type { ShadowLevel } from './shadows';
 

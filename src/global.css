@@ -1,0 +1,5 @@
+/* Global overrides */
+
+svg[class*='tabler-icon'] {
+  stroke-width: 1.5 !important;
+}

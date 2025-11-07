@@ -1,7 +1,10 @@
 import { Components, Theme } from '@mui/material/styles';
 
-const getTableRadius = (theme: Theme) =>
-  `${theme.tokens?.theme?.radius?.md ?? theme.shape.borderRadius ?? 8}px`;
+const getTableRadius = (theme: Theme) => {
+  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const radius = modeTokens?.radius?.md ?? theme.shape.borderRadius ?? 8;
+  return `${radius}px`;
+};
 
 const getTableBorderColor = (theme: Theme) => {
   const modeTokens = theme.tokens?.modes?.[theme.palette.mode];

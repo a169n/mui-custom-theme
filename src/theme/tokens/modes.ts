@@ -2,14 +2,20 @@
  * Mode-specific color tokens (light and dark)
  */
 
-import type { AlphaColorScale, ModeColors } from './types';
+import type { AlphaColorScale, ColorScale, ModeColorTokens } from './types';
 import {
+  baseColors,
   brandColors,
   cyanColors,
   greenColors,
+  limeColors,
   neutralColors,
+  orangeColors,
+  pinkColors,
   purpleColors,
   redColors,
+  roseColors,
+  tealColors,
   yellowColors,
 } from './colors';
 
@@ -41,10 +47,24 @@ const alphaWhiteScale: AlphaColorScale = {
   100: 'rgba(255, 255, 255, 0.05)',
 };
 
+const invertScale = (scale: ColorScale): ColorScale => ({
+  50: scale[950],
+  100: scale[900],
+  200: scale[800],
+  300: scale[700],
+  400: scale[600],
+  500: scale[500],
+  600: scale[400],
+  700: scale[300],
+  800: scale[200],
+  900: scale[100],
+  950: scale[50],
+});
+
 /**
  * Light mode colors
  */
-export const lightMode: ModeColors = {
+export const lightMode: ModeColorTokens = {
   bg: {
     default: '#ffffff',
     muted: '#f5f5f5',
@@ -60,7 +80,6 @@ export const lightMode: ModeColors = {
     'warning-muted': '#fffbeb',
     overlay: 'rgba(10, 10, 10, 0.1)',
   },
-
   text: {
     default: '#0a0a0a',
     muted: '#737373',
@@ -72,7 +91,6 @@ export const lightMode: ModeColors = {
     warning: '#fe9a00',
     link: '#0060fe',
   },
-
   icon: {
     default: '#0a0a0a',
     muted: '#737373',
@@ -84,7 +102,6 @@ export const lightMode: ModeColors = {
     warning: '#fe9a00',
     link: '#0060fe',
   },
-
   border: {
     default: '#d4d4d4',
     muted: '#e5e5e5',
@@ -93,7 +110,6 @@ export const lightMode: ModeColors = {
     negative: '#e7000b',
     warning: '#fe9a00',
   },
-
   colors: {
     brand: brandColors,
     neutral: neutralColors,
@@ -102,13 +118,21 @@ export const lightMode: ModeColors = {
     yellow: yellowColors,
     cyan: cyanColors,
     purple: purpleColors,
+    orange: orangeColors,
+    pink: pinkColors,
+    rose: roseColors,
+    teal: tealColors,
+    lime: limeColors,
   },
-
   custom: {
     focused: 'rgba(0, 96, 254, 0.3)',
     destructive: 'rgba(251, 44, 54, 0.3)',
   },
-
+  logo: {
+    default: '#27348b',
+    stage: redColors[600],
+    test: greenColors[600],
+  },
   'alpha-black': alphaBlackScale,
   'alpha-white': alphaWhiteScale,
 } as const;
@@ -116,7 +140,7 @@ export const lightMode: ModeColors = {
 /**
  * Dark mode colors (inverted scales)
  */
-export const darkMode: ModeColors = {
+export const darkMode: ModeColorTokens = {
   bg: {
     default: '#171717',
     muted: '#262626',
@@ -132,7 +156,6 @@ export const darkMode: ModeColors = {
     'warning-muted': '#461901',
     overlay: 'rgba(255, 255, 255, 0.5)',
   },
-
   text: {
     default: '#f5f5f5',
     muted: '#a1a1a1',
@@ -144,7 +167,6 @@ export const darkMode: ModeColors = {
     warning: '#fe9a00',
     link: '#1e95ff',
   },
-
   icon: {
     default: '#f5f5f5',
     muted: '#a1a1a1',
@@ -156,7 +178,6 @@ export const darkMode: ModeColors = {
     warning: '#fe9a00',
     link: '#1e95ff',
   },
-
   border: {
     default: '#404040',
     muted: '#262626',
@@ -165,106 +186,34 @@ export const darkMode: ModeColors = {
     negative: '#fb2c36',
     warning: '#fe9a00',
   },
-
   colors: {
-    brand: {
-      50: brandColors[950],
-      100: brandColors[900],
-      200: brandColors[800],
-      300: brandColors[700],
-      400: brandColors[600],
-      500: brandColors[500],
-      600: brandColors[400],
-      700: brandColors[300],
-      800: brandColors[200],
-      900: brandColors[100],
-      950: brandColors[50],
-    },
-    neutral: {
-      50: neutralColors[950],
-      100: neutralColors[900],
-      200: neutralColors[800],
-      300: neutralColors[700],
-      400: neutralColors[600],
-      500: neutralColors[500],
-      600: neutralColors[400],
-      700: neutralColors[300],
-      800: neutralColors[200],
-      900: neutralColors[100],
-      950: neutralColors[50],
-    },
-    green: {
-      50: greenColors[950],
-      100: greenColors[900],
-      200: greenColors[800],
-      300: greenColors[700],
-      400: greenColors[600],
-      500: greenColors[500],
-      600: greenColors[400],
-      700: greenColors[300],
-      800: greenColors[200],
-      900: greenColors[100],
-      950: greenColors[50],
-    },
-    red: {
-      50: redColors[950],
-      100: redColors[900],
-      200: redColors[800],
-      300: redColors[700],
-      400: redColors[600],
-      500: redColors[500],
-      600: redColors[400],
-      700: redColors[300],
-      800: redColors[200],
-      900: redColors[100],
-      950: redColors[50],
-    },
-    yellow: {
-      50: yellowColors[950],
-      100: yellowColors[900],
-      200: yellowColors[800],
-      300: yellowColors[700],
-      400: yellowColors[600],
-      500: yellowColors[500],
-      600: yellowColors[400],
-      700: yellowColors[300],
-      800: yellowColors[200],
-      900: yellowColors[100],
-      950: yellowColors[50],
-    },
-    cyan: {
-      50: cyanColors[950],
-      100: cyanColors[900],
-      200: cyanColors[800],
-      300: cyanColors[700],
-      400: cyanColors[600],
-      500: cyanColors[500],
-      600: cyanColors[400],
-      700: cyanColors[300],
-      800: cyanColors[200],
-      900: cyanColors[100],
-      950: cyanColors[50],
-    },
-    purple: {
-      50: purpleColors[950],
-      100: purpleColors[900],
-      200: purpleColors[800],
-      300: purpleColors[700],
-      400: purpleColors[600],
-      500: purpleColors[500],
-      600: purpleColors[400],
-      700: purpleColors[300],
-      800: purpleColors[200],
-      900: purpleColors[100],
-      950: purpleColors[50],
-    },
+    brand: invertScale(brandColors),
+    neutral: invertScale(neutralColors),
+    green: invertScale(greenColors),
+    red: invertScale(redColors),
+    yellow: invertScale(yellowColors),
+    cyan: invertScale(cyanColors),
+    purple: invertScale(purpleColors),
+    orange: invertScale(orangeColors),
+    pink: invertScale(pinkColors),
+    rose: invertScale(roseColors),
+    teal: invertScale(tealColors),
+    lime: invertScale(limeColors),
   },
-
   custom: {
-    focused: 'rgba(0, 96, 254, 0.3)',
-    destructive: 'rgba(251, 44, 54, 0.3)',
+    focused: 'rgba(0, 96, 254, 0.8)',
+    destructive: 'rgba(251, 44, 54, 0.8)',
   },
-
-  'alpha-black': alphaWhiteScale,
-  'alpha-white': alphaBlackScale,
+  logo: {
+    default: baseColors.white,
+    stage: redColors[400],
+    test: greenColors[400],
+  },
+  'alpha-black': alphaBlackScale,
+  'alpha-white': alphaWhiteScale,
 } as const;
+
+export default {
+  lightMode,
+  darkMode,
+};

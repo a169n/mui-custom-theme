@@ -45,7 +45,8 @@ export const hexToRgbaObject = (hexColor: string, opacity = 1): RgbaColor => {
   };
 };
 
-export const rgbaObjectToString = ({ r, g, b, a }: RgbaColor): string => `rgba(${r}, ${g}, ${b}, ${a})`;
+export const rgbaObjectToString = ({ r, g, b, a }: RgbaColor): string =>
+  `rgba(${r}, ${g}, ${b}, ${a})`;
 
 /**
  * Convert a hexadecimal color value to an RGBA string.

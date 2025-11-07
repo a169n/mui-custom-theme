@@ -41,15 +41,15 @@ const TokensSection = () => {
     },
     {
       label: 'Radius - md',
-      path: 'theme.tokens.theme.radius.md',
-      value: `${theme.tokens.theme.radius.md}px`,
+      path: `theme.tokens.modes.${mode}.radius.md`,
+      value: `${modeTokens?.radius.md}px`,
       preview: (
         <Box
           sx={{
             width: 48,
             height: 48,
             mx: 'auto',
-            borderRadius: `${theme.tokens.theme.radius.md}px`,
+            borderRadius: `${modeTokens?.radius.md}px`,
             bgcolor: theme.palette.brand[500],
             boxShadow: theme.shadows[4],
           }}
@@ -73,11 +73,11 @@ const TokensSection = () => {
     },
     {
       label: 'Typography - H3 font-size',
-      path: "theme.tokens.theme.text.H3['font-size']",
-      value: `${theme.tokens.theme.text.H3['font-size']}px`,
+      path: `theme.tokens.modes.${mode}.typography.H3['font-size']`,
+      value: `${modeTokens?.typography.H3['font-size']}px`,
       preview: (
         <Typography variant="h6" color="text.secondary">
-          {theme.tokens.theme.text.H3['font-size']}px
+          {modeTokens?.typography.H3['font-size']}px
         </Typography>
       ),
     },

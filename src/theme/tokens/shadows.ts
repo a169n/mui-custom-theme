@@ -19,7 +19,7 @@ const formatShadow = (
   offsetY: number,
   blurRadius: number,
   spreadRadius: number,
-  color: string,
+  color: string
 ): string => `${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${color}`;
 
 export const shadows: ShadowPalette = {

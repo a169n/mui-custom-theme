@@ -81,6 +81,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
   const iconSize = getIconSize(size);
   const variantStyles = getButtonVariantStyles(theme, variant as CustomButtonVariant, muiColor);
   const sizeStyles = getSizeStyles(theme, size, modeTokens?.radius);
+  const isGhostDefault = variant === 'ghost' && tone === 'default';
+  const ghostDefaultColor = isGhostDefault ? modeTokens?.icon?.default : undefined;
   const baseStyles = {
     ...variantStyles,
     ...sizeStyles,
@@ -91,6 +93,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     minWidth: 0,
     minHeight: 0,
     transition: 'opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease',
+    color: ghostDefaultColor ?? variantStyles?.color,
     '& svg': {
       width: iconSize,
       height: iconSize,

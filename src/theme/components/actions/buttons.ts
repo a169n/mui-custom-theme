@@ -178,10 +178,12 @@ const buildGhostStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
   const hoverBackground = theme.palette.alpha.black[100];
+  const isDefaultTone = getToneKey(color) === 'brand';
+  const textColor = isDefaultTone ? tokens?.text?.default ?? theme.palette.text.primary : colors.plainText;
 
   return {
     backgroundColor: 'transparent',
-    color: colors.plainText,
+    color: textColor,
     border: '0 !important',
     '&:hover': {
       backgroundColor: hoverBackground,
@@ -190,7 +192,7 @@ const buildGhostStyles = (theme: Theme, color: string | undefined) => {
     },
     '&.Mui-disabled': {
       backgroundColor: 'transparent',
-      color: colors.plainText,
+      color: textColor,
       border: '0 !important',
     },
   };

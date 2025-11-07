@@ -95,8 +95,10 @@ const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
 
 const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
-  const backgroundColor = tokens?.bg?.muted ?? theme.palette.grey[200];
+  const backgroundColor = tokens?.bg?.muted;
   const text = tokens?.text?.default ?? theme.palette.text.primary;
+
+  console.log('backgroundColor', backgroundColor);
 
   const hoverBackgroundColor = multiply(
     hexToRgbaObject(tokens?.bg?.muted),
@@ -193,13 +195,7 @@ const buildLinkStyles = (theme: Theme, color: string | undefined) => {
     backgroundColor: 'transparent',
     color: colors.linkText ?? tokens?.text?.link ?? theme.palette.primary.main,
     border: 'none',
-    padding: '0 !important',
-    minWidth: 'auto',
     textDecoration: 'none',
-    '&.MuiButton-sizeSmall, &.MuiButton-sizeMedium, &.MuiButton-sizeLarge': {
-      padding: '0 !important',
-      minHeight: 'auto',
-    },
     '&:hover': {
       backgroundColor: 'transparent',
       textDecoration: 'underline',
@@ -248,6 +244,7 @@ export const buttons: Components<Theme> = {
         transition: 'opacity 0.3s ease',
         boxShadow: 'none',
         borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
+        gap: theme.spacing(1),
         '&:hover': {
           boxShadow: 'none',
         },
@@ -258,31 +255,62 @@ export const buttons: Components<Theme> = {
       }),
       startIcon: () => ({
         color: 'inherit',
+        marginLeft: 0,
+        marginRight: 0,
+        width: 16,
+        height: 16,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& > *:nth-of-type(1)': {
+          fontSize: 16,
+          width: 16,
+          height: 16,
+        },
         '& svg': {
           color: 'inherit',
           fill: 'currentColor',
           stroke: 'currentColor',
+          width: 16,
+          height: 16,
         },
       }),
       endIcon: () => ({
         color: 'inherit',
+        marginLeft: 0,
+        marginRight: 0,
+        width: 16,
+        height: 16,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& > *:nth-of-type(1)': {
+          fontSize: 16,
+          width: 16,
+          height: 16,
+        },
         '& svg': {
           color: 'inherit',
           fill: 'currentColor',
           stroke: 'currentColor',
+          width: 16,
+          height: 16,
         },
       }),
       sizeSmall: ({ theme }) => ({
         padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
         minHeight: 32,
+        borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
       }),
       sizeMedium: ({ theme }) => ({
         padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
         minHeight: 36,
+        borderRadius: `${theme.tokens?.theme?.radius?.md ?? 8}px`,
       }),
       sizeLarge: ({ theme }) => ({
         padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
         minHeight: 40,
+        borderRadius: `${theme.tokens?.theme?.radius?.lg ?? 10}px`,
       }),
     },
   },

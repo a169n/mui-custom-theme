@@ -2,7 +2,7 @@
  * Mode-specific color tokens (light and dark)
  */
 
-import type { ModeColors } from './types';
+import type { AlphaColorScale, ModeColors } from './types';
 import {
   brandColors,
   cyanColors,
@@ -12,6 +12,34 @@ import {
   redColors,
   yellowColors,
 } from './colors';
+
+const alphaBlackScale: AlphaColorScale = {
+  5: 'rgba(10, 10, 10, 0.95)',
+  10: 'rgba(10, 10, 10, 0.9)',
+  20: 'rgba(10, 10, 10, 0.8)',
+  30: 'rgba(10, 10, 10, 0.7)',
+  40: 'rgba(10, 10, 10, 0.6)',
+  50: 'rgba(10, 10, 10, 0.5)',
+  60: 'rgba(10, 10, 10, 0.4)',
+  70: 'rgba(10, 10, 10, 0.3)',
+  80: 'rgba(10, 10, 10, 0.2)',
+  90: 'rgba(10, 10, 10, 0.1)',
+  100: 'rgba(10, 10, 10, 0.05)',
+};
+
+const alphaWhiteScale: AlphaColorScale = {
+  5: 'rgba(255, 255, 255, 0.95)',
+  10: 'rgba(255, 255, 255, 0.9)',
+  20: 'rgba(255, 255, 255, 0.8)',
+  30: 'rgba(255, 255, 255, 0.7)',
+  40: 'rgba(255, 255, 255, 0.6)',
+  50: 'rgba(255, 255, 255, 0.5)',
+  60: 'rgba(255, 255, 255, 0.4)',
+  70: 'rgba(255, 255, 255, 0.3)',
+  80: 'rgba(255, 255, 255, 0.2)',
+  90: 'rgba(255, 255, 255, 0.1)',
+  100: 'rgba(255, 255, 255, 0.05)',
+};
 
 /**
  * Light mode colors
@@ -81,33 +109,8 @@ export const lightMode: ModeColors = {
     destructive: 'rgba(251, 44, 54, 0.3)',
   },
 
-  'alpha-black': {
-    5: 'rgba(10, 10, 10, 0.95)',
-    10: 'rgba(10, 10, 10, 0.9)',
-    20: 'rgba(10, 10, 10, 0.8)',
-    30: 'rgba(10, 10, 10, 0.7)',
-    40: 'rgba(10, 10, 10, 0.6)',
-    50: 'rgba(10, 10, 10, 0.5)',
-    60: 'rgba(10, 10, 10, 0.4)',
-    70: 'rgba(10, 10, 10, 0.3)',
-    80: 'rgba(10, 10, 10, 0.2)',
-    90: 'rgba(10, 10, 10, 0.1)',
-    100: 'rgba(10, 10, 10, 0.05)',
-  },
-
-  'alpha-white': {
-    5: 'rgba(255, 255, 255, 0.95)',
-    10: 'rgba(255, 255, 255, 0.9)',
-    20: 'rgba(255, 255, 255, 0.8)',
-    30: 'rgba(255, 255, 255, 0.7)',
-    40: 'rgba(255, 255, 255, 0.6)',
-    50: 'rgba(255, 255, 255, 0.5)',
-    60: 'rgba(255, 255, 255, 0.4)',
-    70: 'rgba(255, 255, 255, 0.3)',
-    80: 'rgba(255, 255, 255, 0.2)',
-    90: 'rgba(255, 255, 255, 0.1)',
-    100: 'rgba(255, 255, 255, 0.05)',
-  },
+  'alpha-black': alphaBlackScale,
+  'alpha-white': alphaWhiteScale,
 } as const;
 
 /**
@@ -262,31 +265,6 @@ export const darkMode: ModeColors = {
     destructive: 'rgba(251, 44, 54, 0.3)',
   },
 
-  'alpha-black': {
-    5: 'rgba(255, 255, 255, 0.95)',
-    10: 'rgba(255, 255, 255, 0.9)',
-    20: 'rgba(255, 255, 255, 0.8)',
-    30: 'rgba(255, 255, 255, 0.7)',
-    40: 'rgba(255, 255, 255, 0.6)',
-    50: 'rgba(255, 255, 255, 0.5)',
-    60: 'rgba(255, 255, 255, 0.4)',
-    70: 'rgba(255, 255, 255, 0.3)',
-    80: 'rgba(255, 255, 255, 0.2)',
-    90: 'rgba(255, 255, 255, 0.1)',
-    100: 'rgba(255, 255, 255, 0.05)',
-  },
-
-  'alpha-white': {
-    5: 'rgba(10, 10, 10, 0.95)',
-    10: 'rgba(10, 10, 10, 0.9)',
-    20: 'rgba(10, 10, 10, 0.8)',
-    30: 'rgba(10, 10, 10, 0.7)',
-    40: 'rgba(10, 10, 10, 0.6)',
-    50: 'rgba(10, 10, 10, 0.5)',
-    60: 'rgba(10, 10, 10, 0.4)',
-    70: 'rgba(10, 10, 10, 0.3)',
-    80: 'rgba(10, 10, 10, 0.2)',
-    90: 'rgba(10, 10, 10, 0.1)',
-    100: 'rgba(10, 10, 10, 0.05)',
-  },
+  'alpha-black': alphaWhiteScale,
+  'alpha-white': alphaBlackScale,
 } as const;

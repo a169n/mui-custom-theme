@@ -2,7 +2,6 @@ import type { Components, Theme } from '@mui/material/styles';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button';
 import { multiply } from 'color-blend';
 import {
-  hexToRgba,
   hexToRgbaObject,
   isValidHexColor,
   rgbaObjectToString,
@@ -15,6 +14,8 @@ const resolveModeTokens = (theme: Theme) => {
 };
 
 type ToneKey = 'brand' | 'positive' | 'negative';
+
+export type CustomButtonVariant = keyof ButtonPropsVariantOverrides;
 
 type ToneColors = {
   solidBg: string;
@@ -73,6 +74,16 @@ const getToneColors = (theme: Theme, color: string | undefined): ToneColors => {
   return base[getToneKey(color)];
 };
 
+const mixWithAlphaOverlay = (theme: Theme, baseColor: string | undefined) => {
+  const overlay = theme.palette.alpha.black[100];
+
+  if (baseColor && overlay && isValidHexColor(baseColor)) {
+    return rgbaObjectToString(multiply(hexToRgbaObject(baseColor), rgbaStringToObject(overlay)));
+  }
+
+  return overlay ?? 'rgba(0, 0, 0, 0.04)';
+};
+
 const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
 
@@ -98,8 +109,6 @@ const buildSecondaryStyles = (theme: Theme) => {
   const backgroundColor = tokens?.bg?.muted;
   const text = tokens?.text?.default ?? theme.palette.text.primary;
 
-  console.log('backgroundColor', backgroundColor);
-
   const hoverBackgroundColor = multiply(
     hexToRgbaObject(tokens?.bg?.muted),
     rgbaStringToObject(theme.palette.alpha.black[100])
@@ -124,19 +133,19 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
   const tokens = resolveModeTokens(theme);
   const isDefaultTone = getToneKey(color) === 'brand';
-  const defaultHoverBackground = theme.palette.alpha.black[100];
 
   if (isDefaultTone) {
     const background = tokens?.bg?.default ?? theme.palette.background.paper;
     const text = tokens?.text?.default ?? theme.palette.text.primary;
     const border = tokens?.border?.default ?? theme.palette.divider;
+    const hoverBackground = mixWithAlphaOverlay(theme, tokens?.bg?.default);
 
     return {
       backgroundColor: background,
       color: text,
       border: `1.5px solid ${border}`,
       '&:hover': {
-        backgroundColor: defaultHoverBackground,
+        backgroundColor: hoverBackground,
         border: `1.5px solid ${border}`,
       },
       '&.Mui-disabled': {
@@ -210,20 +219,22 @@ const buildLinkStyles = (theme: Theme, color: string | undefined) => {
   };
 };
 
-const buildVariantStyles = (theme: Theme, ownerState: any) => {
-  const variant = ownerState.variant as keyof ButtonPropsVariantOverrides | undefined;
-
+export const getButtonVariantStyles = (
+  theme: Theme,
+  variant: CustomButtonVariant | undefined,
+  color: string | undefined
+) => {
   switch (variant) {
     case 'primary':
-      return buildPrimaryStyles(theme, ownerState.color);
+      return buildPrimaryStyles(theme, color);
     case 'secondary':
       return buildSecondaryStyles(theme);
     case 'outline':
-      return buildOutlineStyles(theme, ownerState.color);
+      return buildOutlineStyles(theme, color);
     case 'ghost':
-      return buildGhostStyles(theme, ownerState.color);
+      return buildGhostStyles(theme, color);
     case 'link':
-      return buildLinkStyles(theme, ownerState.color);
+      return buildLinkStyles(theme, color);
     default:
       return {};
   }
@@ -251,7 +262,11 @@ export const buttons: Components<Theme> = {
         '&.Mui-disabled': {
           opacity: 0.5,
         },
-        ...buildVariantStyles(theme, ownerState),
+        ...getButtonVariantStyles(
+          theme,
+          (ownerState.variant as CustomButtonVariant | undefined) ?? undefined,
+          ownerState.color
+        ),
       }),
       startIcon: () => ({
         color: 'inherit',

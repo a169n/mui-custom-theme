@@ -8,6 +8,7 @@ import {
   BannerPage,
   BreadcrumbsPage,
   ButtonsPage,
+  IconButtonsPage,
   CalendarPage,
   CheckboxesPage,
   ChipsPage,
@@ -55,6 +56,7 @@ export const foundationRoutes: AppRoute[] = [
 
 export const componentRoutes: AppRoute[] = [
   { path: 'buttons', label: 'Buttons (done)', element: <ButtonsPage /> },
+  { path: 'icon-buttons', label: 'Icon Buttons', element: <IconButtonsPage /> },
   { path: 'input', label: 'Input (done)', element: <InputPage /> },
   { path: 'table', label: 'Table (done)', element: <TablePage /> },
   { path: 'select', label: 'Select (done)', element: <SelectPage /> },

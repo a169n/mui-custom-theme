@@ -3,6 +3,7 @@ export { AlertPage } from './AlertPage';
 export { BadgesPage } from './BadgesPage';
 export { BreadcrumbsPage } from './BreadcrumbsPage';
 export { ButtonsPage } from './ButtonsPage';
+export { IconButtonsPage } from './IconButtonsPage';
 export { CheckboxesPage } from './CheckboxesPage';
 export { ChipsPage } from './ChipsPage';
 export { CalendarPage } from './CalendarPage';

@@ -361,12 +361,12 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
           onKeyDown={handleKeyDown}
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: showAllSelected ? 'flex-start' : 'center',
             gap: theme.spacing(2),
-            px: theme.spacing(2),
-            py: 0,
-            height: 36,
-            maxHeight: 36,
+            px: theme.spacing(3),
+            py: theme.spacing(2.5),
+            height: showAllSelected ? 'auto' : 36,
+            maxHeight: showAllSelected ? 'none' : 36,
             minHeight: 36,
             borderRadius: `${modeTokens.radius.lg}px`,
             border: `1px solid ${buttonBorderColor()}`,
@@ -389,15 +389,26 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: showAllSelected ? 'flex-start' : 'center',
               overflow: 'hidden',
               color: disabled ? modeTokens.text.muted : modeTokens.text.default,
-              gap: showAllSelected ? theme.spacing(1) : 0,
             }}
           >
             {renderBaseContent()}
           </Box>
-          <IconChevronDown size={16} color={modeTokens.icon.muted} />
+          <Box
+            sx={{
+              display: 'inline-flex',
+              width: 16,
+              height: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              alignSelf: 'center',
+            }}
+          >
+            <IconChevronDown size={16} color={modeTokens.icon.muted} />
+          </Box>
         </ButtonBase>
 
         {description ? (

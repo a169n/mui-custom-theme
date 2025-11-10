@@ -11,7 +11,7 @@ export const navigationMenus: Components<Theme> = {
           marginTop: theme.spacing(1),
           padding: 0,
           borderRadius: `${modeTokens.radius.xl}px`,
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: theme.palette.background.default,
           boxShadow: modeTokens.shadow.black[2],
           '& .MuiMenu-list': {
             padding: theme.spacing(2),

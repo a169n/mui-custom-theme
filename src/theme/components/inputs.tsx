@@ -55,7 +55,7 @@ export const inputs: Components<Theme> = {
       },
     },
     defaultProps: {
-      IconComponent: (props) => <IconChevronDown size={20} {...props} />,
+      IconComponent: (props) => <IconChevronDown size={16} {...props} />,
     },
   },
   MuiOutlinedInput: {

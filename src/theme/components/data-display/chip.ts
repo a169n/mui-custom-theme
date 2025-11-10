@@ -5,7 +5,7 @@ export const chip: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor:
-          theme.tokens?.modes?.[theme.palette.mode ?? 'light']?.bg?.['brand-muted'] ?? '#eef3f8',
+          theme.tokens?.modes?.[theme.palette.mode ?? 'light']?.bg?.brand?.muted ?? '#eef3f8',
       }),
     },
   },

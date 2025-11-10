@@ -54,6 +54,31 @@ const ADORNMENT_CURRENCY_CLASS = 'CustomInput-currencyAddon';
 
 const CURRENCY_OPTIONS = ['KZT', 'RU', 'USD'];
 
+const renderAdornmentIcon = (icon: ReactNode) => {
+  if (!icon) {
+    return null;
+  }
+
+  return (
+    <Box
+      className={ADORNMENT_ICON_CLASS}
+      sx={{
+        width: 16,
+        height: 16,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& > svg': {
+          width: 16,
+          height: 16,
+        },
+      }}
+    >
+      {icon}
+    </Box>
+  );
+};
+
 export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
   (
     {
@@ -77,9 +102,6 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     const [currencyMenuPlacement, setCurrencyMenuPlacement] = useState<'leading' | 'trailing'>(
       'leading'
     );
-
-    const leadingAddonRef = useRef<HTMLButtonElement | null>(null);
-    const trailingAddonRef = useRef<HTMLButtonElement | null>(null);
 
     const generatedId = useId();
     const labelId = useMemo(() => (id ? `${id}-label` : `${generatedId}-label`), [generatedId, id]);
@@ -184,7 +206,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                     sx={{
                       width: '1px',
                       height: '100%',
-                      minHeight: '40px',
+                      minHeight: '36px',
                       backgroundColor: theme.palette.divider,
                       ml: theme.spacing(2),
                       mr: startIcon && theme.spacing(3),
@@ -192,7 +214,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                   />
                 ) : null}
 
-                {startIcon}
+                {renderAdornmentIcon(startIcon)}
               </InputAdornment>
             ) : undefined;
 
@@ -203,7 +225,7 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 position="end"
                 sx={{ display: 'flex', alignItems: 'center', height: '100%' }}
               >
-                {endIcon}
+                {renderAdornmentIcon(endIcon)}
                 {trailingAddon ? (
                   <Box
                     sx={{
@@ -254,9 +276,13 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
             selectedOption={selectedCurrency}
             onSelectOption={handleSelectCurrency}
             placement={currencyMenuPlacement}
+            disabled={Boolean(disabled)}
           />
         ) : null}
-        {renderCaption(description, theme.palette.text.secondary)}
+        {renderCaption(
+          description,
+          error ? theme.palette.error.main : theme.palette.text.secondary
+        )}
       </FormControl>
     );
   }

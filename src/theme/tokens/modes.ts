@@ -61,6 +61,12 @@ const invertScale = (scale: ColorScale): ColorScale => ({
   950: scale[50],
 });
 
+const buildSurfaceTone = (base: string, muted: string) =>
+  ({
+    default: base,
+    muted,
+  }) as const;
+
 /**
  * Light mode colors
  */
@@ -70,14 +76,10 @@ export const lightMode: ModeColorTokens = {
     muted: '#f5f5f5',
     background: '#f5f5f5',
     input: '#e5e5e5',
-    brand: '#0060fe',
-    'brand-muted': '#edf8ff',
-    positive: '#00a63e',
-    'positive-muted': '#dcfce7',
-    negative: '#e7000b',
-    'negative-muted': '#fef2f2',
-    warning: '#fe9a00',
-    'warning-muted': '#fffbeb',
+    brand: buildSurfaceTone('#0060fe', '#edf8ff'),
+    positive: buildSurfaceTone('#00a63e', '#dcfce7'),
+    negative: buildSurfaceTone('#e7000b', '#fef2f2'),
+    warning: buildSurfaceTone('#fe9a00', '#fffbeb'),
     overlay: 'rgba(10, 10, 10, 0.1)',
   },
   text: {
@@ -133,8 +135,10 @@ export const lightMode: ModeColorTokens = {
     stage: redColors[600],
     test: greenColors[600],
   },
-  'alpha-black': alphaBlackScale,
-  'alpha-white': alphaWhiteScale,
+  alpha: {
+    black: alphaBlackScale,
+    white: alphaWhiteScale,
+  },
 } as const;
 
 /**
@@ -146,14 +150,10 @@ export const darkMode: ModeColorTokens = {
     muted: '#262626',
     background: '#0a0a0a',
     input: '#404040',
-    brand: '#0675ff',
-    'brand-muted': 'rgba(14, 41, 93, 0.8)',
-    positive: '#00a63e',
-    'positive-muted': '#052e16',
-    negative: '#fb2c36',
-    'negative-muted': '#460809',
-    warning: '#fe9a00',
-    'warning-muted': '#461901',
+    brand: buildSurfaceTone('#0675ff', 'rgba(14, 41, 93, 0.8)'),
+    positive: buildSurfaceTone('#00a63e', '#052e16'),
+    negative: buildSurfaceTone('#fb2c36', '#460809'),
+    warning: buildSurfaceTone('#fe9a00', '#461901'),
     overlay: 'rgba(255, 255, 255, 0.5)',
   },
   text: {
@@ -209,8 +209,10 @@ export const darkMode: ModeColorTokens = {
     stage: redColors[400],
     test: greenColors[400],
   },
-  'alpha-black': alphaBlackScale,
-  'alpha-white': alphaWhiteScale,
+  alpha: {
+    black: alphaBlackScale,
+    white: alphaWhiteScale,
+  },
 } as const;
 
 export default {

@@ -33,28 +33,42 @@ import { shadows } from './shadows';
 import { fontWeights } from './fontWeight';
 import { containerScale, breakpointScale } from './layout';
 
-const borderRadiusTokens = {
-  'rounded-none': 0,
-  'rounded-xs': radius.xs,
-  'rounded-sm': radius.sm,
-  'rounded-md': radius.md,
-  'rounded-lg': radius.lg,
-  'rounded-xl': radius.xl,
-  'rounded-2xl': radius['2xl'],
-  'rounded-3xl': radius['3xl'],
-  'rounded-4xl': radius['4xl'],
-  'rounded-5xl': radius['5xl'],
-  'rounded-6xl': radius['6xl'],
-  'rounded-7xl': radius['7xl'],
-  'rounded-full': 9999,
-} as const;
+const addFriendlyAlias = (store: Record<string, number>, alias: string, value: number) => {
+  store[alias] = value;
+  if (/^\d/.test(alias)) {
+    store[`_${alias}`] = value;
+  }
+};
+
+const borderRadiusEntries = [
+  ['rounded-none', 0],
+  ['rounded-xs', radius.xs],
+  ['rounded-sm', radius.sm],
+  ['rounded-md', radius.md],
+  ['rounded-lg', radius.lg],
+  ['rounded-xl', radius.xl],
+  ['rounded-2xl', radius['2xl']],
+  ['rounded-3xl', radius['3xl']],
+  ['rounded-4xl', radius['4xl']],
+  ['rounded-5xl', radius['5xl']],
+  ['rounded-6xl', radius['6xl']],
+  ['rounded-7xl', radius['7xl']],
+  ['rounded-full', 9999],
+] as const satisfies ReadonlyArray<[string, number]>;
+
+const borderRadiusTokens = borderRadiusEntries.reduce<Record<string, number>>((acc, [token, value]) => {
+  acc[token] = value;
+  const alias = token.replace('rounded-', '');
+  addFriendlyAlias(acc, alias, value);
+  return acc;
+}, {});
 
 const buildModeTokens = (appearance: ModeColorTokens): ModeTokens => ({
   font: fontFamilies,
   typography: typographyScale,
   breakpoint: breakpointScale,
   container: containerScale,
-  'font-weight': fontWeights,
+  fontWeight: fontWeights,
   radius,
   shadow: shadows,
   ...appearance,
@@ -83,10 +97,10 @@ export const designTokens: DesignTokens = {
     spacing,
     width: widthScale,
     height: heightScale,
-    'border-radius': borderRadiusTokens,
-    'border-width': borderWidthScale,
+    borderRadius: borderRadiusTokens,
+    borderWidth: borderWidthScale,
     opacity: opacityScale,
-    'line-height': lineHeightScale,
+    lineHeight: lineHeightScale,
     default: neutralColors[950],
   },
   modes: {

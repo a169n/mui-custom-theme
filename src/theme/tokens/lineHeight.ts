@@ -12,5 +12,7 @@ export const lineHeightScale: LineHeightScale = Array.from(
   }
 ).reduce<LineHeightScale>((acc, [key, value]) => {
   acc[key] = value;
+  const alias = key.replace('-', '');
+  acc[alias] = value;
   return acc;
 }, {});

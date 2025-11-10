@@ -45,8 +45,8 @@ const palette: PaletteOptions = {
   },
 
   alpha: {
-    black: designTokens.modes.light['alpha-black'],
-    white: designTokens.modes.light['alpha-white'],
+    black: designTokens.modes.light.alpha.black,
+    white: designTokens.modes.light.alpha.white,
   },
 
   primary: createPaletteScale(lightColors.brand, { mainShade: 600 }),
@@ -87,12 +87,12 @@ const palette: PaletteOptions = {
   },
 
   action: {
-    hover: designTokens.modes.light['alpha-black'][90],
-    selected: designTokens.modes.light['alpha-black'][80],
-    disabled: designTokens.modes.light['alpha-black'][60],
-    disabledBackground: designTokens.modes.light['alpha-black'][90],
-    focus: designTokens.modes.light['alpha-black'][80],
-    active: designTokens.modes.light['alpha-black'][70],
+    hover: designTokens.modes.light.alpha.black[90],
+    selected: designTokens.modes.light.alpha.black[80],
+    disabled: designTokens.modes.light.alpha.black[60],
+    disabledBackground: designTokens.modes.light.alpha.black[90],
+    focus: designTokens.modes.light.alpha.black[80],
+    active: designTokens.modes.light.alpha.black[70],
   },
 
   brand,

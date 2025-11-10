@@ -41,6 +41,13 @@ export const ThemeModeProvider = ({ children, defaultMode = 'light' }: ThemeMode
             '.tabler-icon': {
               color: theme.tokens.modes[theme.palette.mode].icon.muted,
             },
+            'input::-webkit-input-placeholder, textarea::-webkit-input-placeholder, .MuiInputBase-input::-webkit-input-placeholder':
+              {
+                color: `${
+                  theme.tokens.modes[theme.palette.mode]?.text.muted ?? theme.palette.text.secondary
+                } !important`,
+                opacity: 1,
+              },
           })}
         />
         {children}

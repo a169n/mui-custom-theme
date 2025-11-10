@@ -206,19 +206,20 @@ export interface ContainerScale {
 /**
  * Semantic colors for backgrounds
  */
+export interface ToneBackground {
+  readonly default: string;
+  readonly muted: string;
+}
+
 export interface BackgroundColors {
   readonly default: string;
   readonly muted: string;
   readonly background: string;
   readonly input: string;
-  readonly brand: string;
-  readonly 'brand-muted': string;
-  readonly positive: string;
-  readonly 'positive-muted': string;
-  readonly negative: string;
-  readonly 'negative-muted': string;
-  readonly warning: string;
-  readonly 'warning-muted': string;
+  readonly brand: ToneBackground;
+  readonly positive: ToneBackground;
+  readonly negative: ToneBackground;
+  readonly warning: ToneBackground;
   readonly overlay: string;
 }
 
@@ -301,8 +302,10 @@ export interface ModeColorTokens {
   readonly colors: ColorPalette;
   readonly custom: CustomModeColors;
   readonly logo: LogoColors;
-  readonly 'alpha-black': AlphaColorScale;
-  readonly 'alpha-white': AlphaColorScale;
+  readonly alpha: {
+    readonly black: AlphaColorScale;
+    readonly white: AlphaColorScale;
+  };
 }
 
 export interface ModeFoundationTokens {
@@ -310,7 +313,7 @@ export interface ModeFoundationTokens {
   readonly typography: TypographyScale;
   readonly breakpoint: BreakpointScale;
   readonly container: ContainerScale;
-  readonly 'font-weight': FontWeightScale;
+  readonly fontWeight: FontWeightScale;
   readonly radius: RadiusScale;
   readonly shadow: ShadowPalette;
 }
@@ -336,10 +339,10 @@ export interface PrimitiveTokens {
   readonly spacing: SpacingScale;
   readonly width: DimensionScale;
   readonly height: DimensionScale;
-  readonly 'border-radius': Record<string, number>;
-  readonly 'border-width': BorderWidthScale;
+  readonly borderRadius: Record<string, number>;
+  readonly borderWidth: BorderWidthScale;
   readonly opacity: OpacityScale;
-  readonly 'line-height': LineHeightScale;
+  readonly lineHeight: LineHeightScale;
   readonly default: string;
 }
 

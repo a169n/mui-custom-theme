@@ -43,27 +43,27 @@ const getToneColors = (theme: Theme, color: string | undefined): ToneColors => {
 
   const base: Record<ToneKey, ToneColors> = {
     brand: {
-      solidBg: tokens?.bg?.brand ?? palette.primary.main,
+      solidBg: tokens?.bg?.brand?.default ?? palette.primary.main,
       solidText: tokens?.text?.light ?? palette.common.white,
-      subtleBg: tokens?.bg?.['brand-muted'] ?? palette.primary.light,
+      subtleBg: tokens?.bg?.brand?.muted ?? palette.primary.light,
       subtleText: tokens?.text?.brand ?? palette.primary.dark,
       border: tokens?.border?.brand ?? palette.primary.main,
       plainText: tokens?.text?.brand ?? palette.primary.main,
       linkText: tokens?.text?.link ?? palette.primary.main,
     },
     positive: {
-      solidBg: tokens?.bg?.positive ?? palette.success.main,
+      solidBg: tokens?.bg?.positive?.default ?? palette.success.main,
       solidText: tokens?.text?.light ?? palette.common.white,
-      subtleBg: tokens?.bg?.['positive-muted'] ?? palette.success.light,
+      subtleBg: tokens?.bg?.positive?.muted ?? palette.success.light,
       subtleText: tokens?.text?.positive ?? palette.success.dark,
       border: tokens?.border?.positive ?? palette.success.main,
       plainText: tokens?.text?.positive ?? palette.success.main,
       linkText: tokens?.text?.positive ?? palette.success.main,
     },
     negative: {
-      solidBg: tokens?.bg?.negative ?? palette.error.main,
+      solidBg: tokens?.bg?.negative?.default ?? palette.error.main,
       solidText: tokens?.text?.light ?? palette.common.white,
-      subtleBg: tokens?.bg?.['negative-muted'] ?? palette.error.light,
+      subtleBg: tokens?.bg?.negative?.muted ?? palette.error.light,
       subtleText: tokens?.text?.negative ?? palette.error.dark,
       border: tokens?.border?.negative ?? palette.error.main,
       plainText: tokens?.text?.negative ?? palette.error.main,
@@ -250,7 +250,11 @@ export const buttons: Components<Theme> = {
     styleOverrides: {
       root: ({ theme, ownerState }) => {
         const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
-        const mdRadius = radiusScale?.md ?? 8;
+        const mdRadius = radiusScale?.md;
+
+        console.log('radius:', mdRadius)
+
+
 
         return {
           textTransform: 'none',

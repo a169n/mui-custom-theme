@@ -12,9 +12,26 @@ const borderValues: Array<[string, number]> = [
   ['border-8', 8],
 ];
 
+const normalizeBorderAlias = (token: string) => {
+  if (token === 'border') {
+    return token;
+  }
+
+  if (!token.startsWith('border-')) {
+    return token;
+  }
+
+  const suffix = token.replace('border-', '');
+  return `border${suffix.replace(/-([a-z0-9])/g, (_, char) => char.toUpperCase())}`;
+};
+
 export const borderWidthScale: BorderWidthScale = borderValues.reduce<BorderWidthScale>(
   (acc, [key, value]) => {
     acc[key] = value;
+    const alias = normalizeBorderAlias(key);
+    if (alias !== key) {
+      acc[alias] = value;
+    }
     return acc;
   },
   {}

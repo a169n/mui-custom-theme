@@ -102,10 +102,16 @@ export const inputs: Components<Theme> = {
           '&.Mui-focused.Mui-error': {
             boxShadow: destructiveShadow,
           },
+          '&.Mui-disabled': {
+            opacity: 0.6,
+          },
         };
       },
       input: ({ theme }) => ({
         padding: theme.spacing(2.5, 3),
+        lineHeight: '16px',
+        height: '16px',
+        minHeight: '16px',
         ...theme.typography.caption,
         '&.MuiOutlinedInput-inputAdornedStart, &.MuiInputBase-inputAdornedStart': {
           paddingLeft: theme.spacing(2),

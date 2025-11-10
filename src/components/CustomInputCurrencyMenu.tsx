@@ -9,6 +9,7 @@ export interface CustomInputCurrencyMenuProps {
   selectedOption: string;
   onSelectOption: (option: string) => void;
   placement: 'leading' | 'trailing';
+  disabled?: boolean;
 }
 
 export const CustomInputCurrencyMenu = ({
@@ -20,12 +21,15 @@ export const CustomInputCurrencyMenu = ({
   selectedOption,
   onSelectOption,
   placement,
+  disabled = false,
 }: CustomInputCurrencyMenuProps) => {
+  const menuOpen = !disabled && open;
+
   return (
     <Menu
       id={menuId}
       anchorEl={anchorEl}
-      open={open}
+      open={menuOpen}
       onClose={onClose}
       anchorOrigin={{
         vertical: 'bottom', // Position menu below the anchor
@@ -41,7 +45,12 @@ export const CustomInputCurrencyMenu = ({
         <MenuItem
           key={option}
           selected={option === selectedOption}
-          onClick={() => onSelectOption(option)}
+          onClick={() => {
+            if (!disabled) {
+              onSelectOption(option);
+            }
+          }}
+          disabled={disabled}
         >
           <Typography variant="caption">{option}</Typography>
         </MenuItem>

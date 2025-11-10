@@ -70,16 +70,18 @@ const primitiveCards: TokenCard[] = [
       <Box
         sx={{
           height: 64,
-          borderRadius: `${theme.tokens.primitives['border-radius']['rounded-lg']}px`,
+          borderRadius: `${theme.tokens.primitives.borderRadius.lg}px`,
           border: '1px dashed',
           borderColor: theme.palette.divider,
         }}
       />
     ),
     value: (theme: ThemeWithTokens) =>
-      `${theme.tokens.primitives['border-radius']['rounded-lg']}px`,
+      `${theme.tokens.primitives.borderRadius.lg}px`,
   },
 ];
+
+const surfaceKeys: Array<'default' | 'muted' | 'background'> = ['default', 'muted', 'background'];
 
 const DeveloperTokensPage = () => {
   const theme = useTheme<ThemeWithTokens>();
@@ -135,13 +137,13 @@ const DeveloperTokensPage = () => {
                     Surfaces
                   </Typography>
                   <Stack direction="row" spacing={2}>
-                    {['default', 'muted', 'background'].map((key) => (
+                    {surfaceKeys.map((key) => (
                       <Box key={key} sx={{ textAlign: 'center', flex: 1 }}>
                         <Box
                           sx={{
                             height: 80,
                             borderRadius: 2,
-                            bgcolor: modeTokens.bg[key as keyof typeof modeTokens.bg],
+                            bgcolor: modeTokens.bg[key],
                             border: '1px solid',
                             borderColor: theme.palette.divider,
                           }}
@@ -165,7 +167,7 @@ const DeveloperTokensPage = () => {
                       sx={{
                         height: 64,
                         borderRadius: `${modeTokens.radius.lg}px`,
-                        bgcolor: modeTokens.bg.brand,
+                        bgcolor: modeTokens.bg.brand.default,
                         boxShadow: modeTokens.shadow.black[2],
                       }}
                     />

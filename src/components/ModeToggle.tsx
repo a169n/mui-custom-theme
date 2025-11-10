@@ -16,7 +16,7 @@ const ModeToggle = () => {
 
   const tokens = theme.tokens?.modes?.[mode];
   const borderColor = tokens?.border?.muted ?? theme.palette.divider;
-  const selectedBg = tokens?.bg?.brand ?? theme.palette.primary.main;
+  const selectedBg = tokens?.bg?.brand?.default ?? theme.palette.primary.main;
   const selectedColor = tokens?.text?.light ?? theme.palette.common.white;
   const unselectedColor = tokens?.text?.muted ?? theme.palette.text.secondary;
   const hoverBg = theme.palette.alpha.black[90];

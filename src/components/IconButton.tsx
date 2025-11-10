@@ -93,7 +93,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     minWidth: 0,
     minHeight: 0,
     transition: 'opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease',
-    color: ghostDefaultColor ?? variantStyles?.color,
+    color: ghostDefaultColor,
     '& svg': {
       width: iconSize,
       height: iconSize,

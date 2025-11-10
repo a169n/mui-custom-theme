@@ -51,6 +51,7 @@ export interface CustomSelectProps {
   fullWidth?: boolean;
   showAllSelected?: boolean;
   forceFocus?: boolean;
+  search?: boolean;
 }
 
 const renderCaption = (value: ReactNode, color: string) => {
@@ -110,6 +111,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
       fullWidth,
       showAllSelected = false,
       forceFocus = false,
+      search = true,
     },
     ref
   ) => {
@@ -252,14 +254,14 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
     };
 
     const filteredOptions = useMemo(() => {
-      if (!searchTerm) {
+      if (!search || !searchTerm) {
         return options;
       }
 
       const lowerSearch = searchTerm.toLowerCase();
 
       return options.filter((option) => option.label.toLowerCase().includes(lowerSearch));
-    }, [options, searchTerm]);
+    }, [options, searchTerm, search]);
 
     const isFilled = multiple ? selectedOptions.length > 0 : Boolean(selectedOptions[0]?.value);
 
@@ -376,7 +378,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             position: 'relative',
             transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
             cursor: disabled ? 'not-allowed' : 'pointer',
-            boxShadow: isFocused ? `0 0 0 4px ${focusShadow}` : 'none',
+            boxShadow: isFocused ? `0 0 0 3px ${focusShadow}` : 'none',
             '&:hover': {
               borderColor: error ? modeTokens.border.negative : modeTokens.border.brand,
             },
@@ -432,53 +434,57 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              padding: theme.spacing(2),
-            }}
-          >
-            <TextField
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Поиск"
-              variant="standard"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconSearch size={16} color={modeTokens.icon.muted} />
-                  </InputAdornment>
-                ),
-                disableUnderline: true,
-              }}
-              sx={{
-                '& .MuiInputBase-root': {
-                  maxHeight: '20px',
-                  padding: 0,
-                  alignItems: 'center',
-                  ...theme.typography.caption,
-                },
-                '& .MuiInputAdornment-root': {
-                  margin: 0,
-                  padding: 0,
-                },
-                '& .MuiInputBase-input': {
-                  padding: theme.spacing(0, 2),
-                },
-              }}
-            />
-          </Box>
+          {search ? (
+            <>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: theme.spacing(2),
+                }}
+              >
+                <TextField
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Поиск"
+                  variant="standard"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconSearch size={16} color={modeTokens.icon.muted} />
+                      </InputAdornment>
+                    ),
+                    disableUnderline: true,
+                  }}
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      maxHeight: '20px',
+                      padding: 0,
+                      alignItems: 'center',
+                      ...theme.typography.caption,
+                    },
+                    '& .MuiInputAdornment-root': {
+                      margin: 0,
+                      padding: 0,
+                    },
+                    '& .MuiInputBase-input': {
+                      padding: theme.spacing(0, 2),
+                    },
+                  }}
+                />
+              </Box>
 
-          <Divider
-            sx={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: theme.palette.divider,
-              mx: 0,
-              my: 0,
-            }}
-          />
+              <Divider
+                sx={{
+                  width: '100%',
+                  height: '1px',
+                  backgroundColor: theme.palette.divider,
+                  mx: 0,
+                  my: 0,
+                }}
+              />
+            </>
+          ) : null}
 
           <Box
             id={listboxId}

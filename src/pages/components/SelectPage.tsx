@@ -53,6 +53,12 @@ export const SelectPage = () => (
     <Stack spacing={4}>
       <CustomSelect label="Default" placeholder="Select option" options={selectOptions} />
       <CustomSelect
+        label="No search"
+        placeholder="Select option"
+        options={selectOptions}
+        search={false}
+      />
+      <CustomSelect
         label="With action"
         actionText="Action"
         placeholder="Select option"

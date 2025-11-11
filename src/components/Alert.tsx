@@ -103,7 +103,7 @@ export const Alert = ({
           padding: theme.spacing(3),
           backgroundColor: modeTokens?.bg?.default ?? theme.palette.background.default,
           borderRadius: baseRadius ? `${baseRadius}px` : theme.shape.borderRadius,
-          boxShadow: theme.shadows[6]
+          boxShadow: theme.shadows[6],
         },
         ...sxArray,
       ]}

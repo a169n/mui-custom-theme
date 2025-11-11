@@ -121,7 +121,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
       {...rest}
     >
       {loading ? (
-        <CircularProgress size={iconSize} color="inherit"  />
+        <CircularProgress size={iconSize} color="inherit" />
       ) : (
         <Box
           component="span"

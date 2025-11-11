@@ -113,6 +113,11 @@ export const inputs: Components<Theme> = {
         height: '16px',
         minHeight: '16px',
         ...theme.typography.caption,
+        '&.MuiInputBase-inputMultiline': {
+          padding: 0,
+          lineHeight: theme.typography.body1.lineHeight,
+          minHeight: theme.spacing(10),
+        },
         '&.MuiOutlinedInput-inputAdornedStart, &.MuiInputBase-inputAdornedStart': {
           paddingLeft: theme.spacing(2),
         },

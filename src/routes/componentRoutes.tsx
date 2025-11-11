@@ -67,10 +67,12 @@ const doneRoutes: AppRoute[] = [
 
 const inProgressRoutes: AppRoute[] = [
   { path: 'alert', label: 'Alert', element: <AlertPage />, status: 'in-progress' },
+  { path: 'avatar', label: 'Avatar', element: <AvatarPage />, status: 'in-progress' },
+  { path: 'skeleton', label: 'Skeleton', element: <SkeletonPage />, status: 'in-progress' },
+  { path: 'textarea', label: 'Textarea', element: <TextareaPage />, status: 'in-progress' },
 ];
 
 const todoRoutes: AppRoute[] = [
-  { path: 'avatar', label: 'Avatar', element: <AvatarPage />, status: 'todo' },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },
   { path: 'breadcrumbs', label: 'Breadcrumbs', element: <BreadcrumbsPage /> },
   { path: 'checkboxes', label: 'Checkboxes', element: <CheckboxesPage /> },
@@ -85,7 +87,6 @@ const todoRoutes: AppRoute[] = [
   { path: 'filter', label: 'Filter', element: <FilterPage /> },
   { path: 'navigation-menu', label: 'NavigationMenu', element: <NavigationMenuPage /> },
   { path: 'command-search', label: 'Command, Search', element: <CommandSearchPage /> },
-  { path: 'skeleton', label: 'Skeleton', element: <SkeletonPage /> },
   { path: 'pagination', label: 'Pagination', element: <PaginationPage /> },
   { path: 'progress', label: 'Progress', element: <ProgressPage /> },
   { path: 'radio', label: 'Radio', element: <RadioPage /> },
@@ -95,7 +96,6 @@ const todoRoutes: AppRoute[] = [
   { path: 'stepper', label: 'Stepper', element: <StepperPage /> },
   { path: 'switch', label: 'Switch', element: <SwitchPage /> },
   { path: 'tabs', label: 'Tabs', element: <TabsPage /> },
-  { path: 'textarea', label: 'Textarea', element: <TextareaPage /> },
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage /> },
   { path: 'file-input', label: 'File Input', element: <FileInputPage /> },
 ];

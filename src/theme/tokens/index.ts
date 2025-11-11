@@ -56,12 +56,15 @@ const borderRadiusEntries = [
   ['rounded-full', 9999],
 ] as const satisfies ReadonlyArray<[string, number]>;
 
-const borderRadiusTokens = borderRadiusEntries.reduce<Record<string, number>>((acc, [token, value]) => {
-  acc[token] = value;
-  const alias = token.replace('rounded-', '');
-  addFriendlyAlias(acc, alias, value);
-  return acc;
-}, {});
+const borderRadiusTokens = borderRadiusEntries.reduce<Record<string, number>>(
+  (acc, [token, value]) => {
+    acc[token] = value;
+    const alias = token.replace('rounded-', '');
+    addFriendlyAlias(acc, alias, value);
+    return acc;
+  },
+  {}
+);
 
 const buildModeTokens = (appearance: ModeColorTokens): ModeTokens => ({
   font: fontFamilies,

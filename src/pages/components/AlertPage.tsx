@@ -20,7 +20,10 @@ const alertUsage = createUsageSnippet([
 
 const variants: AlertVariant[] = ['success', 'info', 'warning', 'error'];
 
-const variantCopy: Record<AlertVariant, { title: string; description: string; showActions?: boolean }> = {
+const variantCopy: Record<
+  AlertVariant,
+  { title: string; description: string; showActions?: boolean }
+> = {
   success: {
     title: 'All done!',
     description: 'Your request completed without any issues.',
@@ -111,8 +114,8 @@ export const AlertPage = () => {
           }}
         >
           <Typography variant="body2" color="text.secondary">
-            Alerts render outside of the flow so page layouts remain unaffected. Use the buttons above to
-            queue up to three notifications.
+            Alerts render outside of the flow so page layouts remain unaffected. Use the buttons
+            above to queue up to three notifications.
           </Typography>
         </Box>
       </Stack>

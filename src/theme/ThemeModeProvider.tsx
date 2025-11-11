@@ -48,6 +48,22 @@ export const ThemeModeProvider = ({ children, defaultMode = 'light' }: ThemeMode
                 } !important`,
                 opacity: 1,
               },
+            '*': {
+              scrollbarColor: `${
+                theme.tokens.modes[theme.palette.mode].bg.input ?? theme.palette.divider
+              } transparent`,
+            },
+            '*::-webkit-scrollbar': {
+              width: 8,
+              height: 8,
+            },
+            '*::-webkit-scrollbar-track': {
+              backgroundColor: theme.palette.background.paper,
+            },
+            '*::-webkit-scrollbar-thumb': {
+              backgroundColor: theme.tokens.modes[theme.palette.mode].bg.input,
+              borderRadius: 9999,
+            },
           })}
         />
         {children}

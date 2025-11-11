@@ -4,7 +4,7 @@ import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 
 const tokensUsage = createUsageSnippet([
-  "const modeTokens = theme.tokens.modes?.[theme.palette.mode];",
+  'const modeTokens = theme.tokens.modes?.[theme.palette.mode];',
   '',
   'return (',
   '  <Box',
@@ -76,8 +76,7 @@ const primitiveCards: TokenCard[] = [
         }}
       />
     ),
-    value: (theme: ThemeWithTokens) =>
-      `${theme.tokens.primitives.borderRadius.lg}px`,
+    value: (theme: ThemeWithTokens) => `${theme.tokens.primitives.borderRadius.lg}px`,
   },
 ];
 

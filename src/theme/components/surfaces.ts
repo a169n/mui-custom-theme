@@ -68,25 +68,24 @@ export const surfaces: Components<Theme> = {
     defaultProps: { dividers: true },
   },
   MuiTooltip: {
+    defaultProps: {
+      arrow: true,
+    },
     styleOverrides: {
       tooltip: ({ theme }) => ({
-        backgroundColor: theme.palette.text.primary,
+        backgroundColor: theme.tokens.primitives.colors.brand?.[700],
         color: theme.palette.common.white,
-        borderRadius: '4px',
-        height: 'fit-content',
-        width: 'fit-content',
-        maxWidth: '250px',
+        borderRadius: `${theme.tokens.modes[theme.palette.mode].radius.sm}px`,
+        maxWidth: 320,
         textAlign: 'center',
-        padding: '4px 8px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 400,
-        fontSize: '12px',
-        lineHeight: '16px',
-        letterSpacing: '0px',
+        padding: theme.spacing(1, 1.5),
+        boxShadow: theme.shadows[2],
+        ...theme.typography.textS,
+        fontWeight: theme.typography.fontWeightRegular,
       }),
-      arrow: ({ theme }) => ({ color: theme.palette.text.primary }),
+      arrow: ({ theme }) => ({
+        color: theme.tokens.primitives.colors.brand?.[700],
+      }),
     },
   },
   MuiPopover: {

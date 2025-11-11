@@ -4,7 +4,7 @@ export const skeleton: Components<Theme> = {
   MuiSkeleton: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: theme.tokens?.primitives?.colors.neutral[600] ?? theme.palette.grey[600],
+        backgroundColor: theme.tokens?.primitives?.colors.neutral[200] ?? theme.palette.grey[200],
       }),
     },
   },

@@ -78,7 +78,7 @@ export const surfaces: Components<Theme> = {
         borderRadius: `${theme.tokens.modes[theme.palette.mode].radius.sm}px`,
         maxWidth: 320,
         textAlign: 'center',
-        padding: theme.spacing(1, 1.5),
+        padding: theme.spacing(1, 2),
         boxShadow: theme.shadows[2],
         ...theme.typography.textS,
         fontWeight: theme.typography.fontWeightRegular,

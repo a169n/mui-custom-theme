@@ -62,15 +62,15 @@ const doneRoutes: AppRoute[] = [
   { path: 'icon-buttons', label: 'Icon Buttons', element: <IconButtonsPage />, status: 'done' },
   { path: 'input', label: 'Input', element: <InputPage />, status: 'done' },
   { path: 'table', label: 'Table', element: <TablePage />, status: 'done' },
+  { path: 'select', label: 'Select', element: <SelectPage />, status: 'done' },
 ];
 
 const inProgressRoutes: AppRoute[] = [
-  { path: 'select', label: 'Select', element: <SelectPage />, status: 'in-progress' },
+  { path: 'alert', label: 'Alert', element: <AlertPage />, status: 'in-progress' },
 ];
 
 const todoRoutes: AppRoute[] = [
   { path: 'avatar', label: 'Avatar', element: <AvatarPage />, status: 'todo' },
-  { path: 'alert', label: 'Alert', element: <AlertPage />, status: 'todo' },
   { path: 'badges', label: 'Badges', element: <BadgesPage /> },
   { path: 'breadcrumbs', label: 'Breadcrumbs', element: <BreadcrumbsPage /> },
   { path: 'checkboxes', label: 'Checkboxes', element: <CheckboxesPage /> },

@@ -11,6 +11,7 @@ import spacing from './foundations/spacing';
 import shape from './foundations/shape';
 import components from './components/index';
 import breakpoints from './foundations/breakpoints';
+import { lightShadows, darkShadows } from './foundations/shadows';
 import { designTokens } from './tokens';
 
 /**
@@ -23,6 +24,7 @@ const theme = createTheme({
   shape,
   components,
   breakpoints,
+  shadows: lightShadows,
   tokens: designTokens,
 });
 
@@ -36,6 +38,7 @@ export const darkTheme = createTheme({
   shape,
   components,
   breakpoints,
+  shadows: darkShadows,
   tokens: designTokens,
 });
 

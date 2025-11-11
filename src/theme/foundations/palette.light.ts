@@ -95,6 +95,18 @@ const palette: PaletteOptions = {
     active: designTokens.modes.light.alpha.black[70],
   },
 
+  icon: {
+    default: designTokens.modes.light.icon.default,
+    muted: designTokens.modes.light.icon.muted,
+    light: designTokens.modes.light.icon.light,
+    dark: designTokens.modes.light.icon.dark,
+    brand: designTokens.modes.light.icon.brand,
+    positive: designTokens.modes.light.icon.positive,
+    negative: designTokens.modes.light.icon.negative,
+    warning: designTokens.modes.light.icon.warning,
+    link: designTokens.modes.light.icon.link,
+  },
+
   brand,
   gray: neutral,
   green,

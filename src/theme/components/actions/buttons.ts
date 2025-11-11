@@ -179,7 +179,9 @@ const buildGhostStyles = (theme: Theme, color: string | undefined) => {
   const tokens = resolveModeTokens(theme);
   const hoverBackground = theme.palette.alpha.black[100];
   const isDefaultTone = getToneKey(color) === 'brand';
-  const textColor = isDefaultTone ? tokens?.text?.default ?? theme.palette.text.primary : colors.plainText;
+  const textColor = isDefaultTone
+    ? (tokens?.text?.default ?? theme.palette.text.primary)
+    : colors.plainText;
 
   return {
     backgroundColor: 'transparent',
@@ -251,10 +253,6 @@ export const buttons: Components<Theme> = {
       root: ({ theme, ownerState }) => {
         const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
         const mdRadius = radiusScale?.md;
-
-        console.log('radius:', mdRadius)
-
-
 
         return {
           textTransform: 'none',
@@ -329,6 +327,7 @@ export const buttons: Components<Theme> = {
 
         return {
           padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+          height: 32,
           minHeight: 32,
           borderRadius: `${mdRadius}px`,
         };
@@ -339,6 +338,7 @@ export const buttons: Components<Theme> = {
 
         return {
           padding: `${theme.spacing(2.5)} ${theme.spacing(3)}`,
+          height: 36,
           minHeight: 36,
           borderRadius: `${mdRadius}px`,
         };
@@ -349,6 +349,7 @@ export const buttons: Components<Theme> = {
 
         return {
           padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
+          height: 40,
           minHeight: 40,
           borderRadius: `${lgRadius}px`,
         };

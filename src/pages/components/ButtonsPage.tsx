@@ -1,4 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
+import { useState } from 'react';
 import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import { Button, ButtonSize, ButtonVariant, ButtonTone } from '../../components/Button';
@@ -79,11 +80,15 @@ const BodyCell = ({ children }: { children: React.ReactNode }) => (
 
 export const ButtonsPage = () => {
   const firstColWidth = 160;
+  const [showStartIcon, setShowStartIcon] = useState(false);
+  const [showEndIcon, setShowEndIcon] = useState(false);
+  const startIcon = showStartIcon ? <IconArrowLeft size={18} stroke={1.5} /> : undefined;
+  const endIcon = showEndIcon ? <IconArrowRight size={18} stroke={1.5} /> : undefined;
 
   return (
     <PageContainer
       title="Buttons"
-      description="All theme button variants, states, and sizes with dedicated loading and icon examples. One button per matrix cell."
+      description="All theme button variants, states, and sizes with dedicated loading examples plus toggleable icons. One button per matrix cell."
       usage={buttonsUsage}
     >
       <Box sx={{ mb: 6 }}>
@@ -102,6 +107,8 @@ export const ButtonsPage = () => {
               tone="default"
               size={size}
               loading
+              startIcon={startIcon}
+              endIcon={endIcon}
               disableRipple
             >
               Loading
@@ -115,42 +122,28 @@ export const ButtonsPage = () => {
           variant="subtitle1"
           sx={{ borderBottom: '2px solid', borderColor: 'divider', pb: 1, mb: 2 }}
         >
-          Icon placement
+          Icon controls
         </Typography>
 
-        <Stack spacing={2}>
-          {sizes.map((size) => (
-            <Stack key={`icons-${size}`} direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-              <Button
-                variant="primary"
-                tone="default"
-                size={size}
-                startIcon={<IconArrowLeft size={18} stroke={1.5} />}
-                disableRipple
-              >
-                Start icon
-              </Button>
-              <Button
-                variant="primary"
-                tone="positive"
-                size={size}
-                endIcon={<IconArrowRight size={18} stroke={1.5} />}
-                disableRipple
-              >
-                End icon
-              </Button>
-              <Button
-                variant="primary"
-                tone="negative"
-                size={size}
-                startIcon={<IconArrowLeft size={18} stroke={1.5} />}
-                endIcon={<IconArrowRight size={18} stroke={1.5} />}
-                disableRipple
-              >
-                Start & end icons
-              </Button>
-            </Stack>
-          ))}
+        <Stack direction="row" spacing={4} flexWrap="wrap" useFlexGap>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showStartIcon}
+                onChange={(event) => setShowStartIcon(event.target.checked)}
+              />
+            }
+            label="Show start icon"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showEndIcon}
+                onChange={(event) => setShowEndIcon(event.target.checked)}
+              />
+            }
+            label="Show end icon"
+          />
         </Stack>
       </Box>
 
@@ -230,6 +223,8 @@ export const ButtonsPage = () => {
                           variant={variant}
                           tone={tone}
                           size={size}
+                          startIcon={startIcon}
+                          endIcon={endIcon}
                           {...getStateProps(state.key)}
                           disableRipple
                         >

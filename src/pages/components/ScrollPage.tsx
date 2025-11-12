@@ -23,6 +23,7 @@ export const ScrollPage = () => (
     <Box
       sx={{
         maxHeight: 200,
+        width: 400,
         overflowY: 'auto',
         borderRadius: 2,
         border: '1px solid',
@@ -31,7 +32,7 @@ export const ScrollPage = () => (
       }}
     >
       <Stack spacing={1}>
-        {Array.from({ length: 20 }, (_, index) => (
+        {Array.from({ length: 30 }, (_, index) => (
           <Typography key={index} variant="body2">
             Item {index + 1}
           </Typography>

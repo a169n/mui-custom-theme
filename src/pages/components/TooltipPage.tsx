@@ -36,7 +36,11 @@ export const TooltipPage = () => (
       }}
     >
       {tooltipVariants.map((variant) => (
-        <Tooltip key={variant.label} title={`${variant.label} tooltip`} placement={variant.placement}>
+        <Tooltip
+          key={variant.label}
+          title={`${variant.label} tooltip`}
+          placement={variant.placement}
+        >
           <Button variant="outline" fullWidth>
             {variant.label}
           </Button>

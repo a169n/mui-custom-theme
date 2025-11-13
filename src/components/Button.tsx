@@ -52,6 +52,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   const muiColor = toneToColor(tone);
   const inactive = disabled || loading;
   const sxArray = Array.isArray(sx) ? sx : sx ? [sx] : [];
+  const wrapIcon = (icon?: React.ReactNode) =>
+    icon ? (
+      <Box
+        component="span"
+        sx={{
+          display: 'inherit',
+          visibility: loading ? 'hidden' : 'visible',
+        }}
+      >
+        {icon}
+      </Box>
+    ) : undefined;
+  const startIconNode = wrapIcon(startIcon);
+  const endIconNode = wrapIcon(endIcon);
 
   return (
     <MUIButton
@@ -60,33 +74,39 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       color={muiColor}
       size={size}
       disabled={inactive}
-      startIcon={startIcon}
-      endIcon={endIcon}
+      startIcon={startIconNode}
+      endIcon={endIconNode}
       className={clsx(className, `Button--${variant}`, `Button--${size}`)}
       sx={[{ position: 'relative' }, ...sxArray]}
       {...rest}
     >
+      <Box
+        component="span"
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          visibility: loading ? 'hidden' : 'visible',
+        }}
+      >
+        <Typography component="span" variant="caption" fontWeight="regular">
+          {children}
+        </Typography>
+      </Box>
       {loading ? (
-        <CircularProgress size={20} color="inherit" />
-      ) : (
         <Box
-          component="span"
           sx={{
-            display: 'inline-flex',
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            pointerEvents: 'none',
           }}
         >
-          <Typography
-            component="span"
-            variant="caption"
-            fontWeight="regular"
-            sx={{ visibility: loading ? 'hidden' : 'visible' }}
-          >
-            {children}
-          </Typography>
+          <CircularProgress size={20} color="inherit" />
         </Box>
-      )}
+      ) : null}
     </MUIButton>
   );
 });

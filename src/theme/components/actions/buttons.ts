@@ -1,12 +1,5 @@
 import type { Components, Theme } from '@mui/material/styles';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button';
-import { multiply } from 'color-blend';
-import {
-  hexToRgbaObject,
-  isValidHexColor,
-  rgbaObjectToString,
-  rgbaStringToObject,
-} from '../../../utils/color';
 
 const resolveModeTokens = (theme: Theme) => {
   const mode = theme.palette.mode ?? 'light';
@@ -74,16 +67,6 @@ const getToneColors = (theme: Theme, color: string | undefined): ToneColors => {
   return base[getToneKey(color)];
 };
 
-const mixWithAlphaOverlay = (theme: Theme, baseColor: string | undefined) => {
-  const overlay = theme.palette.alpha.black[100];
-
-  if (baseColor && overlay && isValidHexColor(baseColor)) {
-    return rgbaObjectToString(multiply(hexToRgbaObject(baseColor), rgbaStringToObject(overlay)));
-  }
-
-  return overlay ?? 'rgba(0, 0, 0, 0.04)';
-};
-
 const buildPrimaryStyles = (theme: Theme, color: string | undefined) => {
   const colors = getToneColors(theme, color);
 
@@ -108,18 +91,14 @@ const buildSecondaryStyles = (theme: Theme) => {
   const tokens = resolveModeTokens(theme);
   const backgroundColor = tokens?.bg?.muted;
   const text = tokens?.text?.default ?? theme.palette.text.primary;
-
-  const hoverBackgroundColor = multiply(
-    hexToRgbaObject(tokens?.bg?.muted),
-    rgbaStringToObject(theme.palette.alpha.black[100])
-  );
+  const hoverBackgroundColor = theme.palette.mode === 'dark' ? '#313131' : '#E9E9E9';
 
   return {
     backgroundColor,
     color: text,
     border: 'none',
     '&:hover': {
-      backgroundColor: rgbaObjectToString(hoverBackgroundColor),
+      backgroundColor: hoverBackgroundColor,
     },
     '&.Mui-disabled': {
       backgroundColor,
@@ -138,7 +117,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
     const background = tokens?.bg?.default ?? theme.palette.background.paper;
     const text = tokens?.text?.default ?? theme.palette.text.primary;
     const border = tokens?.border?.default ?? theme.palette.divider;
-    const hoverBackground = mixWithAlphaOverlay(theme, tokens?.bg?.default);
+    const hoverBackground = theme.palette.mode === 'dark' ? '#232323' : '#F3F3F3';
 
     return {
       backgroundColor: background,
@@ -263,6 +242,7 @@ export const buttons: Components<Theme> = {
           transition: 'opacity 0.3s ease',
           boxShadow: 'none',
           borderRadius: `${mdRadius}px`,
+          borderWidth: '1px',
           gap: theme.spacing(1),
           '&:hover': {
             boxShadow: 'none',

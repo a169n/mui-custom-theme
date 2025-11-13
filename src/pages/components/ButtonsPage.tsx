@@ -82,6 +82,7 @@ export const ButtonsPage = () => {
   const firstColWidth = 160;
   const [showStartIcon, setShowStartIcon] = useState(false);
   const [showEndIcon, setShowEndIcon] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const startIcon = showStartIcon ? <IconArrowLeft size={18} stroke={1.5} /> : undefined;
   const endIcon = showEndIcon ? <IconArrowRight size={18} stroke={1.5} /> : undefined;
 
@@ -114,8 +115,28 @@ export const ButtonsPage = () => {
               Loading
             </Button>
           ))}
-        </Stack>
-      </Box>
+      </Stack>
+    </Box>
+
+    <Box sx={{ mb: 6 }}>
+      <Typography
+        variant="subtitle1"
+        sx={{ borderBottom: '2px solid', borderColor: 'divider', pb: 1, mb: 2 }}
+      >
+        Width-safe loading toggle
+      </Typography>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="center">
+        <FormControlLabel
+          control={
+            <Switch checked={demoLoading} onChange={(event) => setDemoLoading(event.target.checked)} />
+          }
+          label="Toggle loading"
+        />
+        <Button variant="primary" size="medium" loading={demoLoading}>
+          Consistent width
+        </Button>
+      </Stack>
+    </Box>
 
       <Box sx={{ mb: 6 }}>
         <Typography

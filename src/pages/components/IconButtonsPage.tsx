@@ -27,12 +27,13 @@ const variantToneMap: Record<IconButtonVariant, IconButtonTone[]> = {
   ghost: tones,
 };
 
-type IconButtonShowcaseState = 'default' | 'disabled' | 'loading';
+type IconButtonShowcaseState = 'default' | 'disabled' | 'loading' | 'hover';
 
 const states: { key: IconButtonShowcaseState; label: string }[] = [
   { key: 'default', label: 'Default' },
   { key: 'disabled', label: 'Disabled' },
   { key: 'loading', label: 'Loading' },
+  { key: 'hover', label: 'Hover' },
 ];
 
 const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
@@ -43,6 +44,8 @@ const getStateProps = (state: IconButtonShowcaseState) => {
       return { disabled: true };
     case 'loading':
       return { loading: true };
+    case 'hover':
+      return { forceHoverState: true, disableRipple: true };
     default:
       return {};
   }

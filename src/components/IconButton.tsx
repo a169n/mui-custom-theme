@@ -20,6 +20,7 @@ export interface IconButtonProps
   sx?: SxProps<Theme>;
   children: React.ReactNode;
   className?: string;
+  forceHoverState?: boolean;
 }
 
 const getIconSize = (size: IconButtonSize) => (size === 'large' ? 24 : 20);
@@ -51,7 +52,7 @@ const getSizeStyles = (
       };
     case 'large':
       return {
-        padding: theme.spacing(2.5),
+        padding: theme.spacing(2),
         borderRadius: `${radiusLg}px`,
       };
     default:
@@ -72,6 +73,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     className,
     children,
     sx,
+    forceHoverState = false,
     ...rest
   } = props;
   const theme = useTheme();
@@ -79,10 +81,37 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
   const muiColor = toneToColor(tone);
   const inactive = disabled || loading;
   const iconSize = getIconSize(size);
-  const variantStyles = getButtonVariantStyles(theme, variant as CustomButtonVariant, muiColor);
+  const variantStylesRaw = getButtonVariantStyles(theme, variant as CustomButtonVariant, muiColor);
+  const variantStylesObject = (variantStylesRaw ?? {}) as Record<string, unknown>;
+  const outlineBorderWidth = '1px';
+  const outlineStyles =
+    variant === 'outline'
+      ? {
+          borderWidth: outlineBorderWidth,
+          ...(variantStylesObject['&:hover']
+            ? {
+                '&:hover': {
+                  ...(variantStylesObject['&:hover'] as Record<string, unknown>),
+                  borderWidth: outlineBorderWidth,
+                },
+              }
+            : {}),
+          ...(variantStylesObject['&.Mui-disabled']
+            ? {
+                '&.Mui-disabled': {
+                  ...(variantStylesObject['&.Mui-disabled'] as Record<string, unknown>),
+                  borderWidth: outlineBorderWidth,
+                },
+              }
+            : {}),
+        }
+      : {};
+  const variantStyles = {
+    ...variantStylesObject,
+    ...outlineStyles,
+  } as SxProps<Theme>;
+  const variantStylesRecord = variantStyles as Record<string, unknown>;
   const sizeStyles = getSizeStyles(theme, size, modeTokens?.radius);
-  const isGhostDefault = variant === 'ghost' && tone === 'default';
-  const ghostDefaultColor = isGhostDefault ? modeTokens?.icon?.default : undefined;
   const baseStyles = {
     ...variantStyles,
     ...sizeStyles,
@@ -103,6 +132,12 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
   };
 
   const sxArray = Array.isArray(sx) ? sx : sx ? [sx] : [];
+  if (forceHoverState && variantStylesRecord['&:hover']) {
+    sxArray.unshift({
+      pointerEvents: 'none',
+      ...(variantStylesRecord['&:hover'] as object),
+    });
+  }
 
   return (
     <MUIIconButton

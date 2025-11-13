@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,6 +12,7 @@ import PageContainer from '../PageContainer';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import { Button } from '../../components/Button';
 import { DialogTitle } from '../../components/DialogTitle';
+import theme from '../../theme';
 
 const dialogUsage = createUsageSnippet([
   'const [open, setOpen] = useState(false);',
@@ -45,6 +47,7 @@ const dialogProps: Partial<DialogProps> = {
 
 export const DialogPage = () => {
   const [withActionsOpen, setWithActionsOpen] = useState(false);
+  const [withBackOpen, setWithBackOpen] = useState(false);
   const [basicOpen, setBasicOpen] = useState(false);
 
   return (
@@ -57,6 +60,9 @@ export const DialogPage = () => {
         <Button variant="primary" onClick={() => setWithActionsOpen(true)}>
           Dialog with actions
         </Button>
+        <Button variant="secondary" onClick={() => setWithBackOpen(true)}>
+          Dialog with back action
+        </Button>
         <Button variant="outline" onClick={() => setBasicOpen(true)}>
           Dialog without actions
         </Button>
@@ -65,7 +71,7 @@ export const DialogPage = () => {
       <Dialog open={withActionsOpen} onClose={() => setWithActionsOpen(false)} {...dialogProps}>
         <DialogTitle onClose={() => setWithActionsOpen(false)}>Invite teammate</DialogTitle>
         <DialogContent>
-          <Stack spacing={1.5}>
+          <Stack>
             <Typography variant="textM">
               Use dialogs for short forms or confirmations without leaving the current page.
             </Typography>
@@ -75,10 +81,30 @@ export const DialogPage = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button variant="outline" onClick={() => setWithActionsOpen(false)}>
-            Cancel
+          <Button variant="outline">Button</Button>
+          <Box display="flex" gap={theme.spacing(2)}>
+            <Button variant="outline" onClick={() => setWithActionsOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary">Send Invite</Button>
+          </Box>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={withBackOpen} onClose={() => setWithBackOpen(false)} {...dialogProps}>
+        <DialogTitle onClose={() => setWithBackOpen(false)} onBack={() => setWithBackOpen(false)}>
+          Onboarding checklist
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="textM">
+            Back affordances keep longer flows accessible without dismissing the dialog entirely.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outline" onClick={() => setWithBackOpen(false)}>
+            Back
           </Button>
-          <Button variant="primary">Send Invite</Button>
+          <Button variant="primary">Mark Complete</Button>
         </DialogActions>
       </Dialog>
 

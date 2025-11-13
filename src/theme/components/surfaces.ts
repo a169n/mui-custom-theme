@@ -40,7 +40,7 @@ export const surfaces: Components<Theme> = {
       root: ({ theme }) => ({
         ...theme.typography.subtitle2,
         color: theme.palette.text.primary,
-        padding: theme.spacing(3.5),
+        padding: theme.spacing(2),
         position: 'relative',
         borderBottom: 'none',
         display: 'flex',
@@ -65,8 +65,11 @@ export const surfaces: Components<Theme> = {
   MuiDialogActions: {
     styleOverrides: {
       root: ({ theme }) => ({
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
         gap: theme.spacing(2),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
       }),
     },
   },
@@ -76,8 +79,8 @@ export const surfaces: Components<Theme> = {
         padding: theme.spacing(4),
       }),
       dividers: ({ theme }) => ({
-        borderTop: `1px solid ${theme.palette.divider}`,
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderTop: `1px solid ${theme.tokens?.modes?.[theme.palette.mode]?.border?.default}`,
+        borderBottom: `1px solid ${theme.tokens?.modes?.[theme.palette.mode]?.border?.default}`,
       }),
     },
     defaultProps: { dividers: true },

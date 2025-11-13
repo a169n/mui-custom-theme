@@ -22,7 +22,7 @@ const PageContainer = ({
         {title}
       </Typography>
       {description ? (
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="textL" color="text.secondary">
           {description}
         </Typography>
       ) : null}

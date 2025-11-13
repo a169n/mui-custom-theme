@@ -151,7 +151,7 @@ Configures all text styles:
 
 - Font family and weights
 - Headings (h1-h6)
-- Body text (body1, body2)
+- Body text (textL, textM)
 - Subtitles, captions, buttons, overlines
 
 ### `spacing.ts`

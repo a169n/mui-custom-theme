@@ -148,7 +148,7 @@ export const IconButtonsPage = () => {
                   }}
                 >
                   <BodyCell>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="textM" color="text.secondary">
                       {capitalize(tone)}
                     </Typography>
                   </BodyCell>

@@ -114,10 +114,10 @@ const PalettePage = () => {
                           alignItems="center"
                           sx={{ flexGrow: 1, px: 2, py: 1, bgcolor: 'background.paper' }}
                         >
-                          <Typography variant="body2" fontWeight={600}>
+                          <Typography variant="textM" fontWeight={600}>
                             {shadeLabel}
                           </Typography>
-                          <Typography variant="body2" sx={{ fontFamily: usageFont }}>
+                          <Typography variant="textM" sx={{ fontFamily: usageFont }}>
                             {value}
                           </Typography>
                         </Stack>
@@ -140,10 +140,10 @@ const PalettePage = () => {
                         color: paletteColor.contrastText,
                       }}
                     >
-                      <Typography variant="body2" fontWeight={600}>
+                      <Typography variant="textM" fontWeight={600}>
                         contrastText
                       </Typography>
-                      <Typography variant="body2" sx={{ fontFamily: usageFont }}>
+                      <Typography variant="textM" sx={{ fontFamily: usageFont }}>
                         {paletteColor.contrastText}
                       </Typography>
                     </Box>

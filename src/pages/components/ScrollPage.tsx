@@ -33,7 +33,7 @@ export const ScrollPage = () => (
     >
       <Stack spacing={1}>
         {Array.from({ length: 30 }, (_, index) => (
-          <Typography key={index} variant="body2">
+          <Typography key={index} variant="textM">
             Item {index + 1}
           </Typography>
         ))}

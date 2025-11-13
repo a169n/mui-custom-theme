@@ -3,6 +3,7 @@
  */
 
 import type { Components, Theme } from '@mui/material/styles';
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
 export const surfaces: Components<Theme> = {
   MuiAccordion: {
@@ -122,46 +123,69 @@ export const surfaces: Components<Theme> = {
   MuiPagination: {
     styleOverrides: {
       root: ({ theme }) => ({
-        height: '32px',
         '& .MuiPagination-ul': {
-          gap: '8px',
-        },
-        '& .MuiPaginationItem-root': {
-          minWidth: '32px',
-          height: '32px',
-          borderRadius: '6px',
-          border: 'none',
-          backgroundColor: 'transparent',
-          color: theme.palette.gray[500],
-          fontSize: '14px',
-          fontWeight: 500,
-          '&:hover': {
-            backgroundColor: 'transparent',
-          },
-          '&.Mui-selected': {
-            backgroundColor: theme.palette.brand[700],
-            color: theme.palette.white.main,
-            '&:hover': {
-              backgroundColor: theme.palette.brand[700],
-            },
-          },
-          '&.Mui-disabled': {
-            color: theme.palette.white.main,
-            opacity: 0.5,
-          },
-        },
-        '& .MuiPaginationItem-icon': {
-          fontSize: '24px',
-          color: theme.palette.gray[500],
-        },
-        '& .MuiPaginationItem-root.Mui-disabled .MuiPaginationItem-icon': {
-          color: theme.palette.white.main,
-          opacity: 0.5,
-        },
-        '& .MuiPaginationItem-root:not(.Mui-disabled) .MuiPaginationItem-icon': {
-          color: theme.palette.gray[500],
+          gap: theme.spacing(1),
         },
       }),
+    },
+  },
+  MuiPaginationItem: {
+    defaultProps: {
+      slots: {
+        previous: IconArrowLeft,
+        next: IconArrowRight,
+      },
+    },
+    styleOverrides: {
+      root: ({ theme }) => {
+        const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+        const bgMuted = modeTokens?.bg?.muted ?? theme.palette.action.hover;
+        const textDefault = modeTokens?.text?.default ?? theme.palette.text.primary;
+        const borderRadius =
+          theme.tokens?.primitives?.borderRadius?.['rounded-md'] ?? theme.shape.borderRadius;
+
+        return {
+          minWidth: 'auto',
+          height: 'auto',
+          borderRadius: `${borderRadius}px`,
+          padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+          border: 'none',
+          color: textDefault,
+          backgroundColor: 'transparent',
+          transition: 'background-color 0.2s ease, color 0.2s ease',
+          ...theme.typography.textM,
+          fontSize: theme.typography.textM?.fontSize ?? theme.typography.body2.fontSize,
+          '&.Mui-selected': {
+            backgroundColor: bgMuted,
+            color: textDefault,
+            '&:hover': {
+              backgroundColor: bgMuted,
+            },
+          },
+          '&.MuiPaginationItem-page:hover': {
+            backgroundColor: bgMuted,
+          },
+          '&.MuiPaginationItem-previousNext:hover': {
+            backgroundColor: 'transparent',
+          },
+          '&.MuiPaginationItem-ellipsis': {
+            backgroundColor: 'transparent',
+            pointerEvents: 'none',
+            cursor: 'default',
+          },
+          '&.Mui-disabled': {
+            color: theme.palette.action.disabled,
+            opacity: 1,
+          },
+          '&.MuiPaginationItem-previousNext': {
+            padding: theme.spacing(1.5),
+          },
+          '& .MuiPaginationItem-icon': {
+            width: 20,
+            height: 20,
+          },
+        };
+      },
     },
   },
 };

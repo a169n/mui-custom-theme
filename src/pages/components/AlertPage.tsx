@@ -86,7 +86,7 @@ export const AlertPage = () => {
       <Stack spacing={4}>
         <Stack spacing={1.5}>
           <Typography variant="subtitle1">Interactive demo</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="textM" color="text.secondary">
             Fire any variant and the alert will pin itself to the top-right corner of the viewport.
           </Typography>
         </Stack>
@@ -113,7 +113,7 @@ export const AlertPage = () => {
             p: 3,
           }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="textM" color="text.secondary">
             Alerts render outside of the flow so page layouts remain unaffected. Use the buttons
             above to queue up to three notifications.
           </Typography>

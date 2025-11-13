@@ -13,9 +13,9 @@ export const DividerPage = () => (
     usage={dividerUsage}
   >
     <Stack spacing={2}>
-      <Typography variant="body1">Section one</Typography>
+      <Typography variant="textL">Section one</Typography>
       <Divider />
-      <Typography variant="body1">Section two</Typography>
+      <Typography variant="textL">Section two</Typography>
     </Stack>
   </PageContainer>
 );

@@ -36,7 +36,7 @@ const AppLayout = () => (
             <Typography variant="h3" component="h1" gutterBottom>
               MUI Custom Theme
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="textL" color="text.secondary">
               Browse foundational tokens and individual components by category.
             </Typography>
           </Box>

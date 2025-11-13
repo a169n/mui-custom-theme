@@ -77,9 +77,6 @@ const typography: TypographyOptions = {
   subtitle1: textVariants.title,
   subtitle2: textVariants.subtitle,
 
-  body1: textVariants.textL,
-  body2: textVariants.textM,
-
   caption: textVariants.caption,
 
   overline: {

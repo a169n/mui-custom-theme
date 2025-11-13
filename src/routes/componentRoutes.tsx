@@ -71,6 +71,7 @@ const inProgressRoutes: AppRoute[] = [
   { path: 'skeleton', label: 'Skeleton', element: <SkeletonPage />, status: 'in-progress' },
   { path: 'textarea', label: 'Textarea', element: <TextareaPage />, status: 'in-progress' },
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage />, status: 'in-progress' },
+  { path: 'pagination', label: 'Pagination', element: <PaginationPage />, status: 'in-progress' },
   { path: 'dialog', label: 'Dialog', element: <DialogPage />, status: 'in-progress' },
 ];
 
@@ -88,7 +89,6 @@ const todoRoutes: AppRoute[] = [
   { path: 'filter', label: 'Filter', element: <FilterPage /> },
   { path: 'navigation-menu', label: 'NavigationMenu', element: <NavigationMenuPage /> },
   { path: 'command-search', label: 'Command, Search', element: <CommandSearchPage /> },
-  { path: 'pagination', label: 'Pagination', element: <PaginationPage /> },
   { path: 'progress', label: 'Progress', element: <ProgressPage /> },
   { path: 'radio', label: 'Radio', element: <RadioPage /> },
   { path: 'form', label: 'Form', element: <FormPage /> },

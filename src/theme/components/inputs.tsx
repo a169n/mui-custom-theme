@@ -115,7 +115,7 @@ export const inputs: Components<Theme> = {
         ...theme.typography.caption,
         '&.MuiInputBase-inputMultiline': {
           padding: 0,
-          lineHeight: theme.typography.body1.lineHeight,
+          lineHeight: theme.typography.textL.lineHeight,
           minHeight: theme.spacing(10),
         },
         '&.MuiOutlinedInput-inputAdornedStart, &.MuiInputBase-inputAdornedStart': {

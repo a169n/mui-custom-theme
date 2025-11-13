@@ -511,7 +511,7 @@ export const CustomSelect = forwardRef<HTMLButtonElement, CustomSelectProps>(
             }}
           >
             {filteredOptions.length === 0 ? (
-              <Typography variant="body2" color={modeTokens.text.muted}>
+              <Typography variant="textM" color={modeTokens.text.muted}>
                 Не найдено
               </Typography>
             ) : (

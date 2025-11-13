@@ -210,7 +210,7 @@ export const ButtonsPage = () => {
                 >
                   {/* Tone label cell (first column) */}
                   <BodyCell>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="textM" color="text.secondary">
                       {capitalize(tone)}
                     </Typography>
                   </BodyCell>

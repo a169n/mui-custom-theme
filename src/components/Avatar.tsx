@@ -41,7 +41,7 @@ const renderFallback = (theme: Theme, name?: string) => (
     sx={{
       color: theme.tokens?.modes?.[theme.palette.mode].text.brand ?? theme.palette.primary.main,
       fontWeight: 400,
-      fontSize: theme.typography.textM?.fontSize ?? theme.typography.body2.fontSize,
+      fontSize: theme.typography.textM?.fontSize ?? theme.typography.textM.fontSize,
       lineHeight: 1,
     }}
   >

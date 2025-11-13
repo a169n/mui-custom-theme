@@ -153,8 +153,8 @@ export const surfaces: Components<Theme> = {
           color: textDefault,
           backgroundColor: 'transparent',
           transition: 'background-color 0.2s ease, color 0.2s ease',
+          margin: 0,
           ...theme.typography.textM,
-          fontSize: theme.typography.textM?.fontSize ?? theme.typography.body2.fontSize,
           '&.Mui-selected': {
             backgroundColor: bgMuted,
             color: textDefault,

@@ -24,10 +24,11 @@ const variantToneMap: Record<ButtonVariant, ButtonTone[]> = {
   link: ['default'],
 };
 
-type ButtonShowcaseState = 'default' | 'disabled';
+type ButtonShowcaseState = 'default' | 'hover' | 'disabled';
 
 const states: { key: ButtonShowcaseState; label: string }[] = [
   { key: 'default', label: 'Default' },
+  { key: 'hover', label: 'Hover' },
   { key: 'disabled', label: 'Disabled' },
 ];
 
@@ -37,6 +38,8 @@ const getStateProps = (state: ButtonShowcaseState) => {
   switch (state) {
     case 'disabled':
       return { disabled: true };
+    case 'hover':
+      return { forceHoverState: true, disableRipple: true };
     default:
       return {};
   }
@@ -211,7 +214,7 @@ export const ButtonsPage = () => {
                         </Typography>
                         <br />
                         <Typography variant="caption" color="text.secondary">
-                          {capitalize(state.key)}
+                          {state.label}
                         </Typography>
                       </Box>
                     </HeaderCell>

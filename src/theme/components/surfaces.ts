@@ -27,32 +27,35 @@ export const surfaces: Components<Theme> = {
   MuiAccordionDetails: { styleOverrides: { root: { padding: 0 } } },
   MuiDialog: {
     styleOverrides: {
-      paper: { borderRadius: '24px', overflowX: 'hidden', overflowY: 'auto' },
+      paper: ({ theme }) => ({
+        borderRadius: `${theme.tokens.primitives.borderRadius['rounded-3xl']}px`,
+        overflow: 'hidden',
+        boxShadow: theme.tokens.modes[theme.palette.mode].shadow.black[3],
+      }),
     },
   },
   MuiDialogTitle: {
     styleOverrides: {
       root: ({ theme }) => ({
-        fontSize: '24px',
-        fontWeight: 500,
+        ...theme.typography.subtitle2,
         color: theme.palette.text.primary,
-        lineHeight: '28px',
-        letterSpacing: '0px',
-        padding: '20px 24px',
+        padding: theme.spacing(3.5),
         position: 'relative',
         borderBottom: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         '& .MuiIconButton-root': {
-          position: 'absolute',
-          right: '16px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          color: theme.palette.gray[500],
+          marginLeft: 'auto',
+          padding: theme.spacing(1.5),
+          color: theme.palette.icon?.muted ?? theme.palette.gray[500],
           '&:hover': {
             backgroundColor: 'transparent',
-            color: theme.palette.gray[600],
+            color: theme.palette.icon?.default ?? theme.palette.gray[600],
+          },
+          '& svg': {
+            width: 20,
+            height: 20,
           },
         },
       }),
@@ -60,11 +63,22 @@ export const surfaces: Components<Theme> = {
   },
   MuiDialogActions: {
     styleOverrides: {
-      root: { position: 'relative', borderTop: 'none', padding: '20px 24px' },
+      root: ({ theme }) => ({
+        padding: theme.spacing(2),
+        gap: theme.spacing(2),
+      }),
     },
   },
   MuiDialogContent: {
-    styleOverrides: { root: { padding: '24px' } },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        padding: theme.spacing(4),
+      }),
+      dividers: ({ theme }) => ({
+        borderTop: `1px solid ${theme.palette.divider}`,
+        borderBottom: `1px solid ${theme.palette.divider}`,
+      }),
+    },
     defaultProps: { dividers: true },
   },
   MuiTooltip: {

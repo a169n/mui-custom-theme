@@ -7,7 +7,7 @@ export { IconButtonsPage } from './IconButtonsPage';
 export { CheckboxesPage } from './CheckboxesPage';
 export { ChipsPage } from './ChipsPage';
 export { CalendarPage } from './CalendarPage';
-export { ModalsDialogsPage } from './ModalsDialogsPage';
+export { DialogPage } from './DialogPage';
 export { DividerPage } from './DividerPage';
 export { DropdownPage } from './DropdownPage';
 export { EmptyStatesPage } from './EmptyStatesPage';

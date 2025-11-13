@@ -15,6 +15,7 @@ import {
   ChipsPage,
   CommandSearchPage,
   DividerPage,
+  DialogPage,
   DropdownPage,
   EmptyStatesPage,
   ErrorPages,
@@ -22,7 +23,6 @@ import {
   FilterPage,
   FormPage,
   InputPage,
-  ModalsDialogsPage,
   NavigationMenuPage,
   PaginationPage,
   ProgressPage,
@@ -71,6 +71,7 @@ const inProgressRoutes: AppRoute[] = [
   { path: 'skeleton', label: 'Skeleton', element: <SkeletonPage />, status: 'in-progress' },
   { path: 'textarea', label: 'Textarea', element: <TextareaPage />, status: 'in-progress' },
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage />, status: 'in-progress' },
+  { path: 'dialog', label: 'Dialog', element: <DialogPage />, status: 'in-progress' },
 ];
 
 const todoRoutes: AppRoute[] = [
@@ -79,7 +80,6 @@ const todoRoutes: AppRoute[] = [
   { path: 'checkboxes', label: 'Checkboxes', element: <CheckboxesPage /> },
   { path: 'chips', label: 'Chips', element: <ChipsPage /> },
   { path: 'calendar', label: 'Calendar', element: <CalendarPage /> },
-  { path: 'modal-dialog', label: 'Modal, Dialog', element: <ModalsDialogsPage /> },
   { path: 'divider', label: 'Divider', element: <DividerPage /> },
   { path: 'dropdown', label: 'Dropdown', element: <DropdownPage /> },
   { path: 'empty-states', label: 'Empty States', element: <EmptyStatesPage /> },

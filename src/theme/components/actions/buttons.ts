@@ -104,6 +104,7 @@ const buildSecondaryStyles = (theme: Theme) => {
       backgroundColor,
       color: text,
       border: 'none',
+      opacity: 0.5,
     },
   };
 };
@@ -149,6 +150,7 @@ const buildOutlineStyles = (theme: Theme, color: string | undefined) => {
       backgroundColor: 'transparent',
       color: colors.plainText,
       border: `1.5px solid ${colors.border}`,
+      opacity: 0.5,
     },
   };
 };
@@ -175,6 +177,7 @@ const buildGhostStyles = (theme: Theme, color: string | undefined) => {
       backgroundColor: 'transparent',
       color: textColor,
       border: '0 !important',
+      opacity: 0.5,
     },
   };
 };
@@ -198,6 +201,7 @@ const buildLinkStyles = (theme: Theme, color: string | undefined) => {
       textDecoration: 'none',
       backgroundColor: 'transparent',
       border: 'none',
+      opacity: 0.5,
     },
   };
 };
@@ -234,9 +238,8 @@ export const buttons: Components<Theme> = {
         const mdRadius = radiusScale?.md;
 
         return {
+          ...theme.typography.caption,
           textTransform: 'none',
-          fontSize: 14,
-          fontWeight: 500,
           minWidth: 'auto',
           width: 'fit-content',
           transition: 'opacity 0.3s ease',

@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { ButtonSize, ButtonTone, ButtonVariant } from './Button';
 import { CustomButtonVariant, getButtonVariantStyles } from '../theme/components/actions/buttons';
+import { useModeTokens } from '../theme/useModeTokens';
 
 export type IconButtonVariant = Exclude<ButtonVariant, 'link'>;
 export type IconButtonTone = ButtonTone;
@@ -77,7 +78,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
     ...rest
   } = props;
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = useModeTokens();
   const muiColor = toneToColor(tone);
   const inactive = disabled || loading;
   const iconSize = getIconSize(size);

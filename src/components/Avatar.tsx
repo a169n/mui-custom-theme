@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
+import { useModeTokens } from '../theme/useModeTokens';
 
 export interface AvatarProps {
   src?: string;
@@ -34,12 +35,16 @@ const getInitial = (name?: string) => {
   return name.trim().charAt(0).toUpperCase();
 };
 
-const renderFallback = (theme: Theme, name?: string) => (
+const renderFallback = (
+  theme: Theme,
+  modeTokens?: Theme['tokens']['modes'][Theme['palette']['mode']],
+  name?: string
+) => (
   <Typography
     variant="textM"
     component="span"
     sx={{
-      color: theme.tokens?.modes?.[theme.palette.mode].text.brand ?? theme.palette.primary.main,
+      color: modeTokens?.text?.brand ?? theme.palette.primary.main,
       fontWeight: 400,
       fontSize: theme.typography.textM?.fontSize ?? theme.typography.textM.fontSize,
       lineHeight: 1,
@@ -67,9 +72,9 @@ export const Avatar = forwardRef(function Avatar(
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const theme = useTheme();
+  const modeTokens = useModeTokens();
   const size = getSize(theme);
   const radius = getRadius(theme);
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
   const background = modeTokens?.bg?.brand.muted ?? theme.palette.primary[50];
 
   const sxArray = Array.isArray(sx) ? sx : sx ? [sx] : [];
@@ -94,7 +99,7 @@ export const Avatar = forwardRef(function Avatar(
         ...sxArray,
       ]}
     >
-      {src ? renderImage(src, alt ?? name) : renderFallback(theme, name)}
+      {src ? renderImage(src, alt ?? name) : renderFallback(theme, modeTokens, name)}
     </Box>
   );
 });

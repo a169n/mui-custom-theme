@@ -1,13 +1,10 @@
 import type { KeyboardEvent } from 'react';
-import { Box, Typography } from '@mui/material';
-import { alpha, SxProps, Theme, useTheme } from '@mui/material/styles';
+import { Box, Step, StepLabel, Stepper as MuiStepper, Typography } from '@mui/material';
+import type { StepIconProps } from '@mui/material/StepIcon';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import clsx from 'clsx';
-import {
-  IconAlertTriangleFilled,
-  IconCircleCheckFilled,
-  IconCircleFilled,
-  IconCircleXFilled,
-} from '@tabler/icons-react';
+import { IconCheck, IconCircleFilled, IconExclamationMark, IconX } from '@tabler/icons-react';
+import { useModeTokens } from '../theme/useModeTokens';
 
 export type StepperVariant = 'line' | 'bullets' | 'numbers';
 export type StepperAlignment = 'horizontal' | 'vertical';
@@ -31,16 +28,19 @@ export interface StepperProps {
 }
 
 const statusIcons: Record<StepStatus, typeof IconCircleFilled> = {
-  default: IconCircleFilled,
-  active: IconCircleFilled,
-  done: IconCircleCheckFilled,
-  warning: IconAlertTriangleFilled,
-  fail: IconCircleXFilled,
+  default: null,
+  active: null,
+  done: IconCheck,
+  warning: IconExclamationMark,
+  fail: IconX,
 };
+const INDICATOR_SIZE = 24;
+const HORIZONTAL_STEP_GAP = 60;
+const VERTICAL_STEP_GAP = 30;
 
 export const Stepper = ({
   steps,
-  variant = 'line',
+  variant = 'numbers',
   alignment = 'horizontal',
   amount,
   onStepClick,
@@ -48,21 +48,18 @@ export const Stepper = ({
   sx,
 }: StepperProps) => {
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
-  const textDefault = modeTokens?.text?.default ?? theme.palette.text.primary;
-  const textMuted = modeTokens?.text?.muted ?? theme.palette.text.secondary;
-  const textLight = modeTokens?.text?.light ?? theme.palette.common.white;
-  const surface = modeTokens?.bg?.default ?? theme.palette.background.paper;
-  const mutedBackground = modeTokens?.bg?.muted ?? theme.palette.action.hover;
-  const borderDefault = modeTokens?.border?.default ?? theme.palette.divider;
-  const borderBrand = modeTokens?.border?.brand ?? theme.palette.primary.main;
-  const brandBg = modeTokens?.bg?.brand?.default ?? theme.palette.primary.main;
-  const brandMuted = modeTokens?.bg?.brand?.muted ?? alpha(brandBg, 0.15);
-  const positiveBg = modeTokens?.bg?.positive?.default ?? theme.palette.success.main;
-  const warningBg = modeTokens?.bg?.warning?.default ?? theme.palette.warning.main;
-  const negativeBg = modeTokens?.bg?.negative?.default ?? theme.palette.error.main;
+  const modeTokens = useModeTokens();
+  const isHorizontal = alignment === 'horizontal';
+  const verticalLineColor = modeTokens?.border?.default ?? theme.palette.divider;
+  const iconRadius = INDICATOR_SIZE / 2;
+
+  // For vertical orientation we fall back from "line" to "bullets"
+  const visualVariant: StepperVariant =
+    alignment === 'vertical' && variant === 'line' ? 'bullets' : variant;
 
   const totalSteps = amount ?? steps.length;
+  const indicatorSize = INDICATOR_SIZE;
+  const connectorElement = isHorizontal ? undefined : null;
 
   const normalizedSteps: (StepDefinition & { status: StepStatus })[] = Array.from(
     { length: totalSteps },
@@ -82,92 +79,97 @@ export const Stepper = ({
     }
   );
 
+  const verticalWrapperSx = !isHorizontal
+    ? {
+        position: 'relative',
+        display: 'block',
+        '&::before': {
+          content: normalizedSteps.length > 1 ? '""' : 'none',
+          position: 'absolute',
+          top: `${iconRadius}px`,
+          left: iconRadius,
+          width: '1px',
+          backgroundColor: verticalLineColor,
+          zIndex: 0,
+          // Calculate height based on steps and gaps
+          height: `calc(100% - ${INDICATOR_SIZE + VERTICAL_STEP_GAP}px)`,
+        },
+      }
+    : undefined;
+
   const getStatusTokens = (status: StepStatus) => {
     const base = {
-      accent: borderDefault,
-      fill: surface,
-      icon: textDefault,
-      label: textDefault,
-      connectorOpacity: 0.5,
-      dotBorder: borderDefault,
-      dotFill: surface,
-      numberBg: mutedBackground,
-      numberText: textDefault,
+      accent: modeTokens?.border?.default,
+      fill: modeTokens?.bg?.default,
+      icon: modeTokens?.text?.default,
+      label: modeTokens?.text?.default,
+      numberBg: modeTokens?.bg?.default,
+      numberText: modeTokens?.text?.default,
+      dotBorder: modeTokens?.border?.default,
+      dotFill: modeTokens?.bg?.default,
     };
 
     switch (status) {
       case 'active':
         return {
           ...base,
-          accent: borderBrand,
-          fill: brandMuted,
-          icon: borderBrand,
-          connectorOpacity: 1,
-          dotBorder: borderBrand,
-          numberBg: brandBg,
-          numberText: textLight,
+          accent: modeTokens?.border?.brand,
+          fill: modeTokens?.bg?.brand?.muted,
+          icon: modeTokens?.border?.brand,
+          numberBg: modeTokens?.bg?.brand?.default,
+          numberText: modeTokens?.text?.light,
         };
       case 'done':
         return {
           ...base,
-          accent: positiveBg,
-          fill: positiveBg,
-          icon: textLight,
-          connectorOpacity: 1,
-          dotBorder: positiveBg,
-          dotFill: positiveBg,
-          numberBg: positiveBg,
-          numberText: textLight,
+          accent: modeTokens?.bg?.positive?.default,
+          fill: modeTokens?.bg?.positive?.default,
+          icon: modeTokens?.text?.light,
+          numberBg: modeTokens?.bg?.positive?.default,
+          numberText: modeTokens?.text?.light,
+          dotFill: modeTokens?.bg?.positive?.default,
         };
       case 'warning':
         return {
           ...base,
-          accent: warningBg,
-          fill: warningBg,
-          icon: modeTokens?.text?.dark ?? theme.palette.common.black,
-          connectorOpacity: 1,
-          dotBorder: warningBg,
-          dotFill: warningBg,
-          numberBg: warningBg,
-          numberText: modeTokens?.text?.dark ?? theme.palette.common.black,
+          accent: modeTokens?.bg?.warning?.default,
+          fill: modeTokens?.bg?.warning?.default,
+          icon: modeTokens?.text?.dark,
+          numberBg: modeTokens?.bg?.warning?.default,
+          numberText: modeTokens?.text?.dark,
+          dotFill: modeTokens?.bg?.warning?.default,
         };
       case 'fail':
         return {
           ...base,
-          accent: negativeBg,
-          fill: negativeBg,
-          icon: textLight,
-          connectorOpacity: 1,
-          dotBorder: negativeBg,
-          dotFill: negativeBg,
-          numberBg: negativeBg,
-          numberText: textLight,
+          accent: modeTokens?.bg?.negative?.default,
+          fill: modeTokens?.bg?.negative?.default,
+          icon: modeTokens?.text?.light,
+          numberBg: modeTokens?.bg?.negative?.default,
+          numberText: modeTokens?.text?.light,
+          dotFill: modeTokens?.bg?.negative?.default,
         };
       default:
-        return {
-          ...base,
-          dotBorder: borderDefault,
-          dotFill: surface,
-          numberBg: mutedBackground,
-          numberText: textDefault,
-        };
+        return base;
     }
   };
 
-  const isHorizontal = alignment === 'horizontal';
-  const isLineVariant = variant === 'line';
-  const indicatorSize = 24;
-
   const sxArray = Array.isArray(sx) ? sx : sx ? [sx] : [];
-
-  const containerStyles = {
-    display: 'flex',
-    flexDirection: isHorizontal ? 'row' : 'column',
-    alignItems: isHorizontal ? 'stretch' : 'flex-start',
-    gap: isLineVariant ? 0 : theme.spacing(isHorizontal ? 3 : 3),
-    width: '100%',
-    flexWrap: !isLineVariant && isHorizontal ? 'wrap' : 'nowrap',
-  } as const;
+  const spacingStyles = isHorizontal
+    ? {
+        '& .MuiStepConnector-root': {
+          flex: `0 0 ${HORIZONTAL_STEP_GAP}px`,
+        },
+      }
+    : {
+        '& .MuiStep-root:not(:last-of-type)': {
+          marginBottom: `${VERTICAL_STEP_GAP}px`,
+        },
+      };
+  const baseStepperSx = [spacingStyles, ...sxArray];
+  const stepperSx = !isHorizontal
+    ? [{ position: 'relative', zIndex: 1 }, ...baseStepperSx]
+    : baseStepperSx;
 
   const handleKeyDown = (index: number) => (event: KeyboardEvent<HTMLDivElement>) => {
     if (!onStepClick) return;
@@ -177,235 +179,126 @@ export const Stepper = ({
     }
   };
 
-  const renderBadgeContent = (
-    status: StepStatus,
-    index: number,
-    statusTokens: ReturnType<typeof getStatusTokens>
-  ) => {
-    if (variant === 'bullets') {
-      return null;
-    }
+  const createStepIconComponent = (status: StepStatus) => {
+    const StepIconComponent = ({ icon, className }: StepIconProps) => {
+      const statusTokens = getStatusTokens(status);
+      const IconComponent = statusIcons[status];
 
-    if (variant === 'numbers') {
-      if (status === 'done' || status === 'warning' || status === 'fail') {
-        const IconComponent = statusIcons[status];
-        return (
-          <IconComponent
-            size={indicatorSize - 4}
-            stroke={0}
-            color={statusTokens.numberText}
-          />
-        );
+      if (visualVariant === 'line') {
+        // Only used for horizontal
+        return <Box className={className} aria-hidden />;
       }
 
+      // numbers and bullets
+      const showIcon = status === 'done' || status === 'warning' || status === 'fail';
       return (
-        <Typography
-          variant="subtitle"
-          component="span"
-          sx={{
-            color: statusTokens.numberText,
-            fontWeight:
-              status === 'active'
-                ? theme.typography.fontWeightMedium
-                : theme.typography.fontWeightRegular,
-          }}
-        >
-          {index + 1}
-        </Typography>
-      );
-    }
-
-    const IconComponent = statusIcons[status];
-    return <IconComponent size={indicatorSize - 4} stroke={0} color={statusTokens.icon} />;
-  };
-
-  const renderLineBadge = (status: StepStatus, index: number, lastIndex: number) => {
-    const statusTokens = getStatusTokens(status);
-    const connectorColor = statusTokens.accent;
-    const connectorOpacity = statusTokens.connectorOpacity;
-
-    const connectorBase = {
-      content: '""',
-      position: 'absolute',
-      backgroundColor: connectorColor,
-      opacity: connectorOpacity,
-      zIndex: 0,
-    } as const;
-
-    const beforeStyles = isHorizontal
-      ? {
-          ...connectorBase,
-          left: 0,
-          right: '50%',
-          height: 2,
-          top: '50%',
-          transform: 'translateY(-50%)',
-        }
-      : {
-          ...connectorBase,
-          top: 0,
-          bottom: '50%',
-          width: 2,
-          left: '50%',
-          transform: 'translateX(-50%)',
-        };
-
-    const afterStyles = isHorizontal
-      ? {
-          ...connectorBase,
-          left: '50%',
-          right: 0,
-          height: 2,
-          top: '50%',
-          transform: 'translateY(-50%)',
-        }
-      : {
-          ...connectorBase,
-          top: '50%',
-          bottom: 0,
-          width: 2,
-          left: '50%',
-          transform: 'translateX(-50%)',
-        };
-
-    return (
-      <Box
-        sx={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: isHorizontal ? '100%' : indicatorSize,
-          height: indicatorSize,
-          minHeight: indicatorSize,
-          flexShrink: 0,
-          alignSelf: isHorizontal ? 'stretch' : 'flex-start',
-          '&::before': index !== 0 ? beforeStyles : undefined,
-          '&::after': index !== lastIndex ? afterStyles : undefined,
-        }}
-      >
         <Box
+          className={className}
           sx={{
-            position: 'relative',
-            zIndex: 1,
             width: indicatorSize,
             height: indicatorSize,
             borderRadius: '50%',
-            border: `2px solid ${statusTokens.accent}`,
-            backgroundColor: statusTokens.fill,
+            border: `1px solid ${statusTokens.accent}`,
+            backgroundColor: visualVariant == 'bullets' ? 'transparent' : statusTokens.numberBg,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          {renderBadgeContent(status, index, statusTokens)}
+          {showIcon ? (
+            <IconComponent size={16} stroke={1.5} color={modeTokens.icon.light} />
+          ) : (
+            <Typography
+              variant="subtitle2"
+              component="span"
+              sx={{
+                color: statusTokens.numberText,
+                fontWeight: status === 'active' ? theme.typography.fontWeightMedium : undefined,
+              }}
+            >
+              {visualVariant !== 'bullets' && icon}
+            </Typography>
+          )}
         </Box>
-      </Box>
-    );
-  };
-
-  const renderCompactBadge = (status: StepStatus, index: number) => {
-    const statusTokens = getStatusTokens(status);
-
-    if (variant === 'bullets') {
-      return (
-        <Box
-          sx={{
-            width: indicatorSize,
-            height: indicatorSize,
-            borderRadius: '50%',
-            border: `2px solid ${statusTokens.dotBorder}`,
-            backgroundColor: statusTokens.dotFill,
-          }}
-        />
       );
-    }
+    };
 
-    return (
-      <Box
-        sx={{
-          width: indicatorSize,
-          height: indicatorSize,
-          borderRadius: '50%',
-          border: `2px solid ${statusTokens.accent}`,
-          backgroundColor: statusTokens.numberBg,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {renderBadgeContent(status, index, statusTokens)}
-      </Box>
-    );
+    StepIconComponent.displayName = 'CustomStepIcon';
+    return StepIconComponent;
   };
 
-  return (
-    <Box
+  // Active step derivation
+  const activeIndex = normalizedSteps.findIndex((step) => step.status === 'active');
+  const fallbackActiveIndex = normalizedSteps.findIndex((step) => step.status !== 'done');
+  const activeStep =
+    activeIndex !== -1
+      ? activeIndex
+      : fallbackActiveIndex !== -1
+        ? fallbackActiveIndex
+        : Math.max(normalizedSteps.length - 1, 0);
+
+  const stepperContent = (
+    <MuiStepper
       className={clsx(
         'CustomStepper',
         `CustomStepper--${variant}`,
         `CustomStepper--${alignment}`,
         className
       )}
-      sx={[containerStyles, ...sxArray]}
+      alternativeLabel={alignment === 'horizontal'}
+      orientation={alignment}
+      activeStep={activeStep}
+      connector={connectorElement}
+      nonLinear={Boolean(onStepClick)}
+      sx={stepperSx}
     >
       {normalizedSteps.map((step, index) => {
         const status = step.status ?? 'default';
         const statusTokens = getStatusTokens(status);
         const key = step.id ?? `${step.title}-${index}`;
-        const lastIndex = normalizedSteps.length - 1;
+        const StepIconComponent = createStepIconComponent(status);
         const isClickable = Boolean(onStepClick);
 
         return (
-          <Box
-            key={key}
-            role={isClickable ? 'button' : undefined}
-            tabIndex={isClickable ? 0 : undefined}
-            onClick={isClickable ? () => onStepClick?.(index) : undefined}
-            onKeyDown={handleKeyDown(index)}
-            sx={{
-              flex: isHorizontal ? '1 1 0' : 'initial',
-              minWidth: isHorizontal && !isLineVariant ? 160 : 'auto',
-              display: 'flex',
-              flexDirection: isHorizontal ? 'column' : 'row',
-              alignItems: isHorizontal ? 'stretch' : 'flex-start',
-              gap: theme.spacing(isHorizontal ? 1.5 : 2),
-              cursor: isClickable ? 'pointer' : 'default',
-            }}
-          >
-            {isLineVariant
-              ? renderLineBadge(status, index, lastIndex)
-              : renderCompactBadge(status, index)}
-
-            <Box
+          <Step key={key} completed={status === 'done'}>
+            <StepLabel
+              StepIconComponent={StepIconComponent}
+              error={status === 'fail'}
+              optional={
+                step.optionalText ? (
+                  <Typography variant="caption" color={modeTokens?.text?.muted}>
+                    {step.optionalText}
+                  </Typography>
+                ) : undefined
+              }
+              onClick={isClickable ? () => onStepClick?.(index) : undefined}
+              onKeyDown={isClickable ? handleKeyDown(index) : undefined}
+              tabIndex={isClickable ? 0 : undefined}
               sx={{
-                textAlign: isHorizontal ? 'center' : 'left',
-                marginTop: isHorizontal ? theme.spacing(1) : 0,
-                paddingX: isLineVariant && isHorizontal ? theme.spacing(1) : 0,
+                cursor: isClickable ? 'pointer' : 'default',
+                '& .MuiStepLabel-label': {
+                  color: statusTokens.label,
+                  textAlign: isHorizontal ? 'center' : 'left',
+                  fontWeight:
+                    status === 'active'
+                      ? theme.typography.fontWeightMedium
+                      : theme.typography.fontWeightRegular,
+                },
               }}
             >
-              <Typography
-                variant="subtitle"
-                component="span"
-                sx={{
-                  display: 'block',
-                  color: statusTokens.label,
-                  fontWeight: theme.typography.fontWeightRegular,
-                }}
-              >
-                {step.title}
-              </Typography>
-              {step.optionalText ? (
-                <Typography variant="textS" color={textMuted} component="span">
-                  {step.optionalText}
-                </Typography>
-              ) : null}
-            </Box>
-          </Box>
+              {step.title}
+            </StepLabel>
+          </Step>
         );
       })}
-    </Box>
+    </MuiStepper>
   );
+
+  if (isHorizontal) {
+    return stepperContent;
+  }
+
+  return <Box sx={verticalWrapperSx}>{stepperContent}</Box>;
 };
 
 export default Stepper;

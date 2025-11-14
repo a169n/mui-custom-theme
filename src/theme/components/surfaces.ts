@@ -4,6 +4,7 @@
 
 import type { Components, Theme } from '@mui/material/styles';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
+import { getModeTokens } from '../useModeTokens';
 
 export const surfaces: Components<Theme> = {
   MuiAccordion: {
@@ -28,11 +29,14 @@ export const surfaces: Components<Theme> = {
   MuiAccordionDetails: { styleOverrides: { root: { padding: 0 } } },
   MuiDialog: {
     styleOverrides: {
-      paper: ({ theme }) => ({
-        borderRadius: `${theme.tokens.primitives.borderRadius['rounded-3xl']}px`,
-        overflow: 'hidden',
-        boxShadow: theme.tokens.modes[theme.palette.mode].shadow.black[3],
-      }),
+      paper: ({ theme }) => {
+        const modeTokens = getModeTokens(theme);
+        return {
+          borderRadius: `${theme.tokens.primitives.borderRadius['rounded-3xl']}px`,
+          overflow: 'hidden',
+          boxShadow: modeTokens?.shadow?.black?.[3],
+        };
+      },
     },
   },
   MuiDialogTitle: {
@@ -78,10 +82,13 @@ export const surfaces: Components<Theme> = {
       root: ({ theme }) => ({
         padding: theme.spacing(4),
       }),
-      dividers: ({ theme }) => ({
-        borderTop: `1px solid ${theme.tokens?.modes?.[theme.palette.mode]?.border?.default}`,
-        borderBottom: `1px solid ${theme.tokens?.modes?.[theme.palette.mode]?.border?.default}`,
-      }),
+      dividers: ({ theme }) => {
+        const modeTokens = getModeTokens(theme);
+        return {
+          borderTop: `1px solid ${modeTokens?.border?.default}`,
+          borderBottom: `1px solid ${modeTokens?.border?.default}`,
+        };
+      },
     },
     defaultProps: { dividers: true },
   },
@@ -90,17 +97,20 @@ export const surfaces: Components<Theme> = {
       arrow: true,
     },
     styleOverrides: {
-      tooltip: ({ theme }) => ({
-        backgroundColor: theme.tokens.primitives.colors.brand?.[700],
-        color: theme.palette.common.white,
-        borderRadius: `${theme.tokens.modes[theme.palette.mode].radius.sm}px`,
-        maxWidth: 320,
-        textAlign: 'center',
-        padding: theme.spacing(1, 2),
-        boxShadow: theme.shadows[2],
-        ...theme.typography.textS,
-        fontWeight: theme.typography.fontWeightRegular,
-      }),
+      tooltip: ({ theme }) => {
+        const modeTokens = getModeTokens(theme);
+        return {
+          backgroundColor: theme.tokens.primitives.colors.brand?.[700],
+          color: theme.palette.common.white,
+          borderRadius: `${modeTokens?.radius?.sm}px`,
+          maxWidth: 320,
+          textAlign: 'center',
+          padding: theme.spacing(1, 2),
+          boxShadow: theme.shadows[2],
+          ...theme.typography.textS,
+          fontWeight: theme.typography.fontWeightRegular,
+        };
+      },
       arrow: ({ theme }) => ({
         color: theme.tokens.primitives.colors.brand?.[700],
       }),
@@ -141,7 +151,7 @@ export const surfaces: Components<Theme> = {
     },
     styleOverrides: {
       root: ({ theme }) => {
-        const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+        const modeTokens = getModeTokens(theme);
         const bgMuted = modeTokens?.bg?.muted ?? theme.palette.action.hover;
         const textDefault = modeTokens?.text?.default ?? theme.palette.text.primary;
         const borderRadius =

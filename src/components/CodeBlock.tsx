@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useModeTokens } from '../theme/useModeTokens';
 
 interface CodeBlockProps {
   readonly code: string;
@@ -8,7 +9,7 @@ interface CodeBlockProps {
 
 const CodeBlock = ({ code, title = 'Usage example' }: CodeBlockProps) => {
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = useModeTokens();
   const usageFont =
     modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 

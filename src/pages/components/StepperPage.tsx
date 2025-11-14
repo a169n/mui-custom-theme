@@ -58,12 +58,12 @@ const statusSelectOptions = statusNames.map((value) => ({
 }));
 
 export const StepperPage = () => {
-  const [variant, setVariant] = useState<StepperVariant>('line');
-  const [alignment, setAlignment] = useState<StepperAlignment>('horizontal');
+  const [variant, setVariant] = useState<StepperVariant>('numbers');
+  const [alignment, setAlignment] = useState<StepperAlignment>('vertical');
   const [amount, setAmount] = useState(defaultStepCount);
   const [activeStep, setActiveStep] = useState(0);
   const [showOptional, setShowOptional] = useState(true);
-  const [statusPicker, setStatusPicker] = useState<StepStatus>('active');
+  const [statusPicker, setStatusPicker] = useState<StepStatus>('default');
   const [stepStatuses, setStepStatuses] = useState<StepStatus[]>(() =>
     Array.from({ length: defaultStepCount }, (_, index) => (index === 0 ? 'active' : 'default'))
   );
@@ -160,7 +160,7 @@ export const StepperPage = () => {
     <PageContainer
       title="Stepper"
       description="Custom multi-type stepper with horizontal & vertical layouts, optional labels, and all state icons."
-      usage={stepperUsage}
+      usage={null}
     >
       <Stack spacing={6}>
         <Box>
@@ -173,33 +173,34 @@ export const StepperPage = () => {
 
           <Stack spacing={3}>
             <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} flexWrap="wrap" useFlexGap>
-              <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-                <CustomSelect
-                  label="Type"
-                  options={variantSelectOptions}
-                  value={variant}
-                  onChange={handleVariantChange}
-                  fullWidth
-                />
-              </Box>
-              <Box sx={{ flex: '1 1 160px', minWidth: 160 }}>
-                <CustomSelect
-                  label="Steps"
-                  options={amountSelectOptions}
-                  value={String(amount)}
-                  onChange={handleAmountChange}
-                  fullWidth
-                />
-              </Box>
-              <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-                <CustomSelect
-                  label="Alignment"
-                  options={alignmentSelectOptions}
-                  value={alignment}
-                  onChange={handleAlignmentChange}
-                  fullWidth
-                />
-              </Box>
+              <CustomSelect
+                label="Type"
+                options={variantSelectOptions}
+                value={variant}
+                onChange={handleVariantChange}
+                search={false}
+              />
+              <CustomSelect
+                label="Steps"
+                options={amountSelectOptions}
+                value={String(amount)}
+                onChange={handleAmountChange}
+                search={false}
+              />
+              <CustomSelect
+                label="Alignment"
+                options={alignmentSelectOptions}
+                value={alignment}
+                onChange={handleAlignmentChange}
+                search={false}
+              />
+              <CustomSelect
+                label="Set current step status"
+                options={statusSelectOptions}
+                value={statusPicker}
+                onChange={handleStatusChange}
+                search={false}
+              />
               <FormControlLabel
                 control={
                   <Switch
@@ -237,16 +238,6 @@ export const StepperPage = () => {
                   Next
                 </Button>
               </Stack>
-
-              <Box sx={{ flex: '1 1 220px', minWidth: 200 }}>
-                <CustomSelect
-                  label="Set current step status"
-                  options={statusSelectOptions}
-                  value={statusPicker}
-                  onChange={handleStatusChange}
-                  fullWidth
-                />
-              </Box>
             </Stack>
 
             <Box

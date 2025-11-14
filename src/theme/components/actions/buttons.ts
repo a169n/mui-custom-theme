@@ -1,10 +1,8 @@
 import type { Components, Theme } from '@mui/material/styles';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button';
+import { getModeTokens } from '../../useModeTokens';
 
-const resolveModeTokens = (theme: Theme) => {
-  const mode = theme.palette.mode ?? 'light';
-  return theme.tokens?.modes?.[mode] ?? theme.tokens?.modes?.light;
-};
+const resolveModeTokens = (theme: Theme) => getModeTokens(theme);
 
 type ToneKey = 'brand' | 'positive' | 'negative';
 
@@ -234,7 +232,7 @@ export const buttons: Components<Theme> = {
     },
     styleOverrides: {
       root: ({ theme, ownerState }) => {
-        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const radiusScale = getModeTokens(theme)?.radius;
         const mdRadius = radiusScale?.md;
 
         return {
@@ -305,7 +303,7 @@ export const buttons: Components<Theme> = {
         },
       }),
       sizeSmall: ({ theme }) => {
-        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const radiusScale = getModeTokens(theme)?.radius;
         const mdRadius = radiusScale?.md ?? 8;
 
         return {
@@ -316,7 +314,7 @@ export const buttons: Components<Theme> = {
         };
       },
       sizeMedium: ({ theme }) => {
-        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const radiusScale = getModeTokens(theme)?.radius;
         const mdRadius = radiusScale?.md ?? 8;
 
         return {
@@ -327,7 +325,7 @@ export const buttons: Components<Theme> = {
         };
       },
       sizeLarge: ({ theme }) => {
-        const radiusScale = theme.tokens?.modes?.[theme.palette.mode]?.radius;
+        const radiusScale = getModeTokens(theme)?.radius;
         const lgRadius = radiusScale?.lg ?? 10;
 
         return {

@@ -1,13 +1,14 @@
 import { Components, Theme } from '@mui/material/styles';
+import { getModeTokens } from '../../useModeTokens';
 
 const getTableRadius = (theme: Theme) => {
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = getModeTokens(theme);
   const radius = modeTokens?.radius?.md ?? theme.shape.borderRadius ?? 8;
   return `${radius}px`;
 };
 
 const getTableBorderColor = (theme: Theme) => {
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = getModeTokens(theme);
 
   return modeTokens?.border?.default ?? theme.palette.gray[300];
 };
@@ -115,7 +116,7 @@ export const table: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }) => {
         const borderColor = getTableBorderColor(theme);
-        const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+        const modeTokens = getModeTokens(theme);
         const warningColor = modeTokens?.text.warning ?? theme.palette.warning.main;
         const negativeColor = modeTokens?.text.negative ?? theme.palette.error.main;
         const positiveColor = modeTokens?.text.positive ?? theme.palette.success.main;

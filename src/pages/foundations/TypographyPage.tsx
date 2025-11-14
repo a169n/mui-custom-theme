@@ -4,6 +4,7 @@ import type { ComponentProps } from 'react';
 import type { TypographyScale } from '../../theme/tokens';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import PageContainer from '../PageContainer';
+import { useModeTokens } from '../../theme/useModeTokens';
 
 type TypographyVariant = NonNullable<ComponentProps<typeof Typography>['variant']>;
 
@@ -95,7 +96,7 @@ const formatLineHeight = (
 
 const TypographyPage = () => {
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = useModeTokens();
   const usageFont =
     modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
   const typographyTokens = modeTokens?.typography;

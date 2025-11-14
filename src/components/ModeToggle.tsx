@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 import type { MouseEvent } from 'react';
 import { useThemeMode } from '../theme/ThemeModeProvider';
+import { getModeTokens } from '../theme/useModeTokens';
 
 const ModeToggle = () => {
   const { mode, setMode } = useThemeMode();
@@ -14,7 +15,7 @@ const ModeToggle = () => {
     }
   };
 
-  const tokens = theme.tokens?.modes?.[mode];
+  const tokens = getModeTokens(theme, mode);
   const borderColor = tokens?.border?.muted ?? theme.palette.divider;
   const selectedBg = tokens?.bg?.brand?.default ?? theme.palette.primary.main;
   const selectedColor = tokens?.text?.light ?? theme.palette.common.white;

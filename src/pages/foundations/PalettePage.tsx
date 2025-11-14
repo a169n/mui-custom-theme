@@ -2,6 +2,7 @@ import { Box, Grid, Stack, Typography, useTheme } from '@mui/material';
 import type { PaletteColorScale } from '../../theme/foundations/palette.utils';
 import { createUsageSnippet } from '../../utils/createUsageSnippet';
 import PageContainer from '../PageContainer';
+import { useModeTokens } from '../../theme/useModeTokens';
 
 const shadeOrder = [
   '50',
@@ -57,7 +58,7 @@ const findShadeKey = (
 
 const PalettePage = () => {
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = useModeTokens();
   const usageFont =
     modeTokens?.font['font-sans'] ?? theme.typography?.fontFamily ?? 'Roboto, sans-serif';
 

@@ -9,6 +9,7 @@ import {
   IconInfoCircle,
   IconX,
 } from '@tabler/icons-react';
+import { useModeTokens } from '../theme/useModeTokens';
 import { Button } from './Button';
 import { IconButton } from './IconButton';
 
@@ -81,7 +82,7 @@ export const Alert = ({
   className,
 }: AlertProps) => {
   const theme = useTheme();
-  const modeTokens = theme.tokens?.modes?.[theme.palette.mode];
+  const modeTokens = useModeTokens();
   const iconColor = getVariantIconColor(variant, theme, modeTokens);
 
   const baseRadius =

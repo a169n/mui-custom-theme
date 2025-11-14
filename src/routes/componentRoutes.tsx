@@ -73,6 +73,7 @@ const inProgressRoutes: AppRoute[] = [
   { path: 'tooltip', label: 'Tooltip', element: <TooltipPage />, status: 'in-progress' },
   { path: 'pagination', label: 'Pagination', element: <PaginationPage />, status: 'in-progress' },
   { path: 'dialog', label: 'Dialog', element: <DialogPage />, status: 'in-progress' },
+  { path: 'stepper', label: 'Stepper', element: <StepperPage />, status: 'in-progress' },
 ];
 
 const todoRoutes: AppRoute[] = [
@@ -94,7 +95,6 @@ const todoRoutes: AppRoute[] = [
   { path: 'form', label: 'Form', element: <FormPage /> },
   { path: 'sidebar', label: 'Sidebar', element: <SidebarPage /> },
   { path: 'scroll', label: 'Scroll', element: <ScrollPage /> },
-  { path: 'stepper', label: 'Stepper', element: <StepperPage /> },
   { path: 'switch', label: 'Switch', element: <SwitchPage /> },
   { path: 'tabs', label: 'Tabs', element: <TabsPage /> },
   { path: 'file-input', label: 'File Input', element: <FileInputPage /> },

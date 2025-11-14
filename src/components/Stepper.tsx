@@ -199,7 +199,7 @@ export const Stepper = ({
             height: indicatorSize,
             borderRadius: '50%',
             border: `1px solid ${statusTokens.accent}`,
-            backgroundColor: visualVariant == 'bullets' ? 'transparent' : statusTokens.numberBg,
+            backgroundColor: visualVariant == 'bullets' ? modeTokens.bg.default : statusTokens.numberBg,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

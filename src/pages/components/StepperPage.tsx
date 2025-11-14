@@ -160,7 +160,7 @@ export const StepperPage = () => {
     <PageContainer
       title="Stepper"
       description="Custom multi-type stepper with horizontal & vertical layouts, optional labels, and all state icons."
-      usage={null}
+      usage={stepperUsage}
     >
       <Stack spacing={6}>
         <Box>
